@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://dequn.github.io</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/08/29/HBase-Secondary-Index-Theory/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/08/29/Phoenix-Secondary-Index-Exploration-Global-Index/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2015/12/04/angular-filter/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/20/angular-redirect-to-login-if-not-auth/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/01/13/angular-select-cascading/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/31/angular-ui-router-unit-test-unexpected-request/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2017/08/19/charset-encoding-and-in-python/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2017/03/31/d3-example-of-different-data-structures/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/11/19/debug-spark-in-intellij/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2015/12/21/guan-yu-chong-xie-kai-ti/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2015/12/25/hadoop-hbase-spark-install/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/09/install-oracle-12c-on-cnetos6-4/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/10/28/macvim-auto-im/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/10/27/mapreduce-output-to-hbase-at-mapper-phase-without-reducer/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/10/07/phoenix-mapreduce-example/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/11/08/phoenix-spark-setting/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/11/02/pyenv-install-with-warnings/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/04/renxing/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/26/right-way-of-use-angualr-http-interceptors/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/19/use-ui-router-multi-views-for-template-develop/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/11/20/zeppelin-installation-and-settings/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->
