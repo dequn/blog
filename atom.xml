@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2017-08-24T12:49:03.000Z</updated>
+  <updated>2017-08-24T15:02:05.000Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://dequn.github.io/2017/08/19/charset-encoding-and-in-python/"/>
     <id>http://dequn.github.io/2017/08/19/charset-encoding-and-in-python/</id>
     <published>2017-08-19T14:53:43.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:02:05.000Z</updated>
     
     <content type="html"><![CDATA[<p>总会遇到乱码的问题，也总是按照网上的教程一步一步操作，解决的过程就像碰运气，从来没有总结过，再次遇到的时候还是不知道是什么问题，所以，花一点时间，总结一下。</p>
 <h1 id="字符集和字符编码"><a href="#字符集和字符编码" class="headerlink" title="字符集和字符编码"></a>字符集和字符编码</h1><p><strong>字符集</strong>是一个系统支持的抽象字符的集合。这个集合是有限集合，包括文字、标点和数字等，由于计算机内部全部都是数字存储，所以字符集本身也是一个符号与数字之间的映射关系，比如ASCII字符集中大写字母A的编号是65。存储或传输的时候计算机根据字符集将人能看懂的字符换算成计算机能看懂的数字，输出的时候再换算成人能看懂的字符。</p>
@@ -87,12 +87,14 @@
     
     </summary>
     
+      <category term="Python" scheme="http://dequn.github.io/categories/Python/"/>
+    
     
       <category term="charset" scheme="http://dequn.github.io/tags/charset/"/>
     
       <category term="encode" scheme="http://dequn.github.io/tags/encode/"/>
     
-      <category term="python" scheme="http://dequn.github.io/tags/python/"/>
+      <category term="Python" scheme="http://dequn.github.io/tags/Python/"/>
     
   </entry>
   
@@ -101,7 +103,7 @@
     <link href="http://dequn.github.io/2017/03/31/d3-example-of-different-data-structures/"/>
     <id>http://dequn.github.io/2017/03/31/d3-example-of-different-data-structures/</id>
     <published>2017-03-31T07:10:46.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:03:54.000Z</updated>
     
     <content type="html"><![CDATA[<style>
 img{height:200px;}
@@ -218,6 +220,8 @@ img{height:200px;}
     
     </summary>
     
+      <category term="Others" scheme="http://dequn.github.io/categories/Others/"/>
+    
     
       <category term="d3" scheme="http://dequn.github.io/tags/d3/"/>
     
@@ -260,7 +264,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/11/20/zeppelin-installation-and-settings/"/>
     <id>http://dequn.github.io/2016/11/20/zeppelin-installation-and-settings/</id>
     <published>2016-11-20T06:15:30.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:01:09.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="1-版本问题"><a href="#1-版本问题" class="headerlink" title="1.版本问题"></a>1.版本问题</h1><p>Zeppelin 从0.6.1版本开始，默认是基于 Spark 2.x 和 Scala 2.11版本进行编译的，亲测 Zeppelin 0.6.2与 Spark 1.6.x 版本是不兼容的，导致 Saprk Interpreters 不能正确运行，如果需要安装在老版本上的，需要自己从源码编译，可以指定 Spark、Hadoop等版本参数，可以参考 <a href="http://zeppelin.apache.org/docs/snapshot/install/build.html" target="_blank" rel="external">http://zeppelin.apache.org/docs/snapshot/install/build.html</a> ，如果是0.6.0版本，可与 Spark 1.6.x 之前的兼容运行。</p>
 <h1 id="2-Phoenix-thin-连接问题"><a href="#2-Phoenix-thin-连接问题" class="headerlink" title="2.Phoenix-thin 连接问题"></a>2.Phoenix-thin 连接问题</h1><p><strong><em>2017年1月3号更新</em></strong>：</p>
@@ -289,11 +293,11 @@ img{height:200px;}
       <category term="Zeppelin" scheme="http://dequn.github.io/categories/Zeppelin/"/>
     
     
-      <category term="spark" scheme="http://dequn.github.io/tags/spark/"/>
+      <category term="Phoenix" scheme="http://dequn.github.io/tags/Phoenix/"/>
     
-      <category term="zeppelin" scheme="http://dequn.github.io/tags/zeppelin/"/>
+      <category term="Spark" scheme="http://dequn.github.io/tags/Spark/"/>
     
-      <category term="phoenix" scheme="http://dequn.github.io/tags/phoenix/"/>
+      <category term="Zeppelin" scheme="http://dequn.github.io/tags/Zeppelin/"/>
     
   </entry>
   
@@ -302,7 +306,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/11/19/debug-spark-in-intellij/"/>
     <id>http://dequn.github.io/2016/11/19/debug-spark-in-intellij/</id>
     <published>2016-11-19T02:12:47.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T14:56:03.000Z</updated>
     
     <content type="html"><![CDATA[<p>Spark 新手一名，同样也是 Scala 菜鸟，由于对这两个都不是特别熟悉，所以希望能在 IDE中 coding 和 debug，但是调试 Spark 程序和往常接触过的不一样，并且有一些观念上的错误，总结一下。</p>
 <h1 id="坑一：网络代理"><a href="#坑一：网络代理" class="headerlink" title="坑一：网络代理"></a>坑一：网络代理</h1><p>程序写好以后，可以直接 debug 的(只限于 spark.master= local[*]的场景)，由于使用了 ShadowSocks 全局代理翻墙，最初一直报错，Google 了好大会儿也没找到问原因，后来才猛的想起代理还开着，而 hosts 文件中恰恰没有 localhost 映射到127.0.0.1中，修改 hosts，解决。直接 debug 可以使用较小的数据进行测试，不是非得网上众多教程那样得 sbt package -&gt; spark-submit -&gt; Remote Debug 那样不方便。</p>
@@ -335,7 +339,7 @@ img{height:200px;}
       <category term="Spark" scheme="http://dequn.github.io/categories/Spark/"/>
     
     
-      <category term="spark" scheme="http://dequn.github.io/tags/spark/"/>
+      <category term="Spark" scheme="http://dequn.github.io/tags/Spark/"/>
     
       <category term="Intellij IDEA" scheme="http://dequn.github.io/tags/Intellij-IDEA/"/>
     
@@ -346,7 +350,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/11/08/phoenix-spark-setting/"/>
     <id>http://dequn.github.io/2016/11/08/phoenix-spark-setting/</id>
     <published>2016-11-08T06:06:40.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T14:55:34.000Z</updated>
     
     <content type="html"><![CDATA[<p><strong><em>2017年1月3号更新：</em></strong></p>
 <p>在Spark 2.x版本中更改了DataFrame的定义，而Phoenix4.9及以前(4.10后官方版本会修复）是在Spark1.x的环境下开发的，因此如果使用Spark2.x的环境，不能正常使用Phoenix Spark Interprter, 具体问题可以参考 <a href="https://issues.apache.org/jira/browse/PHOENIX-3333" target="_blank" rel="external">https://issues.apache.org/jira/browse/PHOENIX-3333</a>，这里给出本人利用链接中的补丁编译后的phoenix，其他参考1.x版本中的配置方式即可。</p>
@@ -380,7 +384,7 @@ img{height:200px;}
     
       <category term="Phoenix" scheme="http://dequn.github.io/tags/Phoenix/"/>
     
-      <category term="Spark" scheme="http://dequn.github.io/tags/Spark/"/>
+      <category term="spark" scheme="http://dequn.github.io/tags/spark/"/>
     
   </entry>
   
@@ -389,7 +393,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/11/02/pyenv-install-with-warnings/"/>
     <id>http://dequn.github.io/2016/11/02/pyenv-install-with-warnings/</id>
     <published>2016-11-02T07:21:35.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T14:56:38.000Z</updated>
     
     <content type="html"><![CDATA[<p>在使用 pyenv 安装多版本 Python 时，有时候会遇到警告<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">WARNING:</span> The Python bz2 extension was not compiled. Missing the bzip2 <span class="class"><span class="keyword">lib</span>?</span></div><div class="line"><span class="symbol">WARNING:</span> The Python readline extension was not compiled. Missing the GNU readline <span class="class"><span class="keyword">lib</span>?</span></div><div class="line"><span class="symbol">WARNING:</span> The Python sqlite3 extension was not compiled. Missing the SQLite3 <span class="class"><span class="keyword">lib</span>?</span></div></pre></td></tr></table></figure></p>
 <p>只需要根据提示安装就行了（CentOS7环境下):<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">install </span>readline readline-devel readline-static -y</div><div class="line">yum <span class="keyword">install </span>openssl openssl-devel openssl-static -y</div><div class="line">yum <span class="keyword">install </span>sqlite-devel -y</div><div class="line">yum <span class="keyword">install </span><span class="keyword">bzip2-devel </span><span class="keyword">bzip2-libs </span>-y</div></pre></td></tr></table></figure></p>
@@ -401,7 +405,7 @@ img{height:200px;}
     
     </summary>
     
-      <category term="Others" scheme="http://dequn.github.io/categories/Others/"/>
+      <category term="Python" scheme="http://dequn.github.io/categories/Python/"/>
     
     
       <category term="pyenv" scheme="http://dequn.github.io/tags/pyenv/"/>
@@ -409,11 +413,11 @@ img{height:200px;}
   </entry>
   
   <entry>
-    <title>macvim自动切换中英文输入法</title>
+    <title>MacVim自动切换中英文输入法</title>
     <link href="http://dequn.github.io/2016/10/28/macvim-auto-im/"/>
     <id>http://dequn.github.io/2016/10/28/macvim-auto-im/</id>
     <published>2016-10-28T11:58:50.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:03:20.000Z</updated>
     
     <content type="html"><![CDATA[<p>中文用户的使用 VIM 最痛苦的就是来回切换输入法了，还好，在 OS 系统下使用 MacVim 可以设置在命令模式下禁用输入法，这样有了自动切换的效果，设置如下：</p>
 <p><strong>第一步</strong>.在.vimrc 中设置<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">set</span> noimd</div><div class="line"><span class="builtin-name">set</span> <span class="attribute">imi</span>=2</div><div class="line"><span class="builtin-name">set</span> <span class="attribute">ims</span>=2</div></pre></td></tr></table></figure></p>
@@ -429,8 +433,12 @@ img{height:200px;}
     
     </summary>
     
+      <category term="Others" scheme="http://dequn.github.io/categories/Others/"/>
     
-      <category term="vim" scheme="http://dequn.github.io/tags/vim/"/>
+    
+      <category term="VIM" scheme="http://dequn.github.io/tags/VIM/"/>
+    
+      <category term="MacVim" scheme="http://dequn.github.io/tags/MacVim/"/>
     
   </entry>
   
@@ -439,7 +447,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/10/27/mapreduce-output-to-hbase-at-mapper-phase-without-reducer/"/>
     <id>http://dequn.github.io/2016/10/27/mapreduce-output-to-hbase-at-mapper-phase-without-reducer/</id>
     <published>2016-10-27T07:58:41.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:03:40.000Z</updated>
     
     <content type="html"><![CDATA[<p>手里有一张txt数据表，现在要入库(Phoenix + HBase)，因为需要对数据做一定的处理后再写入数据库，加上数据量不小，所以就想着用 MapReduce 来加速一下入库过程。</p>
 <p>拿到一条数据处理后就可以直接入库了，那就没有必要写 Reducer 了，直接全部在 Mapper 里边完成，所以很自然地定义 DBWritable 类，作为 Mapper 的 OutputKeyClass 就行，如下这样：</p>
@@ -464,10 +472,10 @@ img{height:200px;}
     
     </summary>
     
-      <category term="Phoenix" scheme="http://dequn.github.io/categories/Phoenix/"/>
+      <category term="HBase" scheme="http://dequn.github.io/categories/HBase/"/>
     
     
-      <category term="hadoop" scheme="http://dequn.github.io/tags/hadoop/"/>
+      <category term="Hadoop" scheme="http://dequn.github.io/tags/Hadoop/"/>
     
       <category term="MapReduce" scheme="http://dequn.github.io/tags/MapReduce/"/>
     
@@ -478,7 +486,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/10/07/phoenix-mapreduce-example/"/>
     <id>http://dequn.github.io/2016/10/07/phoenix-mapreduce-example/</id>
     <published>2016-10-07T07:50:10.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T14:55:10.000Z</updated>
     
     <content type="html"><![CDATA[<p>Phoenix 提供了 MapReduce 工作任务的支持，并且官方给出了例子，一起来编码运行一下。</p>
 <h1 id="1新建-maven-工程"><a href="#1新建-maven-工程" class="headerlink" title="1新建 maven 工程"></a>1新建 maven 工程</h1><p>在 pom.xml 中添加以下内容：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.phoenix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>phoenix-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.7.0-HBase-1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>apache<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.apache.org<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -829,7 +837,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/"/>
     <id>http://dequn.github.io/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/</id>
     <published>2016-08-24T13:27:39.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T14:58:01.000Z</updated>
     
     <content type="html"><![CDATA[<p>在做实验的时候，对比一下 HBase 与 PostgreSQL的查询速度，发现 PostgreSQL 只需要300毫秒左后的查询放在 HBase 中竟然需要5秒左右，这效率也差太多了吧！也排除了是数据库连接等操作的耗时，这就需要深入的找一下原因了。原 HBase 代码如下,设置了两个 PrefixFilter 用来过滤，目的是找到某一个 mac 从 beginTime 到 endTime 的数据：</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">FilterList fl = <span class="keyword">new</span> <span class="type">FilterList</span>(FilterList.Operator.MUST_PASS_ALL);<span class="comment">// must between beginTime and endTime</span></div><div class="line">BinaryPrefixComparator comp = <span class="keyword">new</span> <span class="type">BinaryPrefixComparator</span>(Bytes.toBytes(<span class="keyword">String</span>.format(<span class="string">"%s%d"</span>, mac, beginTimeStamp)));</div><div class="line">RowFilter filter = <span class="keyword">new</span> <span class="type">RowFilter</span>(CompareFilter.CompareOp.GREATER_OR_EQUAL, comp);</div><div class="line">BinaryPrefixComparator comp2 = <span class="keyword">new</span> <span class="type">BinaryPrefixComparator</span>(Bytes.toBytes(<span class="keyword">String</span>.format(<span class="string">"%s%d"</span>, mac, endTimeStamp)));</div><div class="line">RowFilter filter2 = <span class="keyword">new</span> <span class="type">RowFilter</span>(CompareFilter.CompareOp.LESS_OR_EQUAL, comp2);</div><div class="line">fl.addFilter(filter);</div><div class="line">fl.addFilter(filter2);</div><div class="line">Scan scan = <span class="keyword">new</span> <span class="type">Scan</span>();</div><div class="line">scan.setFilter(fl);</div><div class="line"><span class="comment">//....other colde here</span></div></pre></td></tr></table></figure>
@@ -867,7 +875,7 @@ img{height:200px;}
     
     </summary>
     
-      <category term="Development" scheme="http://dequn.github.io/categories/Development/"/>
+      <category term="HBase" scheme="http://dequn.github.io/categories/HBase/"/>
     
     
       <category term="HBase" scheme="http://dequn.github.io/tags/HBase/"/>
@@ -1001,7 +1009,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/"/>
     <id>http://dequn.github.io/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/</id>
     <published>2016-04-26T06:13:18.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:00:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>今天在使用 HBase API 执行 Put 操作的时候，进程一直在等待状态，而进行 createTable 和 dropTable的时候均正常，很是郁闷！看了一下 Console 中的信息，报错</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java<span class="selector-class">.net</span><span class="selector-class">.UnknownHostException</span>: unknown host: node2<span class="selector-class">.lreis2306</span> on node2<span class="selector-class">.lreis2306</span>,</div></pre></td></tr></table></figure>
@@ -1072,7 +1080,7 @@ img{height:200px;}
     <link href="http://dequn.github.io/2016/03/31/angular-ui-router-unit-test-unexpected-request/"/>
     <id>http://dequn.github.io/2016/03/31/angular-ui-router-unit-test-unexpected-request/</id>
     <published>2016-03-31T12:43:25.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
+    <updated>2017-08-24T15:01:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>在使用 Karma + Jasmine 进行angular 单元测试的时候，一直报 $httpbackend unexpected  requeest 错误 ，提示的是请求的一个html文件，后来才发现是因为用了ui-router进行路由，并且存在抽象状态的问题，记录一下解决办法。</p>
 <p>下载 <a href="https://gist.github.com/wilsonwc/8358542" target="_blank" rel="external">stateMock.js</a>,</p>
@@ -1094,8 +1102,6 @@ img{height:200px;}
     
     
       <category term="Angular" scheme="http://dequn.github.io/tags/Angular/"/>
-    
-      <category term="$httpbackend" scheme="http://dequn.github.io/tags/httpbackend/"/>
     
       <category term="ui-router" scheme="http://dequn.github.io/tags/ui-router/"/>
     

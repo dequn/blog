@@ -64,6 +64,12 @@
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="external">字符编码笔记：ASCII，Unicode和UTF-8</a><br><a href="http://www.cnblogs.com/skynet/archive/2011/05/03/2035105.html" target="_blank" rel="external">字符集和字符编码（Charset &amp; Encoding）</a><br><a href="cn.nytimes.com/culture/20150123/t23questions">关于Python脚本开头两行的：#!/usr/bin/python和# -<em>- coding: utf-8 -</em>-的作用 – 指定文件编码类型</a><br><a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="external">PEP 263 – Defining Python Source Code Encodings</a><br><a href="https://pythonhosted.org/kitchen/unicode-frustrations.html" target="_blank" rel="external">Overcoming frustration: Correctly using unicode in python2</a><br><a href="https://docs.python.org/2/howto/unicode.html" target="_blank" rel="external">Unicode HOWTO</a><br><a href="http://stormhouse.github.io/posts/2013/character-encoding-python/" target="_blank" rel="external">python中的字符编码</a></p>
 ]]></content>
       
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
         
         <tags>
             
@@ -71,7 +77,7 @@
             
             <tag> encode </tag>
             
-            <tag> python </tag>
+            <tag> Python </tag>
             
         </tags>
         
@@ -183,6 +189,12 @@ img{height:200px;}
 <p>Not all, visit <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" rel="external">https://github.com/d3/d3/wiki/Gallery</a> for more examples.</p>
 ]]></content>
       
+        <categories>
+            
+            <category> Others </category>
+            
+        </categories>
+        
         
         <tags>
             
@@ -251,11 +263,11 @@ img{height:200px;}
         
         <tags>
             
-            <tag> spark </tag>
+            <tag> Phoenix </tag>
             
-            <tag> zeppelin </tag>
+            <tag> Spark </tag>
             
-            <tag> phoenix </tag>
+            <tag> Zeppelin </tag>
             
         </tags>
         
@@ -294,7 +306,7 @@ img{height:200px;}
         
         <tags>
             
-            <tag> spark </tag>
+            <tag> Spark </tag>
             
             <tag> Intellij IDEA </tag>
             
@@ -336,7 +348,7 @@ img{height:200px;}
             
             <tag> Phoenix </tag>
             
-            <tag> Spark </tag>
+            <tag> spark </tag>
             
         </tags>
         
@@ -351,7 +363,7 @@ img{height:200px;}
       
         <categories>
             
-            <category> Others </category>
+            <category> Python </category>
             
         </categories>
         
@@ -365,7 +377,7 @@ img{height:200px;}
     </entry>
     
     <entry>
-      <title><![CDATA[macvim自动切换中英文输入法]]></title>
+      <title><![CDATA[MacVim自动切换中英文输入法]]></title>
       <url>http://dequn.github.io/2016/10/28/macvim-auto-im/</url>
       <content type="html"><![CDATA[<p>中文用户的使用 VIM 最痛苦的就是来回切换输入法了，还好，在 OS 系统下使用 MacVim 可以设置在命令模式下禁用输入法，这样有了自动切换的效果，设置如下：</p>
 <p><strong>第一步</strong>.在.vimrc 中设置<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">set</span> noimd</div><div class="line"><span class="builtin-name">set</span> <span class="attribute">imi</span>=2</div><div class="line"><span class="builtin-name">set</span> <span class="attribute">ims</span>=2</div></pre></td></tr></table></figure></p>
@@ -374,10 +386,18 @@ img{height:200px;}
 <p>参考：<br>[1].<a href="https://www.v2ex.com/t/45772" target="_blank" rel="external">https://www.v2ex.com/t/45772</a></p>
 ]]></content>
       
+        <categories>
+            
+            <category> Others </category>
+            
+        </categories>
+        
         
         <tags>
             
-            <tag> vim </tag>
+            <tag> VIM </tag>
+            
+            <tag> MacVim </tag>
             
         </tags>
         
@@ -405,14 +425,14 @@ img{height:200px;}
       
         <categories>
             
-            <category> Phoenix </category>
+            <category> HBase </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> hadoop </tag>
+            <tag> Hadoop </tag>
             
             <tag> MapReduce </tag>
             
@@ -798,7 +818,7 @@ img{height:200px;}
       
         <categories>
             
-            <category> Development </category>
+            <category> HBase </category>
             
         </categories>
         
@@ -1016,8 +1036,6 @@ img{height:200px;}
             
             <tag> Angular </tag>
             
-            <tag> $httpbackend </tag>
-            
             <tag> ui-router </tag>
             
         </tags>
@@ -1099,10 +1117,16 @@ img{height:200px;}
       
         <categories>
             
-            <category> Others </category>
+            <category> 个人日记 </category>
             
         </categories>
         
+        
+        <tags>
+            
+            <tag> 职业选择 </tag>
+            
+        </tags>
         
     </entry>
     
@@ -1121,7 +1145,7 @@ img{height:200px;}
       
         <categories>
             
-            <category> Development </category>
+            <category> Angular </category>
             
         </categories>
         
@@ -1161,7 +1185,7 @@ img{height:200px;}
     </entry>
     
     <entry>
-      <title><![CDATA[cnetos6.4 上安装 Oracle 12c]]></title>
+      <title><![CDATA[CentOS6.4 上安装 Oracle 12c]]></title>
       <url>http://dequn.github.io/2016/03/09/install-oracle-12c-on-cnetos6-4/</url>
       <content type="html"><![CDATA[<p>主要记录一下遇到的问题，其他参考别的博文<a href="http://www.centoscn.com/CentosServer/sql/2013/0828/1467.html" target="_blank" rel="external">CentOS x6.4 Oracle 12c 安装手记</a>。</p>
 <h2 id="问题1：package-compact-libstdc-is-not-installed"><a href="#问题1：package-compact-libstdc-is-not-installed" class="headerlink" title="问题1：package compact-libstdc++ is not installed"></a>问题1：package compact-libstdc++ is not installed</h2><p>运行 yum list | grep compat-libstdc++<br>如果有结果列出，则直接跳过这一步就行了。<br>如果没有到<a href="http://www.rpm-find.net/linux/rpm2html/search.php?query=compat-libstdc%2B%2B-33" target="_blank" rel="external">http://www.rpm-find.net/linux/rpm2html/search.php?query=compat-libstdc%2B%2B-33</a> 下载一个安装就行了<br>rpm -ivh   compat-libstdc++xxxxx.rpm</p>
@@ -1184,7 +1208,9 @@ img{height:200px;}
         
         <tags>
             
-            <tag> oracle </tag>
+            <tag> Oracle </tag>
+            
+            <tag> CentOS </tag>
             
         </tags>
         
@@ -1203,12 +1229,6 @@ img{height:200px;}
 <p>（2016年3月4日补发）</p>
 ]]></content>
       
-        
-        <tags>
-            
-            <tag> 任性 </tag>
-            
-        </tags>
         
     </entry>
     
@@ -1265,7 +1285,7 @@ img{height:200px;}
             
             <tag> Angular </tag>
             
-            <tag> 多级联动 </tag>
+            <tag> select-cascding </tag>
             
         </tags>
         
@@ -1331,7 +1351,7 @@ img{height:200px;}
       
         <categories>
             
-            <category> Development </category>
+            <category> Hadoop </category>
             
         </categories>
         
@@ -1340,9 +1360,9 @@ img{height:200px;}
             
             <tag> HBase </tag>
             
-            <tag> Hadoop </tag>
-            
             <tag> Spark </tag>
+            
+            <tag> Hadoop </tag>
             
         </tags>
         
