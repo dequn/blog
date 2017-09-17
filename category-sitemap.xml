@@ -49,13 +49,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/categories/Python/</loc>
-        <lastmod>2017-08-24T15:02:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/categories/HBase/</loc>
         <lastmod>2017-08-24T15:03:40.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -65,6 +58,20 @@
     <url>
         <loc>http://dequn.github.io/categories/Others/</loc>
         <lastmod>2017-08-24T15:06:01.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/Linux/</loc>
+        <lastmod>2017-09-17T05:23:38.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/Python/</loc>
+        <lastmod>2017-09-17T07:49:32.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

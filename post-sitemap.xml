@@ -7,6 +7,30 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2017/09/17/ways-of-python-import/</loc>
+        <lastmod>2017-09-17T07:49:32.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2017/09/02/parse-command-line-args-in-python/</loc>
+        <lastmod>2017-09-17T05:23:38.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2017/09/05/%E7%BB%88%E7%AB%AF%E9%AB%98%E6%95%88%E5%88%87%E6%8D%A2%E7%BC%96%E7%A0%81/</loc>
+        <lastmod>2017-09-17T05:23:38.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2016/03/09/install-oracle-12c-on-cnetos6-4/</loc>
         <lastmod>2017-08-24T15:06:01.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -175,7 +199,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
+        <loc>http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -191,7 +215,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/</loc>
+        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
