@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2017-09-17T07:49:32.000Z</updated>
+  <updated>2017-12-03T11:45:55.000Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -14,6 +14,131 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>理解python with语句</title>
+    <link href="http://dequn.github.io/2017/12/02/%E7%90%86%E8%A7%A3python-with%E8%AF%AD%E5%8F%A5/"/>
+    <id>http://dequn.github.io/2017/12/02/理解python-with语句/</id>
+    <published>2017-12-02T05:50:08.000Z</published>
+    <updated>2017-12-03T11:45:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Python中的with语句可谓是相当的好用了，省去了<code>try...finally...</code>的复杂写法，<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="external">浅谈 Python 的 with 语句</a> 一文写的已经非常详细里，解决了使用过程中的两点疑问。文中的代码清单也主要摘自这篇文章。</p>
+<p>清单1: with语句执行过程<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">context_manager = context_expression</div><div class="line"><span class="keyword">exit</span> = type(context_manager).__exit__  </div><div class="line">value = type(context_manager).__enter__(context_manager)</div><div class="line">exc = True   <span class="comment"># True 表示正常执行，即便有异常也忽略；False 表示重新抛出异常，需要对异常进行处理</span></div><div class="line">try:</div><div class="line">    try:</div><div class="line">        target = value  <span class="comment"># 如果使用了 as 子句</span></div><div class="line">        with-body     <span class="comment"># 执行 with-body</span></div><div class="line">    except:</div><div class="line">        <span class="comment"># 执行过程中有异常发生</span></div><div class="line">        exc = False</div><div class="line">        <span class="comment"># 如果 __exit__ 返回 True，则异常被忽略；如果返回 False，则重新抛出异常</span></div><div class="line">        <span class="comment"># 由外层代码对异常进行处理</span></div><div class="line">        <span class="keyword">if</span> not <span class="keyword">exit</span>(context_manager, *sys.exc_info()):</div><div class="line">            raise</div><div class="line">    finally:</div><div class="line">        <span class="comment"># 正常退出，或者通过 statement-body 中的 break/continue/return 语句退出</span></div><div class="line">        <span class="comment"># 或者忽略异常退出</span></div><div class="line">        <span class="keyword">if</span> exc:</div><div class="line">            <span class="keyword">exit</span>(context_manager, None, None, None) </div><div class="line">            <span class="comment"># 缺省返回 None，None 在布尔上下文中看做是 False</span></div></pre></td></tr></table></figure></p>
+<p>从上边的逻辑可以看出，1.如果with语句块发生异常，那么执行except中的流程释放资源，并根据<code>exit()</code>函数返回值决定是否向上抛出异常；2.如果执行过程无异常，那么走finally中的逻辑释放资源。</p>
+<h2 id="1-还用不用处理异常？"><a href="#1-还用不用处理异常？" class="headerlink" title="1. 还用不用处理异常？"></a>1. 还用不用处理异常？</h2><p>异常是必须处理的, with语句解决的只是保证了finally中的语句的执行，在with语句块内发生了异常而有没有处理，那么会直接执行with所代替的finally中的语句，并抛出异常给外层上下文，和正常情况下的异常处理流程是一样的。</p>
+<h2 id="2-如果-exit-内部异常？"><a href="#2-如果-exit-内部异常？" class="headerlink" title="2. 如果__exit__内部异常？"></a>2. 如果<code>__exit__</code>内部异常？</h2><p>引用文章<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="external">浅谈 Python 的 with 语句</a> 中的解释:</p>
+<blockquote>
+<p>退出与上下文管理器相关的运行时上下文，返回一个布尔值表示是否对发生的异常进行处理。参数表示引起退出操作的异常，如果退出时没有发生异常，则3个参数都为None。如果发生异常，返回<br>True 表示不处理异常，否则会在退出该方法后重新抛出异常以由 with 语句之外的代码逻辑进行处理。如果该方法内部产生异常，则会取代由 statement-body 中语句产生的异常。要处理异常时，不要显示重新抛出异常，即不能重新抛出通过参数传递进来的异常，只需要将返回值设置为 False 就可以了。之后，上下文管理代码会检测是否 <strong>exit</strong>() 失败来处理异常</p>
+</blockquote>
+<p>通过例子来看一下：</p>
+<ul>
+<li>with语句块异常，但正确释放资源</li>
+</ul>
+<p>清单2: 自定义支持 with 语句的对象</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DummyResource</span>:</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, tag)</span></span><span class="symbol">:</span></div><div class="line">    <span class="keyword">self</span>.tag = tag</div><div class="line">    print <span class="string">'Resource [%s]'</span> % tag</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">__enter__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line">    print <span class="string">'[Enter %s]: Allocate resource.'</span> % <span class="keyword">self</span>.tag</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>   <span class="comment"># 可以返回不同的对象</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(<span class="keyword">self</span>, exc_type, exc_value, exc_tb)</span></span><span class="symbol">:</span></div><div class="line">    print <span class="string">'[Exit %s]: Free resource.'</span> % <span class="keyword">self</span>.tag</div><div class="line">    <span class="keyword">if</span> exc_tb is <span class="symbol">None:</span></div><div class="line">        print <span class="string">'[Exit %s]: Exited without exception.'</span> % <span class="keyword">self</span>.tag</div><div class="line">    <span class="symbol">else:</span></div><div class="line">        print <span class="string">'[Exit %s]: Exited with exception raised.'</span> % <span class="keyword">self</span>.tag</div><div class="line">    <span class="keyword">return</span> False   <span class="comment"># 可以省略，缺省的None也是被看做是False</span></div></pre></td></tr></table></figure>
+<p>清单3: with语句块引起异常<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">try:</div><div class="line">    <span class="keyword">with</span> DummyResource(<span class="symbol">'With</span>-<span class="keyword">Exception</span>'):</div><div class="line">         print '[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>.'</div><div class="line">         <span class="keyword">raise</span> <span class="keyword">Exception</span>(<span class="symbol">'with</span>-block <span class="keyword">exception</span>')</div><div class="line">         print '[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>. Failed to finish statement-<span class="keyword">body</span>!'</div><div class="line">except <span class="keyword">Exception</span> as e:</div><div class="line">    print e</div></pre></td></tr></table></figure></p>
+<p>执行上边的代码，可以看到打印的信息，释放完资源后，异常抛出给with外层进行处理，如果外层没有<code>try</code>语句的话，在本例中会由系统打印调用栈并退出。<br>如果<code>__exit__</code>返回True，那么打印信息的最后一行<code>with-block exception</code>将不会被打印，因为with语句释放完资源后，把这个异常“压”下来了。<br>清单4: 正常释放资源，抛出原有异常<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[Enter <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Allocate resource.</div><div class="line">[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>.</div><div class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Free resource.</div><div class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Exited <span class="keyword">with</span> <span class="keyword">exception</span> raised.</div><div class="line"><span class="keyword">with</span>-block <span class="keyword">exception</span></div></pre></td></tr></table></figure></p>
+<p>稍微对上边的代码修改一下，在<code>__exit__</code>函数中重新抛出一个异常，如清单5，重新执行清单3的调用，得到清单6的结果。<br>清单5：<code>__exit__</code>抛出异常<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(self, exc_type, exc_value, exc_tb)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'[Exit %s]: Free resource.'</span> % self.tag</div><div class="line">    <span class="keyword">if</span> exc_tb <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'[Exit %s]: Exited without exception.'</span> % self.tag</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'[Exit %s]: Exited with exception raised.'</span> % self.tag</div><div class="line">    <span class="keyword">raise</span> Exception(<span class="string">'new exception in __exit__'</span>)</div></pre></td></tr></table></figure></p>
+<p>清单6: <code>__exit__</code>抛出新异常执行结果<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Resource [<span class="keyword">With</span>-<span class="keyword">Exception</span>]</div><div class="line">[Enter <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Allocate resource.</div><div class="line">[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>.</div><div class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Free resource.</div><div class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Exited <span class="keyword">with</span> <span class="keyword">exception</span> raised.</div><div class="line">__exit__ <span class="keyword">exception</span>.</div></pre></td></tr></table></figure></p>
+<p>可以看出，如果<code>__exit__</code>重新抛出了一个异常，就会覆盖掉原有异常，如果资源正常释放，只需要返回False或者True来表示是否将with语句的异常抛给外层调用。</p>
+<h2 id="3-其他使用"><a href="#3-其他使用" class="headerlink" title="3.其他使用"></a>3.其他使用</h2><p>使用contextmanager装饰器、nested函数、closing上下文管理器等语法可以参考<br>【<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="external">浅谈 Python 的 with 语句</a>】或者 【<a href="https://docs.python.org/release/2.6.6/library/contextlib.html" target="_blank" rel="external">contextlib — Utilities for with-statement contexts</a>】等文章，不再赘述。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="external">浅谈 Python 的 with 语句</a></li>
+<li><a href="https://docs.python.org/release/2.6.6/library/contextlib.html" target="_blank" rel="external">contextlib — Utilities for with-statement contexts</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0343/" target="_blank" rel="external">PEP 343 – The “with” Statement</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Python中的with语句可谓是相当的好用了，省去了&lt;code&gt;try...finally...&lt;/code&gt;的复杂写法，&lt;a href=&quot;https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://dequn.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于目前工作的一点感想</title>
+    <link href="http://dequn.github.io/2017/11/21/%E5%85%B3%E4%BA%8E%E7%9B%AE%E5%89%8D%E5%B7%A5%E4%BD%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%84%9F%E6%83%B3/"/>
+    <id>http://dequn.github.io/2017/11/21/关于目前工作的一点感想/</id>
+    <published>2017-11-21T14:39:37.000Z</published>
+    <updated>2017-12-02T05:47:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>从7月份入职以来，时时感觉到目前的工作跟我所期望的差别很大，但又不知道该如何取舍。</p>
+<p>在面试的时候，经理问我是否愿意从事一些产品相关的工作，由于是岗位是机器学习，所以我想那么即使是产品相关，最起码也是要用到机器学习的，不论是数学层面、算法层面还是架构层面，这样是比较符合我的预期的，所以就签合同入职。可是入职这么久以来，发现当初没有对岗位做更多的了解，是很大的一个坑，这也是校招的同学普遍遇到的一个难点和痛点，除非是在公司以及组内部亲自实习过。</p>
+<p>倒不是说这几个月来没有成长，而是在我所期望的技术以及能力层面上收效甚少。除了维护一些遗留下来的旧产品模块儿，就只剩下一个热词了。在入职以后，我也不得不承认自己与科班出身的同学差距比较大，同样的一个东西我可能需要吭哧好久，但是除了一些业务上的熟悉之外，没有得到更多我想要的成长了，而业务上的东西是带不走的，虽然熟悉公司内部的业务很重要。</p>
+<p>原本也想着身处一个国内相对较好的技术环境内，再加上自己的学习，肯定能进步特别多。现在看来也是太天真了，团队技术是不错，每两周也会有分享，这些也都是有用的，但是收效也少。最为担心的事情是根本就没有自己的事件，每天醒来上班知道晚上回去，需求特别多，想在自己的方向上进行一些积累就显得欲求无门了。我层怀疑公司内部都是这么忙的，和一个从别的组转岗过来的同学，他说他们原来的组没有这边事情这么多，每天还是有很多自己学习、积累的时间，只有大搜才这么忙。</p>
+<p>总说时间是海绵里的水，上高中时班主任也经常说我就是人太懒，当时还很不服气——自觉还不错。现在回想起来，我的自制力确实很弱，比如下班之后我是看不进去任何东西的（尤其是现在），在周六日的时候一个懒觉就占用了很多时间。也可能是我忘记了、放弃了曾经想要的，按现在这种状态下去也必定只能放弃，特别羡慕那些能够白天高效工作、晚上仍能坚持充电的牛人。还有就是白天的效率也不高，总觉得像是被KPI推动的走，没有主动性了。</p>
+<p>如果这样久了，就没有跳出现有生活的动力和能力了；如果现在就跳出来，也没有那个能力，更是不能利用好目前这样一个平台。因此，还得必须自制自律，吃得苦中苦，方觉不知苦。</p>
+<p>都说不忘初心，方得始终。初心是什么千万不能忘记，而为了初心，也定要付出更多才行！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;从7月份入职以来，时时感觉到目前的工作跟我所期望的差别很大，但又不知道该如何取舍。&lt;/p&gt;
+&lt;p&gt;在面试的时候，经理问我是否愿意从事一些产品相关的工作，由于是岗位是机器学习，所以我想那么即使是产品相关，最起码也是要用到机器学习的，不论是数学层面、算法层面还是架构层面，这样是
+    
+    </summary>
+    
+      <category term="个人日记" scheme="http://dequn.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%97%A5%E8%AE%B0/"/>
+    
+    
+      <category term="工作与初心" scheme="http://dequn.github.io/tags/%E5%B7%A5%E4%BD%9C%E4%B8%8E%E5%88%9D%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python字符串格式化</title>
+    <link href="http://dequn.github.io/2017/10/05/python-str-formation/"/>
+    <id>http://dequn.github.io/2017/10/05/python-str-formation/</id>
+    <published>2017-10-05T09:24:10.000Z</published>
+    <updated>2017-12-02T05:47:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用Python的时间也不短了，可是对字符串格式化的方式还是不怎么了解，尤其是对于自定义类型，如何实现友好的格式化输出？</p>
+<p>printf-style的字符串格式化”%”号操作符的使用方法就不再赘述了，如果”%”后面不止一个参数，那么需要传入一个tuple，或者是一个dict。</p>
+<p>由于”%”使用并不是那么方便，在非dict参数的情况下，tuple需要按照顺序组织，并且同一个参数不能够多次使用[<a href="https://mail.python.org/pipermail/python-3000/2006-April/000285.html" title="[Python-3000] String formating operations in python 3k" target="_blank" rel="external">1</a>]。于是就提出了使用模板进行字符串格式化的方法[<a href="https://www.python.org/dev/peps/pep-3101/#id9" title="PEP 3101 -- Advanced String Formatting" target="_blank" rel="external">2</a>]。这两种方法有在功能上有一定的重复，如何选择也全看个人喜好。</p>
+<p>相对来说，模板格式化字符串功能更为强大和灵活，其语法可以参考[<a href="https://docs.python.org/3/library/string.html#formatstrings" title="string — Common string operations" target="_blank" rel="external">3</a>]，下面主要关注自定义类的格式化显示。</p>
+<ul>
+<li>在使用”%”操作符时，后面的转换字符代表的含义[<a href="https://docs.python.org/3/library/stdtypes.html#string-formatting-operations" target="_blank" rel="external">4</a>]:<blockquote>
+<p>  ‘r’ String (converts any Python object using repr()).<br>  ‘s’    String (converts any Python object using str()).<br>  ‘a’    String (converts any Python object using ascii()).</p>
+</blockquote>
+</li>
+</ul>
+<p>对应的，我们可以定义自定义类的<code>__repr__()</code>、<code>__str__()</code> 来实现格式化输出（<code>ascii()</code>同<code>repr()</code>一样调用<code>__repr__()</code>，但会对non-ASCII字符进行转义，结果形如\x, \u, \U等[<a href="https://docs.python.org/3/library/functions.html#ascii" title="Built-in Functions" target="_blank" rel="external">5</a>]）。</p>
+<ul>
+<li>使用模板格式化时，我们除了可以使用内置的<code>!s</code>、<code>!r</code>、<code>!a</code>转换实现与上边相同的效果外，还可以通过定义类的<code>__format__</code>实现自定义格式化方法，这样就非常灵活了，线面通过例子来看一下。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding:utf-8</span></div><div class="line">class Test:</div><div class="line"></div><div class="line">    def __str__(self):</div><div class="line">        <span class="built_in">return</span> <span class="string">'in __str__()'</span></div><div class="line"></div><div class="line">    def __format__(self, format_spec):</div><div class="line">        <span class="keyword">if</span> format_spec == <span class="string">'own1'</span>:</div><div class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), own1 method'</span></div><div class="line">        <span class="keyword">elif</span> format_spec == <span class="string">'s'</span>:</div><div class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), s method'</span></div><div class="line">        <span class="keyword">elif</span> format_spec == <span class="string">'h'</span>:</div><div class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), h method'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), default method'</span></div><div class="line"></div><div class="line">    def __repr__(self):</div><div class="line">        <span class="built_in">return</span> <span class="string">'in __repr__()'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line"></div><div class="line">    <span class="built_in">test</span> = Test()</div><div class="line"></div><div class="line">    <span class="built_in">print</span> <span class="string">'str(test) shows '</span> + str(<span class="built_in">test</span>)</div><div class="line">    <span class="built_in">print</span> <span class="string">'repr(test) shows '</span> + repr(<span class="built_in">test</span>)</div><div class="line"></div><div class="line">    <span class="built_in">print</span> <span class="string">'\n-----------% format ----------'</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'%%s shows %s'</span> % <span class="built_in">test</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'%%r shows %r'</span> % <span class="built_in">test</span></div><div class="line">    <span class="comment"># print '%%h shows %h' % test # will cause  ValueError: incomplete format</span></div><div class="line"></div><div class="line">    <span class="built_in">print</span> <span class="string">'\n---------template format --------'</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;&#125;&#125; shows &#123;&#125;'</span>.format(<span class="built_in">test</span>)</div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;!r&#125;&#125; shows &#123;!r&#125;'</span>.format(<span class="built_in">test</span>)</div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;!s&#125;&#125; shows &#123;!s&#125;'</span>.format(<span class="built_in">test</span>)</div><div class="line"></div><div class="line">    <span class="built_in">print</span> <span class="string">'\n---------template use __format__() --------'</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:s&#125;&#125; shows &#123;:s&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ s conversion</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:h&#125;&#125; shows &#123;:h&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ h conversion</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:own1&#125;&#125; shows &#123;:own1&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ own1 conversion</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:&#125;&#125; shows &#123;:&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ default conversion</span></div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">str(test) shows <span class="keyword">in</span> __str__()</div><div class="line">repr(test) shows <span class="keyword">in</span> __repr__()</div><div class="line"></div><div class="line">-----------% format ----------</div><div class="line">%s shows <span class="keyword">in</span> __str__()</div><div class="line">%r shows <span class="keyword">in</span> __repr__()</div><div class="line"></div><div class="line">---------template format --------</div><div class="line">&#123;&#125; shows <span class="keyword">in</span> __format__(),<span class="built_in"> default </span>method</div><div class="line">&#123;!r&#125; shows <span class="keyword">in</span> __repr__()</div><div class="line">&#123;!s&#125; shows <span class="keyword">in</span> __str__()</div><div class="line"></div><div class="line">---------template use __format__() --------</div><div class="line">&#123;:s&#125; shows <span class="keyword">in</span> __format__(), s method</div><div class="line">&#123;:h&#125; shows <span class="keyword">in</span> __format__(), h method</div><div class="line">&#123;:own1&#125; shows <span class="keyword">in</span> __format__(), own1 method</div><div class="line">&#123;:&#125; shows <span class="keyword">in</span> __format__(),<span class="built_in"> default </span>method</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果只是实现简单的格式化，那么”%”和模板都可以实现，自定义类通过定义<code>__str__()</code>和<code>__repr__()</code>来实现，但如果需要对一个类实现（多种）自定义转换的格式化，那么需要定义类的<code>__format__()</code>方法，并且只能通过使用模板来实现自定义转换的格式化。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://mail.python.org/pipermail/python-3000/2006-April/000285.html" title="[Python-3000] String formating operations in python 3k" target="_blank" rel="external">[Python-3000] String formating operations in python 3k</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-3101/#id9" title="PEP 3101 -- Advanced String Formatting" target="_blank" rel="external">PEP 3101 – Advanced String Formatting</a></li>
+<li><a href="https://docs.python.org/3/library/string.html#formatstrings" title="string — Common string operations" target="_blank" rel="external">string — Common string operations</a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#string-formatting-operations" target="_blank" rel="external">https://docs.python.org/3/library/stdtypes.html#string-formatting-operations</a></li>
+<li><a href="https://docs.python.org/3/library/functions.html#ascii" title="Built-in Functions" target="_blank" rel="external">Built-in Functions</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Python的时间也不短了，可是对字符串格式化的方式还是不怎么了解，尤其是对于自定义类型，如何实现友好的格式化输出？&lt;/p&gt;
+&lt;p&gt;printf-style的字符串格式化”%”号操作符的使用方法就不再赘述了，如果”%”后面不止一个参数，那么需要传入一个tuple，或者是
+    
+    </summary>
+    
+      <category term="Python" scheme="http://dequn.github.io/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://dequn.github.io/tags/Python/"/>
+    
+      <category term="格式化" scheme="http://dequn.github.io/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>Python模块的相对导入和绝对导入</title>
@@ -77,10 +202,10 @@
   
   <entry>
     <title>终端高效切换编码</title>
-    <link href="http://dequn.github.io/2017/09/05/%E7%BB%88%E7%AB%AF%E9%AB%98%E6%95%88%E5%88%87%E6%8D%A2%E7%BC%96%E7%A0%81/"/>
-    <id>http://dequn.github.io/2017/09/05/终端高效切换编码/</id>
+    <link href="http://dequn.github.io/2017/09/05/switch-encoding-in-terminal/"/>
+    <id>http://dequn.github.io/2017/09/05/switch-encoding-in-terminal/</id>
     <published>2017-09-05T12:51:21.000Z</published>
-    <updated>2017-09-17T05:23:38.000Z</updated>
+    <updated>2017-12-02T05:47:48.000Z</updated>
     
     <content type="html"><![CDATA[<p>在以前的时候，终端编码通通设置的都是UTF-8，即使有一两台远程机，因为有自主权也都是UTF-8编码，包括数据库表格，也都是统一UTF-8编码，不得不说这样统一以后非常方便，几乎也没有考虑过编码不同带来的烦恼。</p>
 <p>来到公司工作一段时间后才发现，自己的开发机还好说，设置成UTF-8就可以了，保持原有惯例。然而，需要经常登录别的机器看任务跑代码就会发现乱码了，好吧，手动把终端(iTerm2)调到GBK，结束以后再调回来；然后过了没两天，会发现其他机器的Mysql表格也是GBK的，好吧还得暂调GBK。最大的问题还不在于麻烦，我一个终端下连接了多台服务器和数据库，编码都不统一，这可怎么办？</p>
@@ -1035,158 +1160,6 @@ img{height:200px;}
       <category term="HBase" scheme="http://dequn.github.io/tags/HBase/"/>
     
       <category term="RowFilter" scheme="http://dequn.github.io/tags/RowFilter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HBase 找不到提示已存在的数据表</title>
-    <link href="http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/"/>
-    <id>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</id>
-    <published>2016-07-03T12:54:20.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<p> 今天在使用 HBase 创建数据表的时候，提示数据表已存在，但使用<code>list</code>命令又看不到该表，也无法 drop 掉。过程如下</p>
- <figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hbase(main)<span class="symbol">:018</span><span class="symbol">:0</span>&gt;create 'pois','data</div><div class="line">Err<span class="symbol">or:</span> Table already exis<span class="symbol">ts:</span> pois!</div><div class="line">hbase(main)<span class="symbol">:019</span><span class="symbol">:0</span>&gt;list</div><div class="line">TABLE</div><div class="line"><span class="number">0</span> <span class="built_in">row</span>(s) in <span class="number">8.0245</span> seconds</div><div class="line"></div><div class="line">=&gt; []</div></pre></td></tr></table></figure>
-<p> 可以看出，HBase 错误地判断了，经过一番 Google，找到了几个推荐的解决方案：</p>
-<p> ## <a href="http://stackoverflow.com/questions/10586246/hbase-cannot-find-an-existing-table" target="_blank" rel="external">方案1:hbase cannot find an existing table</a></p>
-<blockquote>
-<p>1) Delete all entries in the .META table for this table manually, and</p>
-<p>2) Delete the directory corresponding to this table from HDFS</p>
-</blockquote>
-<h2 id="方案2-Killing-the-HBase-zombie-table"><a href="#方案2-Killing-the-HBase-zombie-table" class="headerlink" title="方案2:Killing the HBase zombie table"></a><a href="http://arnon.me/2013/01/killing-hbase-zombie-table/" target="_blank" rel="external">方案2:Killing the HBase zombie table</a></h2><blockquote>
-<p>1) use ** hbase hbck ** to see health-checkk</p>
-<p>2) look at .META table</p>
-<p>3) clear zookeeper’s  cache</p>
-</blockquote>
-<hr>
-<h2 id="方案3-最简单"><a href="#方案3-最简单" class="headerlink" title="方案3:最简单"></a>方案3:最简单</h2><p>这两种方案对初学者来说都有一定的难度，并且容易误操作儿影响到其他的数据表，找一个简单的方法就很有必要了，那么找一找 HBase 自带的命令吧，经过试验，发现有一个命令`hbase-clean’，尝试运行，如下，</p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">hbase</span><span class="literal">-</span><span class="comment">cleanup</span><span class="string">.</span><span class="comment">sh</span> </div><div class="line"></div><div class="line"><span class="comment">Usage:</span> <span class="comment">hbase</span><span class="literal">-</span><span class="comment">cleanup</span><span class="string">.</span><span class="comment">sh</span> <span class="comment">(</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanZk|</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanHdfs|</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanAll|</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanAcls)</span></div></pre></td></tr></table></figure>
-<p>从提示可以看出有三种模式，区别如下</p>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby">-cleanZk   cleans hbase related data from zookeeper.</span></div><div class="line"><span class="ruby">--cleanHdfs cleans hbase related data from hdfs.</span></div><div class="line"><span class="ruby">--cleanAll  cleans hbase related data from both zookeeper <span class="keyword">and</span> hdfs.</span></div></pre></td></tr></table></figure>
-<p>想必接下来就知道如何处理了吧！这种方式要简单的多，适合初学用户！</p>
-<hr>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="http://www.cloudera.com/documentation/enterprise/latest/topics/cdh_ig_hbase_tools.html#concept_wpc_nqv_hv" target="_blank" rel="external">Using HBase Command-Line Utilities</a></p>
-<p>2.<a href="http://arnon.me/2013/01/killing-hbase-zombie-table/" target="_blank" rel="external">Killing the HBase zombie table</a></p>
-<p>3.<a href="http://stackoverflow.com/questions/10586246/hbase-cannot-find-an-existing-table" target="_blank" rel="external">hbase cannot find an existing table</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt; 今天在使用 HBase 创建数据表的时候，提示数据表已存在，但使用&lt;code&gt;list&lt;/code&gt;命令又看不到该表，也无法 drop 掉。过程如下&lt;/p&gt;
- &lt;figure class=&quot;highlight excel&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gu
-    
-    </summary>
-    
-      <category term="HBase" scheme="http://dequn.github.io/categories/HBase/"/>
-    
-    
-      <category term="HBase" scheme="http://dequn.github.io/tags/HBase/"/>
-    
-      <category term="Zookeeper" scheme="http://dequn.github.io/tags/Zookeeper/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HBase 协处理器之 EndPoint 简单示例</title>
-    <link href="http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/"/>
-    <id>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</id>
-    <published>2016-05-14T06:55:47.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>关于 HBase 协处理器 Coprocessor 是什么，作用是什么，就不在多说，很多博、文档都有相关说明，Coprocessor 分为两类，一类是 Observer,另一类是 Endpoint,在看来很多博客后，发现都是比较老的一些内容，在学习过程中有不少疑惑，所以总结下来。此文只是针对 EndPoint 给出一个流程。</p>
-<h1 id="基本环境"><a href="#基本环境" class="headerlink" title="基本环境"></a>基本环境</h1><blockquote>
-<p>Hbase: v1.1.2<br>JDK: v1.8<br>Maven: v3.3.9<br>protobuf: v2.6.1</p>
-</blockquote>
-<p>EndPoint 的定义在 Hbase 0.96后采用的是 Google 的开源protobuf RPC, 因此本文的说明只适用于高于 0.96 的 HBase 版本，老的版本请看对应的教程。</p>
-<h1 id="Mac-下-Protobuf-安装"><a href="#Mac-下-Protobuf-安装" class="headerlink" title="Mac 下 Protobuf 安装"></a>Mac 下 Protobuf 安装</h1><p>采用 HomeBrew 即可轻松安装，命令</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">home <span class="keyword">brew </span><span class="keyword">install </span>protobuf</div></pre></td></tr></table></figure>
-<h1 id="定义-RPC"><a href="#定义-RPC" class="headerlink" title="定义 RPC"></a>定义 RPC</h1><p>新建一个 *.proto 文件，键入以下内容,本文的目的是实现一个建立关于 Mac 列的索引，简单起见，直接返回值 buildOk = 1 表示建立成功。关于 protobuf 的更多定义可以参见官方文档<a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="external">https://developers.google.com/protocol-buffers/</a>.</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">option</span> java_package = <span class="string">"lreis.bigdata.indoor.index.coprocessor"</span>;</div><div class="line"></div><div class="line"><span class="keyword">option</span> java_outer_classname = <span class="string">"BuildMacIndex"</span>;</div><div class="line"><span class="keyword">option</span> java_generic_services = <span class="literal">true</span>;</div><div class="line"><span class="keyword">option</span> optimize_for = SPEED;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">message</span> <span class="title">buildMacIndexRequest</span></span>&#123;</div><div class="line"><span class="built_in">int64</span> onlyForPresent ;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">message</span> <span class="title">buildMacIndexResponse</span> </span>&#123;</div><div class="line"> <span class="keyword">optional</span> <span class="built_in">int64</span> buildOk = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">service</span> <span class="title">BuildMacIndexService</span> </span>&#123;</div><div class="line"> <span class="function"><span class="keyword">rpc</span> buildMacIndex(buildMacIndexRequest)</span></div><div class="line"><span class="function">  <span class="keyword">returns</span>(buildMacIndexResponse)</span>;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>定以好之后就可以编译该文件了， 运行此命令会生成一个 BuildMacIndex 的类。</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">protoc <span class="comment">--java_out = your_project_dest your.proto</span></div></pre></td></tr></table></figure>
-<h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><p>由于本人使用 Maven 建立的工程，所以要完成EndPoint 的开发，需要加入以下一些依赖才可以。** 需要注意的是编译目标的版本是1.6，否则Hbase 不能正确加载生成的 Endpoint. **</p>
-<figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">hbase.version</span>&gt;</span>1.1.2<span class="tag">&lt;/<span class="name">hbase.version</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hbase<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hbase-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;hbase.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hbase<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hbase-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;hbase.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></div><div class="line"><span class="xml"> <span class="tag">&lt;<span class="name">build</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></div><div class="line"><span class="xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></div><div class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></div><div class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></div><div class="line"><span class="xml">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></div><div class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.6<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span></div><div class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.6<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span></div><div class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></div><div class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<h1 id="EndPoint-实现"><a href="#EndPoint-实现" class="headerlink" title="EndPoint 实现"></a>EndPoint 实现</h1><p>** EndPoint 必须要继承自 protobuf 中定义的 BuildMacIndexService 类，并且实现 CoprocessorService 和 Coprocessor 接口，实现其中的四个方法即可。**</p>
-<ul>
-<li><p>start() 方法<br>协处理器在 Region 打开的时候被 RegionServer 自动加载，并会调用器 start 接口，完成初始化工作。一般的该接口函数中仅仅需要将协处理器的运行上下文环境变量 CoprocessorEnviorment保存到本地即可。</p>
-</li>
-<li><p>stop()方法<br>Coprocessor 接口还定义了 stop() 接口函数。该函数在 Region 被关闭时调用，用来进行协处理器的清理工作。在本文中，我们没有任何清理工作，因此该方法一般不需要做什么。</p>
-</li>
-<li><p>getService()方法<br>oprocessorService 接口。该接口仅仅定义了一个接口函数 getService()。我们仅需要将本实例返回即可。HBase 的 RegionServer 在接受到客户端的调用请求时，将调用该接口获取实现了 RPC Service 的实例，因此本函数一般情况下就是返回自身实例即可。</p>
-</li>
-<li><p>当 Endpoint 类继承自 RPC Service 类的时候，会需要实现 proto 文件中定义buildMacIndex方法,这也是该 EndPoint 作用代码实现的方法，并且最后完成的Response 必须满足 proto 中定义的类型. 简单起见，只简单返回一个值。</p>
-</li>
-</ul>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> buildMacIndex(RpcController controller, BuildMacIndex.buildMacIndexRequest request, RpcCallback&lt;BuildMacIndex.buildMacIndexResponse&gt; <span class="keyword">done</span>) &#123;</div><div class="line"></div><div class="line"></div><div class="line">    Long l = request.getOnlyForPresent();<span class="comment">// proto 中 request 里边定义xxx,就用 getXxx 得到调用时候传过来的参数</span></div><div class="line"></div><div class="line">    <span class="comment">// .... 其他逻辑</span></div><div class="line"></div><div class="line">    BuildMacIndex.buildMacIndexResponse.Builder resBuilder = BuildMacIndex.buildMacIndexResponse.newBuilder();</div><div class="line"></div><div class="line">    resBuilder.setBuildOK(<span class="number">100</span>L); <span class="comment">//返回 xxx，就用 SetXxx 进行赋值</span></div><div class="line"></div><div class="line">    <span class="keyword">done</span>.run(resBuilder.build());<span class="comment">//完成</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上就完成了一个 EndPoint 的定义及实现，运行 mvn clean compile 就可以打包成 jar 文件了。</p>
-<h1 id="JAR文件上传及加载到-Table"><a href="#JAR文件上传及加载到-Table" class="headerlink" title="JAR文件上传及加载到 Table"></a>JAR文件上传及加载到 Table</h1><p><strong>将编译的 jar 文件上传到 $HBASE_HOME/lib 目录，如果是完全分布式，每个节点都需要有哦。</strong></p>
-<h2 id="配置文件全局加载-所有-Table-都有效"><a href="#配置文件全局加载-所有-Table-都有效" class="headerlink" title="配置文件全局加载(所有 Table 都有效)"></a>配置文件全局加载(所有 Table 都有效)</h2><p>编辑 hbase-site.xml, 添加以下内容，如果加载多个,用分号隔开每个类就行了，最后需要重启 HBase 集群。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt; &lt;name&gt;hbase<span class="selector-class">.coprocessor</span><span class="selector-class">.region</span><span class="selector-class">.classes</span>&lt;/name&gt; &lt;value&gt;lreis<span class="selector-class">.bigdata</span><span class="selector-class">.indoor</span><span class="selector-class">.index</span><span class="selector-class">.coprocessor</span><span class="selector-class">.server</span><span class="selector-class">.BuildMacIndexEndpoint</span>&lt;/value&gt; &lt;/property&gt;</div></pre></td></tr></table></figure>
-<h2 id="命令行加载方式"><a href="#命令行加载方式" class="headerlink" title="命令行加载方式"></a>命令行加载方式</h2><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">'lreis.bigdata.indoor.index.coprocessor.server.BuildMacIndexEndpoint'</span> #记住，有引号的</div></pre></td></tr></table></figure>
-<p>如果显示</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">=&gt; Ja<span class="symbol">va:</span><span class="symbol">:Lr</span>eisBigdataIndoorIndexCoprocessorServ<span class="symbol">er:</span><span class="symbol">:Bu</span>ildMacIndexEndpoint</div></pre></td></tr></table></figure>
-<p>则说明加载成功，接着运行下面的命令</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter 'idx_mac', 'coprocessor' =&gt; '|lreis.bigdata.indoor.index.coprocessor.server.BuildMacIndexEndpoint|<span class="number">1001</span>|'</div></pre></td></tr></table></figure>
-<p>如果显示如下，则说明修改表节定义成功</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Updating <span class="literal">all</span> regions <span class="keyword">with</span> the <span class="literal">new</span> schema<span class="params">...</span></div><div class="line"><span class="number">1</span>/<span class="number">1</span> regions updated.</div><div class="line">Done.</div><div class="line"><span class="number">0</span> row(s) <span class="keyword">in</span> <span class="number">2.3210</span> seconds</div></pre></td></tr></table></figure>
-<ul>
-<li>最后就可以在客户端或者 shell 的方式调用 Coprocessor 了， 简单给一个 Java API 的调用方式</li>
-</ul>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">conn = DbcFactory.getConnection().getConnection()<span class="comment">;</span></div><div class="line">Admin admin = conn.getAdmin()<span class="comment">;</span></div><div class="line">Table table = conn.getTable(TableName.valueOf(<span class="string">"idx_mac"</span>))<span class="comment">;</span></div><div class="line">final <span class="keyword">BuildMacIndex.buildMacIndexRequest </span>req = <span class="keyword">BuildMacIndex.buildMacIndexRequest.newBuilder().build();</span></div><div class="line"><span class="keyword"></span></div><div class="line"><span class="keyword">Map&lt;byte[], </span>Long&gt; tmpRet = table.coprocessorService(<span class="keyword">BuildMacIndex.BuildMacIndexService.class, </span>null, null, new <span class="keyword">Batch.Call&lt;BuildMacIndex.BuildMacIndexService, </span>Long&gt;() &#123;</div><div class="line">@Override</div><div class="line">public Long call(<span class="keyword">BuildMacIndex.BuildMacIndexService </span><span class="keyword">instance) </span>throws IOException &#123;</div><div class="line"></div><div class="line">ServerRpcController controller = new ServerRpcController()<span class="comment">;</span></div><div class="line"><span class="keyword">BlockingRpcCallback&lt;BuildMacIndex.buildMacIndexResponse&gt; </span>rpc = new <span class="keyword">BlockingRpcCallback&lt;BuildMacIndex.buildMacIndexResponse&gt;();</span></div><div class="line"><span class="keyword">instance.buildMacIndex(controller, </span>req, rpc)<span class="comment">;</span></div><div class="line"></div><div class="line"><span class="keyword">BuildMacIndex.buildMacIndexResponse </span>resp = rpc.get()<span class="comment">;</span></div><div class="line">return resp.getRowCount()<span class="comment">;</span></div><div class="line">&#125;</div><div class="line">&#125;)<span class="comment">;</span></div><div class="line">long ret = <span class="number">0</span><span class="comment">;</span></div><div class="line">for (long l : tmpRet.values())</div><div class="line">ret += l<span class="comment">;</span></div><div class="line">System.out.println(<span class="string">"lines: "</span> + ret)<span class="comment">;</span></div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">e.printStackTrace()<span class="comment">;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><p><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-hbase-coprocessor1/index.html" target="_blank" rel="external">HBase 协处理器编程详解第一部分：Server 端代码编写</a></p>
-</li>
-<li><p><a href="https://blogs.apache.org/hbase/entry/coprocessor_introduction" target="_blank" rel="external">Coprocessor Introduction : Apache HBase</a></p>
-</li>
-<li><p><a href="http://www.cockybook.com/?p=35" target="_blank" rel="external">hbase0.98 coprocessor Endpoint 之 HelloWorld</a></p>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;关于 HBase 协处理器 Coprocessor 是什么，作用是什么，就不在多说，很多博、文档都有相关说明，Coprocessor 分为两类，一类是 Observer,另一类是 Endpoint,在看来很多博客后，发现都是比较老的一些内容，在学习过程中有不少疑惑，所以总结
-    
-    </summary>
-    
-      <category term="HBase" scheme="http://dequn.github.io/categories/HBase/"/>
-    
-    
-      <category term="HBase" scheme="http://dequn.github.io/tags/HBase/"/>
-    
-      <category term="Endpoint" scheme="http://dequn.github.io/tags/Endpoint/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java操作hbase报java.net.UnknownHostException错误的解决方案</title>
-    <link href="http://dequn.github.io/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/"/>
-    <id>http://dequn.github.io/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/</id>
-    <published>2016-04-26T06:13:18.000Z</published>
-    <updated>2017-08-24T15:00:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天在使用 HBase API 执行 Put 操作的时候，进程一直在等待状态，而进行 createTable 和 dropTable的时候均正常，很是郁闷！看了一下 Console 中的信息，报错</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java<span class="selector-class">.net</span><span class="selector-class">.UnknownHostException</span>: unknown host: node2<span class="selector-class">.lreis2306</span> on node2<span class="selector-class">.lreis2306</span>,</div></pre></td></tr></table></figure>
-<p>由于node2.lreis2306的机器是我新加进去的，只是改了 hosts 中的配置，经过一番百度后，找到的解决方案：</p>
-<ul>
-<li>修改/etc/sysconfig/network中 HOSTNAME=与 HOSTS 中对应的机器名一致即可！</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://blog.csdn.net/chaijunkun/article/details/44238163" target="_blank" rel="external">http://blog.csdn.net/chaijunkun/article/details/44238163</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天在使用 HBase API 执行 Put 操作的时候，进程一直在等待状态，而进行 createTable 和 dropTable的时候均正常，很是郁闷！看了一下 Console 中的信息，报错&lt;/p&gt;
-&lt;figure class=&quot;highlight stylus&quot;&gt;&lt;
-    
-    </summary>
-    
-      <category term="HBase" scheme="http://dequn.github.io/categories/HBase/"/>
-    
-    
-      <category term="HBase" scheme="http://dequn.github.io/tags/HBase/"/>
     
   </entry>
   
