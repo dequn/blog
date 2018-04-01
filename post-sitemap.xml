@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2018/04/01/why-docker-has-OS-image/</loc>
+        <lastmod>2018-04-01T13:49:27.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2017/12/02/%E7%90%86%E8%A7%A3python-with%E8%AF%AD%E5%8F%A5/</loc>
         <lastmod>2017-12-03T11:45:55.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -231,7 +239,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
+        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -247,7 +255,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
+        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -263,7 +271,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
+        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -271,7 +279,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
+        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
