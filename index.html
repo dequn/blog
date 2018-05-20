@@ -1,16 +1,1105 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="这些文章没啥用"><title>dequn's blog | 这些文章没啥用</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create','UA-105163669-1','auto');ga('send','pageview');</script></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">dequn's blog</h1><a id="logo" href="/.">dequn's blog</a><p class="description">这些文章没啥用</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2018/04/01/why-docker-has-OS-image/">Docker的OS image是做什么用的</a></h1><div class="post-meta">2018-04-01</div><a data-disqus-identifier="2018/04/01/why-docker-has-OS-image/" href="/2018/04/01/why-docker-has-OS-image/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>这两天闲来无事，简单入门了一下Docker。主要参考的有阮一峰老师的两篇文章——<a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">Docker 入门教程</a>、<a href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html" target="_blank" rel="noopener">Docker 微服务教程</a>和 yeasy的开源项目<a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">Docker — 从入门到实践</a>，照葫芦画瓢简单入门，不过离真正理解认清楚容器的特点、必要性，如何实践在持续交付和部署以及容器云等实际的运维应用还有很长的路要走。当我看到Docker 的OS image例如CentOS/Fedora、Busybox、Alphine等镜像的时候，不禁怀疑，既然我可以docker pull一个很简单命令就可以实现如Nginx, mysql等微服务的启动和部署，那为什么还会存在这些OS image, 这些OS image 的作用是什么？</p></div><p class="readmore"><a href="/2018/04/01/why-docker-has-OS-image/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/12/02/理解python-with语句/">理解python with语句</a></h1><div class="post-meta">2017-12-02</div><a data-disqus-identifier="2017/12/02/理解python-with语句/" href="/2017/12/02/理解python-with语句/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>Python中的with语句可谓是相当的好用了，省去了<code>try...finally...</code>的复杂写法，<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="noopener">浅谈 Python 的 with 语句</a> 一文写的已经非常详细里，解决了使用过程中的两点疑问。文中的代码清单也主要摘自这篇文章。</p></div><p class="readmore"><a href="/2017/12/02/理解python-with语句/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/11/21/关于目前工作的一点感想/">关于目前工作的一点感想</a></h1><div class="post-meta">2017-11-21</div><a data-disqus-identifier="2017/11/21/关于目前工作的一点感想/" href="/2017/11/21/关于目前工作的一点感想/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>从7月份入职以来，时时感觉到目前的工作跟我所期望的差别很大，但又不知道该如何取舍。</p>
-<p>在面试的时候，经理问我是否愿意从事一些产品相关的工作，由于是岗位是机器学习，所以我想那么即使是产品相关，最起码也是要用到机器学习的，不论是数学层面、算法层面还是架构层面，这样是比较符合我的预期的，所以就签合同入职。可是入职这么久以来，发现当初没有对岗位做更多的了解，是很大的一个坑，这也是校招的同学普遍遇到的一个难点和痛点，除非是在公司以及组内部亲自实习过。</p></div><p class="readmore"><a href="/2017/11/21/关于目前工作的一点感想/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/10/05/python-str-formation/">Python字符串格式化</a></h1><div class="post-meta">2017-10-05</div><a data-disqus-identifier="2017/10/05/python-str-formation/" href="/2017/10/05/python-str-formation/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>使用Python的时间也不短了，可是对字符串格式化的方式还是不怎么了解，尤其是对于自定义类型，如何实现友好的格式化输出？</p>
-<p>printf-style的字符串格式化”%”号操作符的使用方法就不再赘述了，如果”%”后面不止一个参数，那么需要传入一个tuple，或者是一个dict。</p></div><p class="readmore"><a href="/2017/10/05/python-str-formation/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/09/17/ways-of-python-import/">Python模块的相对导入和绝对导入</a></h1><div class="post-meta">2017-09-17</div><a data-disqus-identifier="2017/09/17/ways-of-python-import/" href="/2017/09/17/ways-of-python-import/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>刚开始用Python写代码，对于import的方式不是很理解，尤其是导入上层包的模块时，经常会使用<code>sys.path.append(&#39;..&#39;)</code>，然后再import，很不优雅，所以花些时间全部梳理一遍。</p>
-<p>首先需要明白明白两个概念<strong>包</strong>和<strong>模块</strong>，很多人也都了解，贴出<a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">runoob</a>（页面跟W3C好像，他们有什么关系吗？）上给出的两个定义。</p></div><p class="readmore"><a href="/2017/09/17/ways-of-python-import/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/09/05/switch-encoding-in-terminal/">终端高效切换编码</a></h1><div class="post-meta">2017-09-05</div><a data-disqus-identifier="2017/09/05/switch-encoding-in-terminal/" href="/2017/09/05/switch-encoding-in-terminal/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>在以前的时候，终端编码通通设置的都是UTF-8，即使有一两台远程机，因为有自主权也都是UTF-8编码，包括数据库表格，也都是统一UTF-8编码，不得不说这样统一以后非常方便，几乎也没有考虑过编码不同带来的烦恼。</p>
-<p>来到公司工作一段时间后才发现，自己的开发机还好说，设置成UTF-8就可以了，保持原有惯例。然而，需要经常登录别的机器看任务跑代码就会发现乱码了，好吧，手动把终端(iTerm2)调到GBK，结束以后再调回来；然后过了没两天，会发现其他机器的Mysql表格也是GBK的，好吧还得暂调GBK。最大的问题还不在于麻烦，我一个终端下连接了多台服务器和数据库，编码都不统一，这可怎么办？</p></div><p class="readmore"><a href="/2017/09/05/switch-encoding-in-terminal/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/09/02/parse-command-line-args-in-python/">Python中解析命令行参数</a></h1><div class="post-meta">2017-09-02</div><a data-disqus-identifier="2017/09/02/parse-command-line-args-in-python/" href="/2017/09/02/parse-command-line-args-in-python/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>Python中常用的获取命令行参数的方法有三种，分别可适用于不同的场景。</p>
-<h1 id="直接从sys-argv中获取"><a href="#直接从sys-argv中获取" class="headerlink" title="直接从sys.argv中获取"></a>直接从sys.argv中获取</h1><p>sys.agrv保存了命令行的参数列表，其中，<code>sys.argv[0]</code>保存的是脚本的名称，所以要获取自己传入的参数时，需要从第二个元素开始，参数的顺序与<code>sys.argv</code>中一致。</p></div><p class="readmore"><a href="/2017/09/02/parse-command-line-args-in-python/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/08/19/charset-encoding-and-in-python/">字符集、字符编码以及Python中编码的那些事</a></h1><div class="post-meta">2017-08-19</div><a data-disqus-identifier="2017/08/19/charset-encoding-and-in-python/" href="/2017/08/19/charset-encoding-and-in-python/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>总会遇到乱码的问题，也总是按照网上的教程一步一步操作，解决的过程就像碰运气，从来没有总结过，再次遇到的时候还是不知道是什么问题，所以，花一点时间，总结一下。</p>
-<h1 id="字符集和字符编码"><a href="#字符集和字符编码" class="headerlink" title="字符集和字符编码"></a>字符集和字符编码</h1><p><strong>字符集</strong>是一个系统支持的抽象字符的集合。这个集合是有限集合，包括文字、标点和数字等，由于计算机内部全部都是数字存储，所以字符集本身也是一个符号与数字之间的映射关系，比如ASCII字符集中大写字母A的编号是65。存储或传输的时候计算机根据字符集将人能看懂的字符换算成计算机能看懂的数字，输出的时候再换算成人能看懂的字符。</p></div><p class="readmore"><a href="/2017/08/19/charset-encoding-and-in-python/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/03/31/d3-example-of-different-data-structures/">d3-example-of-different-data-structures</a></h1><div class="post-meta">2017-03-31</div><a data-disqus-identifier="2017/03/31/d3-example-of-different-data-structures/" href="/2017/03/31/d3-example-of-different-data-structures/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    <meta name="keywords" content="Life, ARIA, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="dequn's blog" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>dequn's blog - 这些文章没啥用</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="en"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">dequn's blog</a></h1>
+        <h2 class="subtitle">这些文章没啥用</h2>
+      </div>
+      <div class="logo">
+        <img src="/images/ARIA_logo.png" alt="logo">
+      </div>
+    </div>
+    
+<nav id="nav" class="nav">
+  <a id="nav-toggle" class="nav-toggle"><i class="fas fa-bars"></i></a>
+  <ul id="menu">
+    
+    <li><a href="/" class="current">Home</a></li>
+    
+    <li><a href="/archives/">Archives</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+</nav>
+
+
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+
+<section id="index" class="index">
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/04/01/why-docker-has-OS-image/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2018/04/01/why-docker-has-OS-image/" itemprop="url">Docker的OS image是做什么用的</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-04-01T08:41:01+08:00">2018-04-01 08:41:01</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>这两天闲来无事，简单入门了一下Docker。主要参考的有阮一峰老师的两篇文章——<a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">Docker 入门教程</a>、<a href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html" target="_blank" rel="noopener">Docker 微服务教程</a>和 yeasy的开源项目<a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">Docker — 从入门到实践</a>，照葫芦画瓢简单入门，不过离真正理解认清楚容器的特点、必要性，如何实践在持续交付和部署以及容器云等实际的运维应用还有很长的路要走。当我看到Docker 的OS image例如CentOS/Fedora、Busybox、Alphine等镜像的时候，不禁怀疑，既然我可以docker pull一个很简单命令就可以实现如Nginx, mysql等微服务的启动和部署，那为什么还会存在这些OS image, 这些OS image 的作用是什么？</p>
+<p>在解决这个问题之前，首先需要明白几个和容器以及OS相关的定义，英文比较简单，直接从<a href="http://www.floydhilton.com/docker/2017/03/31/Docker-ContainerHost-vs-ContainerOS-Linux-Windows.html" target="_blank" rel="noopener">Understanding Docker “Container Host” vs. “Container OS” for Linux and Windows Containers</a>粘过来了，也强烈建议看看这篇文章，对于理解”OS”很有帮助。</p>
+<blockquote>
+<p><strong>Container Host</strong>: Also called the Host OS. The Host OS is the operating system on which the Docker client and Docker daemon run. In the case of Linux and non-Hyper-V containers, the Host OS shares its kernel with running Docker containers. For Hyper-V each container has its own Hyper-V kernel.<br> <strong>Container OS</strong>: Also called the Base OS. The base OS refers to an image that contains an operating system such as Ubuntu, CentOS, or windowsservercore. Typically, you would build your own image on top of a Base OS image so that you can take utilize parts of the OS. Note that windows containers require a Base OS, while Linux containers do not.<br> <strong>Operating System Kernel</strong>: The Kernel manages lower level functions such as memory management, file system, network and process scheduling.</p>
+</blockquote>
+<h2 id="菜鸟回答"><a href="#菜鸟回答" class="headerlink" title="菜鸟回答"></a>菜鸟回答</h2><p>基于以上信息，已经可以给出我这种菜鸟回答了：Docker的每一个镜像都必须有一个Base OS, 这个Base OS 可以是 Linux 的发行版，也可以是windows的，上边已经提到，这个Base OS 在Host OS 是Linux的时候可以“不必要”，其实，是一种特殊的Base OS 叫做<a href="https://hub.docker.com/r/library/scratch/" target="_blank" rel="noopener">scratch</a>，文章<a href="https://docs.docker.com/develop/develop-images/baseimages/" target="_blank" rel="noopener">Create a base image</a>给出了如何基于scratch创建一个Base Image（Base image 和 Base OS image 不是一样的概念!）。</p>
+<p>我们所使用的常见的image，基本上都是以一个Host OS image为base的， 暨Dockerfile中都会有类似<code>FROM debian:stretch-slim</code>的基于OS image的语句。以nginx 为例，nginx既有基于debian也有基于alpine的镜像，tag分别是nginx:version和nginx:version-alpine，查看其Dockerfile可以看出，最大的不同点在于一个是<code>FROM debian:stretch-slim</code>和<code>FROM alpine:3.7</code>。下载镜像，可以看出其大小的区别，不得不说，基于alpine的和基于debian的镜像大小确实不是一个量级的。文章<a href="https://www.brianchristner.io/docker-image-base-os-size-comparison/" target="_blank" rel="noopener">Docker Base Image OS Size Comparison</a>对不同的Base OS image大小做了一个对比，感兴趣的可以看一看。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">nginx               <span class="number">1.13</span><span class="number">.10</span>-alpine      <span class="number">91</span>ce6206f9d8        <span class="number">10</span> days ago         <span class="number">18</span>MB</span><br><span class="line">nginx               <span class="number">1.13</span><span class="number">.10</span>             <span class="number">7</span>f70b30f2cc6        <span class="number">10</span> days ago         <span class="number">109</span>MB</span><br></pre></td></tr></table></figure>
+<h2 id="再进一步"><a href="#再进一步" class="headerlink" title="再进一步"></a>再进一步</h2><p>文章<a href="https://blog.risingstack.com/operating-system-containers-vs-application-containers/" target="_blank" rel="noopener">Operating System Containers vs. Application Containers</a>讲述了虚拟机和容器的实现上的区别，可以很明白地看到，容器是直接基于Host OS kernel的，这也就是为什么在Mac和Windows上的Docker Client是基于Linux VM的<a href="https://docs.docker.com/develop/develop-images/baseimages/" target="_blank" rel="noopener">[5]</a>。在文章<a href="http://www.floydhilton.com/docker/2017/03/31/Docker-ContainerHost-vs-ContainerOS-Linux-Windows.html" target="_blank" rel="noopener">[4]</a>也可以看到，如果是Windows类型的容器，是必须建立在Winndows type的Base image上，或者是一个完整的“虚拟机容器”。</p>
+<p><img src="http://obqjd695a.bkt.clouddn.com/os-virtualization.jpg" alt=""></p>
+<p><a href="https://serverfault.com/questions/659557/os-docker-container-what-is-the-difference-with-a-vm-then" target="_blank" rel="noopener">Stackoverflow</a> 上有一个回答挺不错的，解释了为什么会有Base image，同样贴出原文，可以很明白的看到，Base image 提供的正式容器运行需要的<strong> root filesystem</strong>。</p>
+<blockquote>
+<p>Now you should wonder how is it possible to get a process runing inside a linux base image different from the linux distribution your host is running with. For an OS to run you basically need : </p>
+<ul>
+<li>A boot filesystem : contains the bootloader and the kernel that will reside in memory once loaded. We don’t care about this in the case of Docker containers because the kernel is shared with the host and is the common part between all linux distributions.</li>
+<li>A root filesystem : contains the filesystem structure. It may be different from one linux distribution to another. It’s read-only until the boot sequence has finished.</li>
+</ul>
+</blockquote>
+<p>如果从Docker的分层架构上来看<a href="https://blog.risingstack.com/operating-system-containers-vs-application-containers/" target="_blank" rel="noopener">[8]</a>，为什么需要Base image也会明朗许多。 在另一个 <a href="https://serverfault.com/questions/755607/why-do-we-use-a-os-base-image-with-docker-if-containers-have-no-guest-os" target="_blank" rel="noopener">Stackoverflow</a>上同样有一个不错的回答，这个回答中说的是<strong>userland</strong>，感兴趣的也可以看一下。</p>
+<p><img src="http://obqjd695a.bkt.clouddn.com/docker-layers.png" alt=""></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">Docker 入门教程</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html" target="_blank" rel="noopener">Docker 微服务教程</a></li>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">Docker — 从入门到实践</a></li>
+<li><a href="http://www.floydhilton.com/docker/2017/03/31/Docker-ContainerHost-vs-ContainerOS-Linux-Windows.html" target="_blank" rel="noopener">Understanding Docker “Container Host” vs. “Container OS” for Linux and Windows Containers</a></li>
+<li><a href="https://docs.docker.com/develop/develop-images/baseimages/" target="_blank" rel="noopener">Create a base image</a> </li>
+<li><a href="https://www.brianchristner.io/docker-image-base-os-size-comparison/" target="_blank" rel="noopener">Docker Base Image OS Size Comparison</a></li>
+<li><a href="https://blog.risingstack.com/operating-system-containers-vs-application-containers/" target="_blank" rel="noopener">Operating System Containers vs. Application Containers</a></li>
+<li><a href="https://serverfault.com/questions/659557/os-docker-container-what-is-the-difference-with-a-vm-then" target="_blank" rel="noopener">OS docker container: what is the difference with a VM then?</a></li>
+<li><a href="https://serverfault.com/questions/755607/why-do-we-use-a-os-base-image-with-docker-if-containers-have-no-guest-os" target="_blank" rel="noopener">Why do we use a OS Base Image with Docker if containers have no Guest OS?</a></li>
+</ol>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Docker/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Docker</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/12/02/理解python-with语句/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/12/02/理解python-with语句/" itemprop="url">理解python with语句</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-12-02T13:50:08+08:00">2017-12-02 13:50:08</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>Python中的with语句可谓是相当的好用了，省去了<code>try...finally...</code>的复杂写法，<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="noopener">浅谈 Python 的 with 语句</a> 一文写的已经非常详细里，解决了使用过程中的两点疑问。文中的代码清单也主要摘自这篇文章。</p>
+<p>清单1: with语句执行过程<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">context_manager = context_expression</span><br><span class="line"><span class="keyword">exit</span> = type(context_manager).__exit__  </span><br><span class="line">value = type(context_manager).__enter__(context_manager)</span><br><span class="line">exc = True   <span class="comment"># True 表示正常执行，即便有异常也忽略；False 表示重新抛出异常，需要对异常进行处理</span></span><br><span class="line">try:</span><br><span class="line">    try:</span><br><span class="line">        target = value  <span class="comment"># 如果使用了 as 子句</span></span><br><span class="line">        with-body     <span class="comment"># 执行 with-body</span></span><br><span class="line">    except:</span><br><span class="line">        <span class="comment"># 执行过程中有异常发生</span></span><br><span class="line">        exc = False</span><br><span class="line">        <span class="comment"># 如果 __exit__ 返回 True，则异常被忽略；如果返回 False，则重新抛出异常</span></span><br><span class="line">        <span class="comment"># 由外层代码对异常进行处理</span></span><br><span class="line">        <span class="keyword">if</span> not <span class="keyword">exit</span>(context_manager, *sys.exc_info()):</span><br><span class="line">            raise</span><br><span class="line">    finally:</span><br><span class="line">        <span class="comment"># 正常退出，或者通过 statement-body 中的 break/continue/return 语句退出</span></span><br><span class="line">        <span class="comment"># 或者忽略异常退出</span></span><br><span class="line">        <span class="keyword">if</span> exc:</span><br><span class="line">            <span class="keyword">exit</span>(context_manager, None, None, None) </span><br><span class="line">            <span class="comment"># 缺省返回 None，None 在布尔上下文中看做是 False</span></span><br></pre></td></tr></table></figure></p>
+<p>从上边的逻辑可以看出，1.如果with语句块发生异常，那么执行except中的流程释放资源，并根据<code>exit()</code>函数返回值决定是否向上抛出异常；2.如果执行过程无异常，那么走finally中的逻辑释放资源。</p>
+<h2 id="1-还用不用处理异常？"><a href="#1-还用不用处理异常？" class="headerlink" title="1. 还用不用处理异常？"></a>1. 还用不用处理异常？</h2><p>异常是必须处理的, with语句解决的只是保证了finally中的语句的执行，在with语句块内发生了异常而有没有处理，那么会直接执行with所代替的finally中的语句，并抛出异常给外层上下文，和正常情况下的异常处理流程是一样的。</p>
+<h2 id="2-如果-exit-内部异常？"><a href="#2-如果-exit-内部异常？" class="headerlink" title="2. 如果__exit__内部异常？"></a>2. 如果<code>__exit__</code>内部异常？</h2><p>引用文章<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="noopener">浅谈 Python 的 with 语句</a> 中的解释:</p>
+<blockquote>
+<p>退出与上下文管理器相关的运行时上下文，返回一个布尔值表示是否对发生的异常进行处理。参数表示引起退出操作的异常，如果退出时没有发生异常，则3个参数都为None。如果发生异常，返回<br>True 表示不处理异常，否则会在退出该方法后重新抛出异常以由 with 语句之外的代码逻辑进行处理。如果该方法内部产生异常，则会取代由 statement-body 中语句产生的异常。要处理异常时，不要显示重新抛出异常，即不能重新抛出通过参数传递进来的异常，只需要将返回值设置为 False 就可以了。之后，上下文管理代码会检测是否 <strong>exit</strong>() 失败来处理异常</p>
+</blockquote>
+<p>通过例子来看一下：</p>
+<ul>
+<li>with语句块异常，但正确释放资源</li>
+</ul>
+<p>清单2: 自定义支持 with 语句的对象</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DummyResource</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, tag)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">self</span>.tag = tag</span><br><span class="line">    print <span class="string">'Resource [%s]'</span> % tag</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__enter__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">    print <span class="string">'[Enter %s]: Allocate resource.'</span> % <span class="keyword">self</span>.tag</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>   <span class="comment"># 可以返回不同的对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(<span class="keyword">self</span>, exc_type, exc_value, exc_tb)</span></span><span class="symbol">:</span></span><br><span class="line">    print <span class="string">'[Exit %s]: Free resource.'</span> % <span class="keyword">self</span>.tag</span><br><span class="line">    <span class="keyword">if</span> exc_tb is <span class="symbol">None:</span></span><br><span class="line">        print <span class="string">'[Exit %s]: Exited without exception.'</span> % <span class="keyword">self</span>.tag</span><br><span class="line">    <span class="symbol">else:</span></span><br><span class="line">        print <span class="string">'[Exit %s]: Exited with exception raised.'</span> % <span class="keyword">self</span>.tag</span><br><span class="line">    <span class="keyword">return</span> False   <span class="comment"># 可以省略，缺省的None也是被看做是False</span></span><br></pre></td></tr></table></figure>
+<p>清单3: with语句块引起异常<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">    <span class="keyword">with</span> DummyResource(<span class="symbol">'With</span>-<span class="keyword">Exception</span>'):</span><br><span class="line">         print '[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>.'</span><br><span class="line">         <span class="keyword">raise</span> <span class="keyword">Exception</span>(<span class="symbol">'with</span>-block <span class="keyword">exception</span>')</span><br><span class="line">         print '[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>. Failed to finish statement-<span class="keyword">body</span>!'</span><br><span class="line">except <span class="keyword">Exception</span> as e:</span><br><span class="line">    print e</span><br></pre></td></tr></table></figure></p>
+<p>执行上边的代码，可以看到打印的信息，释放完资源后，异常抛出给with外层进行处理，如果外层没有<code>try</code>语句的话，在本例中会由系统打印调用栈并退出。<br>如果<code>__exit__</code>返回True，那么打印信息的最后一行<code>with-block exception</code>将不会被打印，因为with语句释放完资源后，把这个异常“压”下来了。<br>清单4: 正常释放资源，抛出原有异常<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Enter <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Allocate resource.</span><br><span class="line">[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>.</span><br><span class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Free resource.</span><br><span class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Exited <span class="keyword">with</span> <span class="keyword">exception</span> raised.</span><br><span class="line"><span class="keyword">with</span>-block <span class="keyword">exception</span></span><br></pre></td></tr></table></figure></p>
+<p>稍微对上边的代码修改一下，在<code>__exit__</code>函数中重新抛出一个异常，如清单5，重新执行清单3的调用，得到清单6的结果。<br>清单5：<code>__exit__</code>抛出异常<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(self, exc_type, exc_value, exc_tb)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'[Exit %s]: Free resource.'</span> % self.tag</span><br><span class="line">    <span class="keyword">if</span> exc_tb <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'[Exit %s]: Exited without exception.'</span> % self.tag</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'[Exit %s]: Exited with exception raised.'</span> % self.tag</span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'new exception in __exit__'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>清单6: <code>__exit__</code>抛出新异常执行结果<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Resource [<span class="keyword">With</span>-<span class="keyword">Exception</span>]</span><br><span class="line">[Enter <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Allocate resource.</span><br><span class="line">[<span class="keyword">with</span>-<span class="keyword">body</span>] Run <span class="keyword">with</span> <span class="keyword">exception</span>.</span><br><span class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Free resource.</span><br><span class="line">[<span class="keyword">Exit</span> <span class="keyword">With</span>-<span class="keyword">Exception</span>]: Exited <span class="keyword">with</span> <span class="keyword">exception</span> raised.</span><br><span class="line">__exit__ <span class="keyword">exception</span>.</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，如果<code>__exit__</code>重新抛出了一个异常，就会覆盖掉原有异常，如果资源正常释放，只需要返回False或者True来表示是否将with语句的异常抛给外层调用。</p>
+<h2 id="3-其他使用"><a href="#3-其他使用" class="headerlink" title="3.其他使用"></a>3.其他使用</h2><p>使用contextmanager装饰器、nested函数、closing上下文管理器等语法可以参考<br>【<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="noopener">浅谈 Python 的 with 语句</a>】或者 【<a href="https://docs.python.org/release/2.6.6/library/contextlib.html" target="_blank" rel="noopener">contextlib — Utilities for with-statement contexts</a>】等文章，不再赘述。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html" target="_blank" rel="noopener">浅谈 Python 的 with 语句</a></li>
+<li><a href="https://docs.python.org/release/2.6.6/library/contextlib.html" target="_blank" rel="noopener">contextlib — Utilities for with-statement contexts</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0343/" target="_blank" rel="noopener">PEP 343 – The “with” Statement</a></li>
+</ol>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Python/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/11/21/关于目前工作的一点感想/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/11/21/关于目前工作的一点感想/" itemprop="url">关于目前工作的一点感想</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-11-21T22:39:37+08:00">2017-11-21 22:39:37</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/个人日记/" itemprop="url" rel="index"><span itemprop="name">个人日记</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>从7月份入职以来，时时感觉到目前的工作跟我所期望的差别很大，但又不知道该如何取舍。</p>
+<p>在面试的时候，经理问我是否愿意从事一些产品相关的工作，由于是岗位是机器学习，所以我想那么即使是产品相关，最起码也是要用到机器学习的，不论是数学层面、算法层面还是架构层面，这样是比较符合我的预期的，所以就签合同入职。可是入职这么久以来，发现当初没有对岗位做更多的了解，是很大的一个坑，这也是校招的同学普遍遇到的一个难点和痛点，除非是在公司以及组内部亲自实习过。</p>
+<p>倒不是说这几个月来没有成长，而是在我所期望的技术以及能力层面上收效甚少。除了维护一些遗留下来的旧产品模块儿，就只剩下一个热词了。在入职以后，我也不得不承认自己与科班出身的同学差距比较大，同样的一个东西我可能需要吭哧好久，但是除了一些业务上的熟悉之外，没有得到更多我想要的成长了，而业务上的东西是带不走的，虽然熟悉公司内部的业务很重要。</p>
+<p>原本也想着身处一个国内相对较好的技术环境内，再加上自己的学习，肯定能进步特别多。现在看来也是太天真了，团队技术是不错，每两周也会有分享，这些也都是有用的，但是收效也少。最为担心的事情是根本就没有自己的事件，每天醒来上班知道晚上回去，需求特别多，想在自己的方向上进行一些积累就显得欲求无门了。我层怀疑公司内部都是这么忙的，和一个从别的组转岗过来的同学，他说他们原来的组没有这边事情这么多，每天还是有很多自己学习、积累的时间，只有大搜才这么忙。</p>
+<p>总说时间是海绵里的水，上高中时班主任也经常说我就是人太懒，当时还很不服气——自觉还不错。现在回想起来，我的自制力确实很弱，比如下班之后我是看不进去任何东西的（尤其是现在），在周六日的时候一个懒觉就占用了很多时间。也可能是我忘记了、放弃了曾经想要的，按现在这种状态下去也必定只能放弃，特别羡慕那些能够白天高效工作、晚上仍能坚持充电的牛人。还有就是白天的效率也不高，总觉得像是被KPI推动的走，没有主动性了。</p>
+<p>如果这样久了，就没有跳出现有生活的动力和能力了；如果现在就跳出来，也没有那个能力，更是不能利用好目前这样一个平台。因此，还得必须自制自律，吃得苦中苦，方觉不知苦。</p>
+<p>都说不忘初心，方得始终。初心是什么千万不能忘记，而为了初心，也定要付出更多才行！</p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/工作与初心/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>工作与初心</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/10/05/python-str-formation/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/10/05/python-str-formation/" itemprop="url">Python字符串格式化</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-10-05T17:24:10+08:00">2017-10-05 17:24:10</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>使用Python的时间也不短了，可是对字符串格式化的方式还是不怎么了解，尤其是对于自定义类型，如何实现友好的格式化输出？</p>
+<p>printf-style的字符串格式化”%”号操作符的使用方法就不再赘述了，如果”%”后面不止一个参数，那么需要传入一个tuple，或者是一个dict。</p>
+<p>由于”%”使用并不是那么方便，在非dict参数的情况下，tuple需要按照顺序组织，并且同一个参数不能够多次使用[<a href="https://mail.python.org/pipermail/python-3000/2006-April/000285.html" title="[Python-3000] String formating operations in python 3k" target="_blank" rel="noopener">1</a>]。于是就提出了使用模板进行字符串格式化的方法[<a href="https://www.python.org/dev/peps/pep-3101/#id9" title="PEP 3101 -- Advanced String Formatting" target="_blank" rel="noopener">2</a>]。这两种方法有在功能上有一定的重复，如何选择也全看个人喜好。</p>
+<p>相对来说，模板格式化字符串功能更为强大和灵活，其语法可以参考[<a href="https://docs.python.org/3/library/string.html#formatstrings" title="string — Common string operations" target="_blank" rel="noopener">3</a>]，下面主要关注自定义类的格式化显示。</p>
+<ul>
+<li>在使用”%”操作符时，后面的转换字符代表的含义[<a href="https://docs.python.org/3/library/stdtypes.html#string-formatting-operations" target="_blank" rel="noopener">4</a>]:<blockquote>
+<p>  ‘r’ String (converts any Python object using repr()).<br>  ‘s’    String (converts any Python object using str()).<br>  ‘a’    String (converts any Python object using ascii()).</p>
+</blockquote>
+</li>
+</ul>
+<p>对应的，我们可以定义自定义类的<code>__repr__()</code>、<code>__str__()</code> 来实现格式化输出（<code>ascii()</code>同<code>repr()</code>一样调用<code>__repr__()</code>，但会对non-ASCII字符进行转义，结果形如\x, \u, \U等[<a href="https://docs.python.org/3/library/functions.html#ascii" title="Built-in Functions" target="_blank" rel="noopener">5</a>]）。</p>
+<ul>
+<li>使用模板格式化时，我们除了可以使用内置的<code>!s</code>、<code>!r</code>、<code>!a</code>转换实现与上边相同的效果外，还可以通过定义类的<code>__format__</code>实现自定义格式化方法，这样就非常灵活了，线面通过例子来看一下。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line">class Test:</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        <span class="built_in">return</span> <span class="string">'in __str__()'</span></span><br><span class="line"></span><br><span class="line">    def __format__(self, format_spec):</span><br><span class="line">        <span class="keyword">if</span> format_spec == <span class="string">'own1'</span>:</span><br><span class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), own1 method'</span></span><br><span class="line">        <span class="keyword">elif</span> format_spec == <span class="string">'s'</span>:</span><br><span class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), s method'</span></span><br><span class="line">        <span class="keyword">elif</span> format_spec == <span class="string">'h'</span>:</span><br><span class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), h method'</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">return</span> <span class="string">'in __format__(), default method'</span></span><br><span class="line"></span><br><span class="line">    def __repr__(self):</span><br><span class="line">        <span class="built_in">return</span> <span class="string">'in __repr__()'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span> = Test()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'str(test) shows '</span> + str(<span class="built_in">test</span>)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'repr(test) shows '</span> + repr(<span class="built_in">test</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'\n-----------% format ----------'</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'%%s shows %s'</span> % <span class="built_in">test</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'%%r shows %r'</span> % <span class="built_in">test</span></span><br><span class="line">    <span class="comment"># print '%%h shows %h' % test # will cause  ValueError: incomplete format</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'\n---------template format --------'</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;&#125;&#125; shows &#123;&#125;'</span>.format(<span class="built_in">test</span>)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;!r&#125;&#125; shows &#123;!r&#125;'</span>.format(<span class="built_in">test</span>)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;!s&#125;&#125; shows &#123;!s&#125;'</span>.format(<span class="built_in">test</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'\n---------template use __format__() --------'</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:s&#125;&#125; shows &#123;:s&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ s conversion</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:h&#125;&#125; shows &#123;:h&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ h conversion</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:own1&#125;&#125; shows &#123;:own1&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ own1 conversion</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">'&#123;&#123;:&#125;&#125; shows &#123;:&#125;'</span>.format(<span class="built_in">test</span>) <span class="comment"># use __format__ default conversion</span></span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">str(test) shows <span class="keyword">in</span> __str__()</span><br><span class="line">repr(test) shows <span class="keyword">in</span> __repr__()</span><br><span class="line"></span><br><span class="line">-----------% format ----------</span><br><span class="line">%s shows <span class="keyword">in</span> __str__()</span><br><span class="line">%r shows <span class="keyword">in</span> __repr__()</span><br><span class="line"></span><br><span class="line">---------template format --------</span><br><span class="line">&#123;&#125; shows <span class="keyword">in</span> __format__(),<span class="built_in"> default </span>method</span><br><span class="line">&#123;!r&#125; shows <span class="keyword">in</span> __repr__()</span><br><span class="line">&#123;!s&#125; shows <span class="keyword">in</span> __str__()</span><br><span class="line"></span><br><span class="line">---------template use __format__() --------</span><br><span class="line">&#123;:s&#125; shows <span class="keyword">in</span> __format__(), s method</span><br><span class="line">&#123;:h&#125; shows <span class="keyword">in</span> __format__(), h method</span><br><span class="line">&#123;:own1&#125; shows <span class="keyword">in</span> __format__(), own1 method</span><br><span class="line">&#123;:&#125; shows <span class="keyword">in</span> __format__(),<span class="built_in"> default </span>method</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果只是实现简单的格式化，那么”%”和模板都可以实现，自定义类通过定义<code>__str__()</code>和<code>__repr__()</code>来实现，但如果需要对一个类实现（多种）自定义转换的格式化，那么需要定义类的<code>__format__()</code>方法，并且只能通过使用模板来实现自定义转换的格式化。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://mail.python.org/pipermail/python-3000/2006-April/000285.html" title="[Python-3000] String formating operations in python 3k" target="_blank" rel="noopener">[Python-3000] String formating operations in python 3k</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-3101/#id9" title="PEP 3101 -- Advanced String Formatting" target="_blank" rel="noopener">PEP 3101 – Advanced String Formatting</a></li>
+<li><a href="https://docs.python.org/3/library/string.html#formatstrings" title="string — Common string operations" target="_blank" rel="noopener">string — Common string operations</a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#string-formatting-operations" target="_blank" rel="noopener">https://docs.python.org/3/library/stdtypes.html#string-formatting-operations</a></li>
+<li><a href="https://docs.python.org/3/library/functions.html#ascii" title="Built-in Functions" target="_blank" rel="noopener">Built-in Functions</a></li>
+</ol>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Python/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python</a>
+        
+        <a class="post-tag button" href="/tags/格式化/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>格式化</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/09/17/ways-of-python-import/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/09/17/ways-of-python-import/" itemprop="url">Python模块的相对导入和绝对导入</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-09-17T13:25:27+08:00">2017-09-17 13:25:27</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>刚开始用Python写代码，对于import的方式不是很理解，尤其是导入上层包的模块时，经常会使用<code>sys.path.append(&#39;..&#39;)</code>，然后再import，很不优雅，所以花些时间全部梳理一遍。</p>
+<p>首先需要明白明白两个概念<strong>包</strong>和<strong>模块</strong>，很多人也都了解，贴出<a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">runoob</a>（页面跟W3C好像，他们有什么关系吗？）上给出的两个定义。</p>
+<ul>
+<li><p>模块</p>
+<blockquote>
+<p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。<br>模块让你能够有逻辑地组织你的 Python 代码段。<br>把相关的代码分配到一个模块里能让你的代码更好用，更易懂。<br>模块能定义函数，类和变量，模块里也能包含可执行的代码。</p>
+</blockquote>
+</li>
+<li><p>包</p>
+<blockquote>
+<p>包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。<br>简单来说，包就是文件夹，但该文件夹下必须存在 <code>__init__.py</code> 文件, 该文件的内容可以为空。<code>__int__.py</code>用于标识当前文件夹是一个包。</p>
+</blockquote>
+</li>
+</ul>
+<p>从顶层模块（sys.path）或者当前的包中导入模块，使用<code>import module</code>或者<code>from module import xxx</code>的方式就不再赘述，不过有一种使用括号进行的多模块导入方式，如：<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">from</span> from <span class="type">Tkinter</span> <span class="keyword">import</span> (<span class="type">Tk</span>, <span class="type">Frame</span>, <span class="type">Button</span>, <span class="type">Entry</span>, <span class="type">Canvas</span>, <span class="type">Text</span>,</span><br><span class="line">    <span class="type">LEFT</span>, <span class="type">DISABLED</span>, <span class="type">NORMAL</span>, <span class="type">RIDGE</span>, <span class="type">END</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这样可以避免使用反斜杠续行，稍微优雅一些，多行的字符串也可以使用一样的括号语法实现。记住，<code>from module import *</code>是绝对的不推荐的，会意外地“污染”命名空间。</p>
+<p><strong>相对导入和绝对导入</strong>是这次讨论的重点，在项目中，肯定不意外地会建立不同层级和结构关系的包，那么在这些包之间，我们又应该如何导入要引用的模块？</p>
+<h1 id="绝对导入"><a href="#绝对导入" class="headerlink" title="绝对导入"></a>绝对导入</h1><p>在Python 2.4之前，如果使用了<code>import foo</code>，如果当前包内也有一个模块foo，由于解释器是不知道你导入的是顶层模块还是当前包内的模块，根据模块寻找加载的顺序[]，当前包内的foo模块就会覆盖掉顶层的foo模块，而可能引起不必要的歧义。于是要求foo必须是在sys.path中能够寻到的模块或包，这就是绝对导入的定义。python-dev 社区选择将绝对导入作为默认导入的方式，一来是因为更常用，二是因为绝对导入可以提供相对导入的全部功能.</p>
+<p>在Python 2.5 和 2.6中，绝对导入是可选的，需要在文件开头添加<code>from __future__ import absolute_import</code>来实现默认的绝对导入。</p>
+<h1 id="相对导入"><a href="#相对导入" class="headerlink" title="相对导入"></a>相对导入</h1><p>相对导入是根据模块的<code>__name__</code>属性来决定模块的位置，然后计算相对路径，在同一个项目相邻层级的包和模块中最为常用，也最为方便。关于相对导入的语法实现模式，有一个很有趣也很广泛的讨论，看着那些先驱开发者的讨论，收获也是蛮多的，感兴趣的参考<a href="https://www.python.org/dev/peps/pep-0328/" title="PEP 328 -- Imports: Multi-Line and Absolute/Relative" target="_blank" rel="noopener">PEP 328 – Imports: Multi-Line and Absolute/Relative</a>。最后，Guido采用”.”前缀表示相对导入，和Unix系统中的目录表示含义一样，一个”.”表示当年层级，多一个就表示向上一层。下面是一些例子：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .moduleY <span class="keyword">import</span> spam</span><br><span class="line"><span class="keyword">from</span> .moduleY <span class="keyword">import</span> spam <span class="keyword">as</span> ham</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> moduleY</span><br><span class="line"><span class="keyword">from</span> ..subpackage1 <span class="keyword">import</span> moduleY</span><br><span class="line"><span class="keyword">from</span> ..subpackage2.moduleZ <span class="keyword">import</span> eggs</span><br><span class="line"><span class="keyword">from</span> ..moduleA <span class="keyword">import</span> foo</span><br><span class="line"><span class="keyword">from</span> ...package <span class="keyword">import</span> bar</span><br><span class="line"><span class="keyword">from</span> ...sys <span class="keyword">import</span> path</span><br></pre></td></tr></table></figure></p>
+<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>相对导入必须使用 <code>from .&lt;&gt; import xxx</code>(并且至少含有一个.符号)的模式，<code>import &lt;&gt;</code>总是绝对导入，当然，如果<code>from &lt;&gt; import</code>中没有句点，那么也是绝对导入。但是类似<code>import .foo</code>的方式是非合法语句，因为<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import XXX<span class="selector-class">.YYY</span><span class="selector-class">.ZZZ</span></span><br></pre></td></tr></table></figure></p>
+<p>的<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XXX<span class="selector-class">.YYY</span><span class="selector-class">.ZZZ</span></span><br></pre></td></tr></table></figure></p>
+<p>是可用的表达式，而<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> .moduleY</span><br></pre></td></tr></table></figure></p>
+<p>的<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">.moduleY</span></span><br></pre></td></tr></table></figure></p>
+<p>不是一个可用的表达式。</p>
+<h1 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h1><p>使用相对导入还是绝对导入，可以完全凭个人喜好。但是为了代码的可阅读性，一般的共识是不超过两层的层级可以使用相对导入，试想一下，如果有超过3个的”.”，还能够正确快速地知道向上到了哪个层级吗?这个时候使用绝对导入会更加方便，代码也更好维护。不论哪一种导入方式，也都会有重构时的麻烦（如重命名一个模块），但是我想在IDE如此普遍使用的情况下，这个因素应该是最不值得考虑的了。加一个TODO吧，参阅一些优秀的开源框架源码，看看他们是如何组织的。</p>
+<h1 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h1><p>使用了相对导入以后，如果直接以<code>python script_name.py</code>的方式运行脚本，Python解释器会报<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#python 2</span></span><br><span class="line"><span class="symbol">ValueError:</span> Attempted relative import <span class="keyword">in</span> non-package</span><br></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#python 3</span></span><br><span class="line">SystemError: Parent <span class="keyword">module</span> <span class="string">''</span> <span class="keyword">not</span> loaded, cannot perform relative <span class="keyword">import</span></span><br></pre></td></tr></table></figure></p>
+<p>的错误，可以使用<code>python -m script_name.py</code>加上-m开关的方式运行，-m用于告诉解释器以脚本的方式运行模块，具体这样做的原因将在下一篇文章中分析。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="http://kuanghy.github.io/2016/07/21/python-import-relative-and-absolute" title="Python 相对导入与绝对导入" target="_blank" rel="noopener">Python 相对导入与绝对导入</a></li>
+<li><a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">http://www.runoob.com/python/python-modules.html</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0328/" title="PEP 328 -- Imports: Multi-Line and Absolute/Relative" target="_blank" rel="noopener">PEP 328 – Imports: Multi-Line and Absolute/Relative</a></li>
+<li><a href="http://codingpy.com/article/python-import-101/" title="Python导入模块的几种姿势" target="_blank" rel="noopener">Python导入模块的几种姿势</a></li>
+</ol>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Python/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python</a>
+        
+        <a class="post-tag button" href="/tags/import/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>import</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/09/05/switch-encoding-in-terminal/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/09/05/switch-encoding-in-terminal/" itemprop="url">终端高效切换编码</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-09-05T20:51:21+08:00">2017-09-05 20:51:21</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>在以前的时候，终端编码通通设置的都是UTF-8，即使有一两台远程机，因为有自主权也都是UTF-8编码，包括数据库表格，也都是统一UTF-8编码，不得不说这样统一以后非常方便，几乎也没有考虑过编码不同带来的烦恼。</p>
+<p>来到公司工作一段时间后才发现，自己的开发机还好说，设置成UTF-8就可以了，保持原有惯例。然而，需要经常登录别的机器看任务跑代码就会发现乱码了，好吧，手动把终端(iTerm2)调到GBK，结束以后再调回来；然后过了没两天，会发现其他机器的Mysql表格也是GBK的，好吧还得暂调GBK。最大的问题还不在于麻烦，我一个终端下连接了多台服务器和数据库，编码都不统一，这可怎么办？</p>
+<p>在网上找到了两种方案，第一种是基于iTerm2的，可以参考<a href="http://blog.chenxiaosheng.com/posts/2013-10-29/mac_osx_iterm2_utf8_gbk_switch.html" target="_blank" rel="noopener">Mac OSX iTerm2 终端UTF-8和GBK编码自由切换</a>，虽然我是iTerm2的用户，但是觉得这种方法还是有些麻烦，如果我不用iTerm2还不能解决了？</p>
+<p>当然还有其他利器，那就是luit.</p>
+<p>参考IBM Knowledge Center上的介绍<a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_61/com.ibm.aix.cmds3/luit.htm" target="_blank" rel="noopener">luit 命令</a></p>
+<blockquote>
+<p>luit 命令是一个过滤器，在任意应用程序和 UTF-8 终端仿真器之间运行。luit 命令将应用程序输出从语言环境的编码转换为 UTF-8，并将终端输入从 UTF-8 转换为语言环境的编码。</p>
+<blockquote>
+<p>注：<br>多语言应用程序必须设置为仅生成 UTF-8 代码。不得使用命令生成 UTF-8 之外的输出。</p>
+</blockquote>
+</blockquote>
+<p>luit的安装也非常简单，参考 <a href="https://blog.jamespan.me/2015/06/12/luit-with-tmux" target="_blank" rel="noopener">Tmux、Luit 杂谈</a>过程如下。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget -c ftp:<span class="comment">//invisible-island.net/luit/luit.tar.gz</span></span><br><span class="line">tar -xzvf luit<span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">cd luit-<span class="number">20141204</span>/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>其使用可以man一下，或者参考<a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_61/com.ibm.aix.cmds3/luit.htm" target="_blank" rel="noopener">luit 命令</a>，下面简单给出两个示例。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">luit </span>-encoding gbk ssh relay-mechine</span><br><span class="line"><span class="comment"># 这样登录远程机器用的就是GBK编码了</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">luit </span>-encoding gbk mysql -u mysql_user -p </span><br><span class="line"><span class="comment">#这样连接数据库用的也是GBK编码</span></span><br></pre></td></tr></table></figure>
+<p>最后不得不吐槽一下我司，是因为出于历史原因吗，固守GBK阵营？</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_61/com.ibm.aix.cmds3/luit.htm" target="_blank" rel="noopener">luit 命令</a></li>
+<li><a href="https://blog.jamespan.me/2015/06/12/luit-with-tmux" target="_blank" rel="noopener">Tmux、Luit 杂谈</a></li>
+<li><a href="http://blog.chenxiaosheng.com/posts/2013-10-29/mac_osx_iterm2_utf8_gbk_switch.html" target="_blank" rel="noopener">Mac OSX iTerm2 终端UTF-8和GBK编码自由切换</a></li>
+</ol>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Linux/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Linux</a>
+        
+        <a class="post-tag button" href="/tags/Encoding/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Encoding</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/09/02/parse-command-line-args-in-python/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/09/02/parse-command-line-args-in-python/" itemprop="url">Python中解析命令行参数</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-09-02T21:47:03+08:00">2017-09-02 21:47:03</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>Python中常用的获取命令行参数的方法有三种，分别可适用于不同的场景。</p>
+<h1 id="直接从sys-argv中获取"><a href="#直接从sys-argv中获取" class="headerlink" title="直接从sys.argv中获取"></a>直接从sys.argv中获取</h1><p>sys.agrv保存了命令行的参数列表，其中，<code>sys.argv[0]</code>保存的是脚本的名称，所以要获取自己传入的参数时，需要从第二个元素开始，参数的顺序与<code>sys.argv</code>中一致。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># m1.<span class="keyword">py</span></span><br><span class="line">import sys</span><br><span class="line"><span class="keyword">print</span> <span class="string">'The length of sys.argv is %d'</span> % <span class="built_in">len</span>(sys.<span class="built_in">argv</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Argument list: '</span>,str(sys.<span class="built_in">argv</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python m1.py <span class="keyword">first</span> <span class="keyword">second</span> <span class="keyword">third</span></span><br><span class="line">The <span class="built_in">length</span> <span class="keyword">of</span> sys.argv <span class="keyword">is</span> <span class="number">4</span></span><br><span class="line">Argument <span class="built_in">list</span>:  ['m1.py', '<span class="keyword">first</span>', '<span class="keyword">second</span>', '<span class="keyword">third</span>']</span><br></pre></td></tr></table></figure>
+<p><strong>获这种方法适用于参数较少的时候，使用者按照固定顺序将所需参数传入即可，同时，取的参数都是str类型，需要用户自行转换为所需类型。</strong></p>
+<h1 id="使用getopt-getopt获取参数"><a href="#使用getopt-getopt获取参数" class="headerlink" title="使用getopt.getopt获取参数"></a>使用getopt.getopt获取参数</h1><p>当参数比较多的时候我们可能需要明确指定参数名称，又或者我们可能需要一些可选参数，使用第一种方法就不是那么方便了，所以我们可以用getopt来解析参数，其调用方式如下所示。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">getopt</span><span class="selector-class">.getopt</span>(<span class="selector-tag">args</span>, <span class="selector-tag">options</span>, <span class="selector-attr">[long_options]</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>args是将被解析的参数列表</li>
+<li>options是需要识别的参数名列表，当然不一定非得有参数，比如-h用来输出帮助信息，当有对应参数的时候，需要在标识符后边添加一个分号”:”。</li>
+<li>long_options可选参数是长参数名列表，如–long-name，当有参数传入的时候，需要在右边添加等号”=”。</li>
+</ul>
+<p>函数返回一个二元组，第一个元素是（option,value)列表，第二个元素是未识别的参数列表。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#m2.<span class="keyword">py</span></span><br><span class="line">#codin<span class="variable">g:utf</span>-<span class="number">8</span></span><br><span class="line">import sys, getopt</span><br><span class="line"></span><br><span class="line">opts, left_args = getopt.getopt(sys.<span class="built_in">argv</span>[<span class="number">1</span>:], <span class="string">'i:h'</span>, [<span class="string">'in='</span>,<span class="string">'help'</span>]) #第一个参数是脚本名，不传入</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">opt</span>, val in <span class="keyword">opt</span><span class="variable">s:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'-h'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'不含参数Help Info'</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'--help'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'不含参数Help Info2'</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'-i'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'短参数-i: '</span>, val</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'--in'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'长参数--ifile: '</span>, val</span><br><span class="line"><span class="keyword">print</span> <span class="string">'未识别参数：'</span>, str(left_args)</span><br></pre></td></tr></table></figure>
+<p>运行结果<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python m2<span class="selector-class">.py</span> -<span class="selector-tag">i</span> short_arg --<span class="keyword">in</span>=long_arg -h --help left_arg</span><br><span class="line">短参数-<span class="selector-tag">i</span>:  short_arg</span><br><span class="line">长参数--ifile:  long_arg</span><br><span class="line">不含参数Help Info</span><br><span class="line">不含参数Help Info2</span><br><span class="line">未识别参数： [<span class="string">'left_arg'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>这种方法已经能够应对大多数情况了，不过获取的val仍是str类型。</p>
+<h1 id="使用argparse模块解析参数"><a href="#使用argparse模块解析参数" class="headerlink" title="使用argparse模块解析参数"></a>使用argparse模块解析参数</h1><p>argparse 模块最大的特点就是可以建立用户友好的命令行接口，可以实现指定需要传入的参数，自动解析sys.argv，自动生成帮助信息、错误信息等。如果要使用getopt来达到同样的效果，就需要写很多很多的代码啦。</p>
+<p>argparse 通过ArgumentParser对象实现参数的解析，可以很友好地实现帮助信息、参数传入前缀、参数冲突等特性，其通过add_argument方法添加具体的参数——包括位置参数和可选参数等，同时可以指定这些参数的个数、转换类型、默认值、限定枚举值、是否必须以及别名等信息。argparse的使用会比上述两个复杂一些，但是其功能更强大、使用更友好一些。具体使用方法可以单独写一篇文章了，但是官方文档已经给出了很详细的示例了，所以这里就不在赘述，感兴趣的可以参阅<a href="https://docs.python.org/2.7/library/argparse.html" target="_blank" rel="noopener">argparse — Parser for command-line options, arguments and sub-commands</a>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上述三个方法从简单到复杂，功能从单一到丰富，开发人员可根据需要选择。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://www.tutorialspoint.com/python/python_command_line_arguments.htm" target="_blank" rel="noopener">Python Command Line Arguments</a></li>
+<li><a href="https://docs.python.org/2.7/library/argparse.html" target="_blank" rel="noopener">argparse — Parser for command-line options, arguments and sub-commands</a></li>
+</ol>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Python/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python</a>
+        
+        <a class="post-tag button" href="/tags/args/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>args</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/08/19/charset-encoding-and-in-python/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/08/19/charset-encoding-and-in-python/" itemprop="url">字符集、字符编码以及Python中编码的那些事</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-08-19T22:53:43+08:00">2017-08-19 22:53:43</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>总会遇到乱码的问题，也总是按照网上的教程一步一步操作，解决的过程就像碰运气，从来没有总结过，再次遇到的时候还是不知道是什么问题，所以，花一点时间，总结一下。</p>
+<h1 id="字符集和字符编码"><a href="#字符集和字符编码" class="headerlink" title="字符集和字符编码"></a>字符集和字符编码</h1><p><strong>字符集</strong>是一个系统支持的抽象字符的集合。这个集合是有限集合，包括文字、标点和数字等，由于计算机内部全部都是数字存储，所以字符集本身也是一个符号与数字之间的映射关系，比如ASCII字符集中大写字母A的编号是65。存储或传输的时候计算机根据字符集将人能看懂的字符换算成计算机能看懂的数字，输出的时候再换算成人能看懂的字符。</p>
+<p><strong>字符编码</strong>，计算机系统内部全部采用二进制，那么将数字转换成二进制的时候采用什么规则呢，比如采用几位，高位代表什么，低位代表什么等，这就是所谓的编码规则。</p>
+<p><strong>乱码</strong>，计算机按照指定或默认的编码规则对bit位进行解码，由于与存储或接收时使用的编码规则不一致，就导致了翻译出来的字符不是原来的字符，造成所谓的乱码，即我们人类看不懂。</p>
+<h1 id="常用的字符集和字符编码"><a href="#常用的字符集和字符编码" class="headerlink" title="常用的字符集和字符编码"></a>常用的字符集和字符编码</h1><p>常见的字符集有ASCII，能表示128个字符，扩展ASCII能表示256个字符，GBXXX字符集是我国专家设计的一套字符集，还有包括繁体字的汉字字符集BIG5，这些字符集同时规定了编码规则，所以他们<strong>同时也是字符编码</strong>，需要说明的是，他们都是兼容ASCII编码的。</p>
+<h1 id="Unicode-和-UTF-8"><a href="#Unicode-和-UTF-8" class="headerlink" title="Unicode 和 UTF-8"></a>Unicode 和 UTF-8</h1><p>最容易搞混的是Unicode和UTF-8了，因为像上面那样每个语言或者地区都搞一套，在互联网中普及非常不便，于是就出现了<strong>Unicode字符集</strong>，目前已经超过了十万字符，可以包括多种文字，这个字符集规定了符号系统到数字的映射，但是并没有规定统一的编码规则。</p>
+<p>UTF-8，UTF-16，UTF-32都是Unicode的编码规则，其中UTF-32同意采用4个字节表示字符，空间浪费较大，所以不常见，UTF-8是一种变长的编码方式，因为文本的重点不在于关注编码规则的细节，所以就不再赘述，具体实现可以参见其他作者的文章。</p>
+<p><strong>所以，我们常见的GBXXX,ASCII,BIG5等本身即是指代字符集，也是字符编码，而Unicode只是字符集，UTF-8只是字符编码。</strong></p>
+<h1 id="Python-中的编码"><a href="#Python-中的编码" class="headerlink" title="Python 中的编码"></a>Python 中的编码</h1><p>这里主要有三个问题：</p>
+<ol>
+<li>str和unicode类型有什么区别？</li>
+<li>源文件开头的#coding:utf-8是做什么用的，跟源文件的编码有什么关系？</li>
+<li>源文件的编码对程序有没有影响？</li>
+<li>file = open(‘xxx’),file.read()是怎样对文件进行解码的？</li>
+</ol>
+<p>首先来看第一个问题，再Python2中，通过<code>s1=&#39;str字符串&#39;</code>得到的是str对象，而<code>s2=u&#39;unicode字符串&#39;</code>得到的是unicode对象，这两种都是<code>basestring</code>类型的子类，从官方文档<a href="https://docs.python.org/2/howto/unicode.html" target="_blank" rel="noopener">Unicode HOWTO</a>中的解释</p>
+<blockquote>
+<p>Python represents Unicode strings as either 16- or 32-bit integers, depending on how the Python interpreter was compiled.</p>
+</blockquote>
+<p>可以看出，unicode字符串可以看做直接存储的是该字符对应的Unicode数字码，在<a href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#str-he-unicode" target="_blank" rel="noopener">PYTHON-进阶-编码处理小结</a>一文中，还对比了用<code>len()</code>求两者长度的区别，其中，<code>len(&#39;中文&#39;)</code>得到的结果为6，而<code>len(u&#39;中文&#39;)</code>得到的结果才是实际意义上的2。在<a href="https://pythonhosted.org/kitchen/unicode-frustrations.html" target="_blank" rel="noopener">Overcoming frustration: Correctly using unicode in python2</a>中也解释了str类型和unicode类型的不同，str类型是实际上bytes序列，<code>len(str)</code>所得到的也是序列的长度，而不是实际意义上的字符串长度。</p>
+<blockquote>
+<p>In python, the unicode type stores an abstract sequence of code points. Each code point represents a grapheme. By contrast, byte str stores a sequence of bytes which can then be mapped to a sequence of code points. Each unicode encoding (UTF-8, UTF-7, UTF-16, UTF-32, etc) maps different sequences of bytes to the unicode code points.</p>
+</blockquote>
+<p>Python开发者通常会写<code>#coding: utf-8</code>或者类似的encoding hint在源文件的前两行（也只有在前两行才起作用，并且该编码必须兼容ASCII，UTF-16就不能正常工作）。 很多人明白的一点就是：<strong>如果源代码文件中出现了非ASCII字符集中的字符，我们需要写这样的注释</strong>。 但是对于像我这样的新手来说，常常会有一个问题，这句话的作用是什么，又和源文件本身的编码什么关系？</p>
+<p>在Python2.1中，Unicode字符串只能采用”unicode-escape”的方式，比如需要定义”中文”两个字，须得<code>s = u&#39;\u4e2d\u6587&#39;</code>，而不能直接出现<code>s = u&#39;中文&#39;</code>这样的代码，这就对使用非拉丁字符的开发者非常不友好，所以就有了<a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="noopener">PEP263</a>，该网页中也解释了该lint的作用，即<strong>使用指定的编码将源代码中的字符串字面量转换成unicode，而这与源文件编码本身并没有直接关系</strong>。</p>
+<blockquote>
+<p>This PEP proposes to introduce a syntax to declare the encoding of a Python source file. The encoding information is then used by the Python parser to interpret the file using the given encoding. <strong>Most notably this enhances the interpretation of Unicode literals in the source code and makes it possible to write Unicode literals using e.g. UTF-8 directly in an Unicode aware editor</strong>.</p>
+</blockquote>
+<blockquote>
+<p>…</p>
+</blockquote>
+<blockquote>
+<p>In Python 2.1, Unicode literals can only be written using the Latin-1 based encoding “unicode-escape”. This makes the programming environment rather unfriendly to Python users who live and work in non-Latin-1 locales such as many of the Asian countries. <strong>Programmers can write their 8-bit strings using the favorite encoding, but are bound to the “unicode-escape” encoding for <em>Unicode literals</em> </strong>.</p>
+</blockquote>
+<p>有的读者可能看到了，刚才的引用中明明提到了</p>
+<blockquote>
+<p>The encoding information is then used by the Python parser to interpret the file using the given encoding.</p>
+</blockquote>
+<p>怎么能说与源文件的编码无关呢？</p>
+<p>这里就需要了解Python解释器工作的流程了，在<a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="noopener">PEP263</a>中有说明：</p>
+<blockquote>
+<p>Python’s tokenizer/compiler combo will need to be updated to work as follows:<br>A. read the file<br>B. decode it into Unicode assuming a fixed per-file encoding<br>C. convert it into a UTF-8 byte string<br>D. tokenize the UTF-8 content<br>E. compile it, creating Unicode objects from the given Unicode data and creating string objects from the Unicode literal data by first reencoding the UTF-8 data into 8-bit string data using the given file encoding</p>
+</blockquote>
+<p>注意：步骤B中的encoding指的不是我们声明的<code>coding:encoding</code>，而是源文件保存在磁盘上的编码，我们用到的编码只在步骤E中使用到，下面的实验中也证明了这一点。</p>
+<p>最后需要说明的是open(‘file’).read()得到的按字节读取的str类型，可以参考<a href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#str-he-unicode" target="_blank" rel="noopener">PYTHON-进阶-编码处理小结</a>。</p>
+<p>现在有两个文件及其运行结果，因为我的终端环境为UTF-8，所以GB18030的str输出始终是乱码的。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#utf8.<span class="keyword">py</span></span><br><span class="line">#codin<span class="variable">g:utf</span>-<span class="number">8</span></span><br><span class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'UTF-8源py中的str中文字符'</span></span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">u</span><span class="string">'UTF-8源py中的unicode中文字符'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./utf8text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./gb18030text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline().decode(<span class="string">'gb18030'</span>)</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line"># 运行:<span class="keyword">python</span> utf8.<span class="keyword">py</span></span><br><span class="line"></span><br><span class="line">UTF-<span class="number">8</span>源<span class="keyword">py</span>中的str中文字符</span><br><span class="line">UTF-<span class="number">8</span>源<span class="keyword">py</span>中的unicode中文字符</span><br><span class="line">UTF8文件中的编码</span><br><span class="line"></span><br><span class="line">GB18030�ļ��еı���</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#gb18030.<span class="keyword">py</span></span><br><span class="line">#codin<span class="variable">g:</span> GB18030</span><br><span class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'GB18030源py中的str中文'</span></span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">u</span><span class="string">'GB18030源py中的unicode中文'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./utf8text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./gb18030text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line">#python gb18030.<span class="keyword">py</span></span><br><span class="line">GB18030Դ<span class="keyword">py</span>�е�str����</span><br><span class="line">GB18030源<span class="keyword">py</span>中的unicode中文</span><br><span class="line">UTF8文件中的编码</span><br><span class="line"></span><br><span class="line">GB18030�ļ��еı���</span><br></pre></td></tr></table></figure>
+<p>还有一个文件utf8gb18030.py，它的源文件编码为UTF-8，但是我在头部声明了<code>coding:utf-8</code>，来看一下这个文件的运行结果为什么：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#codin<span class="variable">g:</span> GB18030</span><br><span class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'str:UTF-8源py中的中文字符,但是coding声明为GB18033'</span></span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">u</span><span class="string">'unicode:UTF-8源py中的中文字符,但是coding声明为GB18033'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./utf8text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./gb18030text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line"># <span class="keyword">python</span> utf8gb18030.<span class="keyword">py</span></span><br><span class="line">str:UTF-<span class="number">8</span>源<span class="keyword">py</span>中的中文字符,但是coding声明为GB18033</span><br><span class="line">unicode:UTF-<span class="number">8</span>婧恜<span class="keyword">y</span>涓殑涓枃瀛楃,浣嗘槸coding澹版槑涓篏B18033</span><br><span class="line">UTF8文件中的编码</span><br><span class="line"></span><br><span class="line">GB18030�ļ��еı���</span><br></pre></td></tr></table></figure>
+<p>我们知道，unicode对象在print到时候会根据sys.out的默认编码进行encode()的，所以不应该出现乱码情况，但是在第三次试验中，本该乱码的str没有问题，不该出现乱码的unicode却乱码了，这说明在上述解释器运行的过程中，步骤B和步骤E使用的不是同一编码，否则运行结果中unicode是不会乱码的。虽然两者不必相等，但是我们也看到了，这会带来更大的困扰，更难定位问题所在，所以<strong>一定要保证源文件的编码与声明的<code>#coding:encoding</code>一致，否则很难跳出坑的</strong>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>作为一个非纯Latin-1开发者，一定要在头部声明encoding hint。</li>
+<li>为了避免不必要的麻烦，声明的encoding hint 一定要与源文件的编码一致。</li>
+<li>在程序内部最好统一处理为unicode进行，在输出的时候在进行encode，如file.readline().decode(‘你的文件编码’)得到unicode，在写文件的时候可以指定unicode_str.encode(‘你需要的编码’)。</li>
+<li>字面量字符串只是用u’xxx’得到unicode。</li>
+<li>str可以decode得到unicode，unicode可以encode得到str，其他方向的编解码是不可行的！</li>
+</ol>
+<p>难免出错，还请不吝指教。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode和UTF-8</a><br><a href="http://www.cnblogs.com/skynet/archive/2011/05/03/2035105.html" target="_blank" rel="noopener">字符集和字符编码（Charset &amp; Encoding）</a><br><a href="cn.nytimes.com/culture/20150123/t23questions">关于Python脚本开头两行的：#!/usr/bin/python和# -<em>- coding: utf-8 -</em>-的作用 – 指定文件编码类型</a><br><a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="noopener">PEP 263 – Defining Python Source Code Encodings</a><br><a href="https://pythonhosted.org/kitchen/unicode-frustrations.html" target="_blank" rel="noopener">Overcoming frustration: Correctly using unicode in python2</a><br><a href="https://docs.python.org/2/howto/unicode.html" target="_blank" rel="noopener">Unicode HOWTO</a><br><a href="http://stormhouse.github.io/posts/2013/character-encoding-python/" target="_blank" rel="noopener">python中的字符编码</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/charset/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>charset</a>
+        
+        <a class="post-tag button" href="/tags/encode/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>encode</a>
+        
+        <a class="post-tag button" href="/tags/Python/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>Python</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/03/31/d3-example-of-different-data-structures/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/03/31/d3-example-of-different-data-structures/" itemprop="url">d3-example-of-different-data-structures</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-03-31T15:10:46+08:00">2017-03-31 15:10:46</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <style>
 img{height:200px;}
 </style>
 
-</div><p class="readmore"><a href="/2017/03/31/d3-example-of-different-data-structures/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/">就折腾到这儿吧</a></h1><div class="post-meta">2016-12-27</div><a data-disqus-identifier="2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/" href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>上上周从百度搜索部Rank组面试回来之后，就有点不安，三面的面试官直接告诉我这面的表现不好，让她很担心。说这句话分明是让我很担心，核心部门还是很值得期待的。一周都没有音信，想必是挂掉了，不曾想今天接到HR电话联系offer事宜，终于可以把心放肚子里了。</p>
-<p>今年四月份的时候面了一次腾讯实习，不意外地终止在一面。回来之后那个惶恐啊，突然间发现以自身的能力什么工作都找不到，但同时还欠着小论文没写，刚换了题目还没有看文献，一下子都不知道该做什么了。接下来的几个月也是最痛苦的，东一棒槌西一榔头，压根没有主心骨。</p></div><p class="readmore"><a href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/">Read More</a></p></div><nav class="page-navigator"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next</a></nav><script id="dsq-count-scr" src="//dequn-blog.disqus.com/count.js" async></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://dequn.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Others/">Others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Phoenix/">Phoenix</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Zeppelin/">Zeppelin</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人日记/">个人日记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/Zookeeper/" style="font-size: 15px;">Zookeeper</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/Secondary-Index/" style="font-size: 15px;">Secondary Index</a> <a href="/tags/hindex/" style="font-size: 15px;">hindex</a> <a href="/tags/Phoenix/" style="font-size: 15px;">Phoenix</a> <a href="/tags/Global-Index/" style="font-size: 15px;">Global Index</a> <a href="/tags/Local-Index/" style="font-size: 15px;">Local Index</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Controller/" style="font-size: 15px;">Controller</a> <a href="/tags/filter/" style="font-size: 15px;">filter</a> <a href="/tags/select-cascding/" style="font-size: 15px;">select-cascding</a> <a href="/tags/ui-router/" style="font-size: 15px;">ui-router</a> <a href="/tags/charset/" style="font-size: 15px;">charset</a> <a href="/tags/encode/" style="font-size: 15px;">encode</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/d3/" style="font-size: 15px;">d3</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/Intellij-IDEA/" style="font-size: 15px;">Intellij IDEA</a> <a href="/tags/Hadoop/" style="font-size: 15px;">Hadoop</a> <a href="/tags/Endpoint/" style="font-size: 15px;">Endpoint</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/CentOS/" style="font-size: 15px;">CentOS</a> <a href="/tags/VIM/" style="font-size: 15px;">VIM</a> <a href="/tags/MacVim/" style="font-size: 15px;">MacVim</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/MapReduce/" style="font-size: 15px;">MapReduce</a> <a href="/tags/args/" style="font-size: 15px;">args</a> <a href="/tags/spark/" style="font-size: 15px;">spark</a> <a href="/tags/pyenv/" style="font-size: 15px;">pyenv</a> <a href="/tags/格式化/" style="font-size: 15px;">格式化</a> <a href="/tags/Interceptor/" style="font-size: 15px;">Interceptor</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Encoding/" style="font-size: 15px;">Encoding</a> <a href="/tags/RowFilter/" style="font-size: 15px;">RowFilter</a> <a href="/tags/Docker/" style="font-size: 15px;">Docker</a> <a href="/tags/import/" style="font-size: 15px;">import</a> <a href="/tags/Zeppelin/" style="font-size: 15px;">Zeppelin</a> <a href="/tags/职业选择/" style="font-size: 15px;">职业选择</a> <a href="/tags/工作与初心/" style="font-size: 15px;">工作与初心</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/01/why-docker-has-OS-image/">Docker的OS image是做什么用的</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/02/理解python-with语句/">理解python with语句</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/21/关于目前工作的一点感想/">关于目前工作的一点感想</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/05/python-str-formation/">Python字符串格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/17/ways-of-python-import/">Python模块的相对导入和绝对导入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/05/switch-encoding-in-terminal/">终端高效切换编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/02/parse-command-line-args-in-python/">Python中解析命令行参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/19/charset-encoding-and-in-python/">字符集、字符编码以及Python中编码的那些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/31/d3-example-of-different-data-structures/">d3-example-of-different-data-structures</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/">就折腾到这儿吧</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> Recent Comments</i></div><script type="text/javascript" src="//dequn-blog.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">dequn's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+
+<p>A simple list of chart types and data structure.</p>
+<h1 id="Single-property"><a href="#Single-property" class="headerlink" title="Single property"></a>Single property</h1><h2 id="Box-Plots"><a href="#Box-Plots" class="headerlink" title="Box Plots"></a>Box Plots</h2><ul>
+<li>Description: Use for Statistics: the smallest value, lower quartile, median, upper quartile,<br>and largest value.</li>
+<li>Example:None.</li>
+</ul>
+<h2 id="Bubble-Chart"><a href="#Bubble-Chart" class="headerlink" title="Bubble Chart"></a>Bubble Chart</h2><ul>
+<li>Description: Statistics, the area of circel stands for the count of a value, proper<br>to large amount of values than <strong>Bar Chart</strong>.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/dbaf877e0e81e571ae42fa1f6e1115bf052f72ca/687474703a2f2f64336a732e6f72672f65782f627562626c652e706e67" alt=""></li>
+</ul>
+<h2 id="Bullet-Chart"><a href="#Bullet-Chart" class="headerlink" title="Bullet Chart"></a>Bullet Chart</h2><ul>
+<li>Description: A variation on a bar chart, compare a quantitative measure anainst<br>qualiative ranges and related markders.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/490b4c309e5ecb769b3969bed04b3b49bf516065/687474703a2f2f64336a732e6f72672f65782f62756c6c65742e706e67" alt=""></li>
+</ul>
+<h2 id="Calendar-Chart"><a href="#Calendar-Chart" class="headerlink" title="Calendar Chart"></a>Calendar Chart</h2><ul>
+<li>Description: Values are visualized as colored cells per day, Use for compartion<br>between moths/years while having a day value detail.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/bc2b1c93d21e80d23c99da8ebd59617e94581327/687474703a2f2f64336a732e6f72672f65782f63616c656e6461722e706e67" alt=""></li>
+<li>Example: <img src="https://camo.githubusercontent.com/fb70dfff84f2b442e89a6799e13343eda2387dc1/68747470733a2f2f676973742e6769746875622e636f6d2f746a6465636b652f353535383038342f7261772f7468756d626e61696c322e706e67" alt=""></li>
+</ul>
+<h2 id="Circular-heat-chart"><a href="#Circular-heat-chart" class="headerlink" title="Circular heat chart"></a><a href="http://prcweb.co.uk/circularheatchart/" target="_blank" rel="noopener">Circular heat chart</a></h2><ul>
+<li>Description: A head map with a circular layout.</li>
+<li>Example: <img src="http://prcweb.co.uk/img/rainfall-1980-2012.jpg" alt=""></li>
+<li>Example: <img src="https://github.com/nicgirault/circosJS/raw/master/doc/temperatures.png" alt=""></li>
+</ul>
+<h2 id="A-3d-exmaple-for-one-property"><a href="#A-3d-exmaple-for-one-property" class="headerlink" title="A 3d exmaple for one property"></a>A 3d exmaple for one property</h2><p><img src="https://camo.githubusercontent.com/be49e2d5950922a2b221d6578fb2fe0f84b69384/687474703a2f2f616e696d61746564646174612e636f2e756b2f696d672f64332d67616c6c6572792f756b74656d70657261747572656c696e6573332e6a7067" alt=""></p>
+<h1 id="A-and-B"><a href="#A-and-B" class="headerlink" title="A and B"></a>A and B</h1><h2 id="Chord-Diagram"><a href="#Chord-Diagram" class="headerlink" title="Chord Diagram"></a>Chord Diagram</h2><ul>
+<li>Description: Show directed relationships among a group of entities.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/cc8ad10f5975dff97a5d6801269f8203101b20b9/687474703a2f2f64336a732e6f72672f65782f63686f72642e706e67" alt="abc"></li>
+</ul>
+<h2 id="Force-Directed-Graph"><a href="#Force-Directed-Graph" class="headerlink" title="Force-Directed Graph"></a>Force-Directed Graph</h2><ul>
+<li>Description: Shows character co-occurence, related character in closer<br>proximity and unrelated characters are farther apart.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/d7b97d7c0873e949f827918763174efcca6c4a5f/687474703a2f2f64336a732e6f72672f65782f666f7263652e706e67" alt=""></li>
+<li>Variants: <a href="https://bl.ocks.org/mbostock/4600693" target="_blank" rel="noopener">Curved Links</a>, <a href="http://bost.ocks.org/mike/fisheye/" target="_blank" rel="noopener">Fisheye<br>Distoration</a>, <a href="http://bost.ocks.org/mike/miserables/" target="_blank" rel="noopener">Matrix diagram</a><br>, <a href="http://mbostock.github.io/d3/talk/20111116/force-collapsible.html" target="_blank" rel="noopener">Collapse Force layout</a><br>, <a href="http://bl.ocks.org/MoritzStefaner/1377729" target="_blank" rel="noopener">Force-based label</a></li>
+</ul>
+<h2 id="Sector-Comparation"><a href="#Sector-Comparation" class="headerlink" title="Sector Comparation"></a><a href="http://www.brightpointinc.com/united-states-trade-deficit/" target="_blank" rel="noopener">Sector Comparation</a></h2><ul>
+<li>Description: Comparation between two main properties with some sub propritis.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/c2826f9a0c78f2f0404b094c891348b72d38d54e/687474703a2f2f7777772e627269676874706f696e74696e632e636f6d2f696e7465726163746976652f696d616765732f446566696369745f32303270782e706e67" alt=""></li>
+</ul>
+<h1 id="A-B-and-C"><a href="#A-B-and-C" class="headerlink" title="A, B and C"></a>A, B and C</h1><h2 id="Circle-gram"><a href="#Circle-gram" class="headerlink" title="Circle gram"></a>Circle gram</h2><ul>
+<li>Description:(X,Y)-&gt;Z, Z use circle and the area stands for Z value.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/d5cc8b32409a9d498d83ce13c3f13ec7ac664601/687474703a2f2f6e657572616c656e67722e636f6d2f61736966722f6a6f75726e616c732f6a6f75726e616c732e706e67" alt=""><br><img src="https://camo.githubusercontent.com/3fb6699cd8462e7a82b69c04ac5cb37b968c0f09/687474703a2f2f64336a732e6f72672f65782f66616365626f6f6b2d69706f2e706e67" alt=""></li>
+</ul>
+<h1 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h1><p>The following charts are used for showing data which has a tree data structure.</p>
+<h2 id="Dendrogram"><a href="#Dendrogram" class="headerlink" title="Dendrogram"></a>Dendrogram</h2><ul>
+<li>Description: Leaf nodes of the tree at the same depth, are aligned on the<br>right edge.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/e1a1948f0bcfa095d54793afd3ab96af97731773/687474703a2f2f64336a732e6f72672f65782f636c75737465722e706e67" alt=""></li>
+</ul>
+<h2 id="Hierarchical-Edge-Bundling"><a href="#Hierarchical-Edge-Bundling" class="headerlink" title="Hierarchical Edge Bundling"></a>Hierarchical Edge Bundling</h2><ul>
+<li>Exampel: <img src="https://camo.githubusercontent.com/75572c7b80dabb1a0984bd8ea9d3ee16c5200fe3/687474703a2f2f64336a732e6f72672f65782f62756e646c652e706e67" alt=""></li>
+</ul>
+<h2 id="Treemap"><a href="#Treemap" class="headerlink" title="Treemap"></a>Treemap</h2><ul>
+<li>Description: A treemap recursively subdivideds area into rectangles, the area<br>of any node in the tree corresponds to its value.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/e6612268ca90a8c2f6d1da62f85d7d86616c37de/687474703a2f2f64336a732e6f72672f65782f747265656d61702e706e67" alt=""></li>
+</ul>
+<h2 id="Partition-layout"><a href="#Partition-layout" class="headerlink" title="Partition layout"></a>Partition layout</h2><ul>
+<li>Description: A treemap recursively subdivideds in horizational.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/48f41725f95dad3f65f65e5f47c1b70e932be48c/687474703a2f2f64336a732e6f72672f65782f706172746974696f6e2d7a6f6f6d2e706e67" alt=""></li>
+</ul>
+<h2 id="Circle-packing"><a href="#Circle-packing" class="headerlink" title="Circle packing"></a>Circle packing</h2><ul>
+<li>Description: Use containment to represent the hierarchy, the area of circle<br>can stand for item value, it better reveals the hierarchy than treemap.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/428c04c95f2a18ce7178d9d6135f1eab8df10ebd/687474703a2f2f64336a732e6f72672f65782f7061636b2e706e67" alt=""></li>
+<li>Variants: <a href="http://mbostock.github.com/d3/talk/20111116/pack-hierarchy.html" target="_blank" rel="noopener">Zoomable Pack layout</a></li>
+</ul>
+<h2 id="Sunburst"><a href="#Sunburst" class="headerlink" title="Sunburst"></a>Sunburst</h2><ul>
+<li>Description: A treemap has a radial layout, all the root nodes are at the<br>center.</li>
+<li>Exampel: <img src="https://camo.githubusercontent.com/1415e2af369262e466534480edbc7baa883e5b58/687474703a2f2f64336a732e6f72672f65782f73756e62757273742e706e67" alt=""></li>
+<li>Variants: <a href="http://www.jasondavies.com/coffee-wheel/" target="_blank" rel="noopener">Zoomable Sunburst</a>, <a href="http://bl.ocks.org/kerryrodden/7090426" target="_blank" rel="noopener">Sequences sunburst</a></li>
+</ul>
+<h2 id="Node-Link-Tree"><a href="#Node-Link-Tree" class="headerlink" title="Node-Link Tree"></a>Node-Link Tree</h2><ul>
+<li>Description: The depth of nodes is computed by distance from the root, leading<br>to a ragged appearance.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/e646acd936244a6db8a140fb0e1e421d95b97d8e/687474703a2f2f64336a732e6f72672f65782f747265652e706e67" alt=""></li>
+</ul>
+<h1 id="A-B-C-…-gt-D-E-F-…-with-intermediate-nodes"><a href="#A-B-C-…-gt-D-E-F-…-with-intermediate-nodes" class="headerlink" title="A, B , C, … -&gt; D, E, F, … with intermediate nodes."></a>A, B , C, … -&gt; D, E, F, … with intermediate nodes.</h1><h2 id="Sankey-Diagrams"><a href="#Sankey-Diagrams" class="headerlink" title="Sankey Diagrams"></a><a href="https://bost.ocks.org/mike/sankey/" target="_blank" rel="noopener">Sankey Diagrams</a></h2><ul>
+<li>Description: Sankey diagrams visualize the magnitude of flow between nodes in<br>a network. This intricate diagram shows a possible scenario for UK energy<br>production and consumption in 2050: energy supplies are on the left, and<br>demands are on the right. Intermediate nodes group related forms of production<br>and show how energy is converted and transmitted before it is consumed (or<br>lost!). The thickness of each link encodes the amount of flow from source to<br>target.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/d9abb5b2b474c0e37728abedb9ba722f8b6e4f24/687474703a2f2f64336a732e6f72672f65782f73616e6b65792e706e67" alt=""></li>
+</ul>
+<h1 id="Compare-n-properties"><a href="#Compare-n-properties" class="headerlink" title="Compare n properties"></a>Compare n properties</h1><h2 id="Time-Series-Comparation"><a href="#Time-Series-Comparation" class="headerlink" title="Time Series Comparation"></a>Time Series Comparation</h2><ul>
+<li>Description: None.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/aa4653694ba96e7991206963a698584169d54204/68747470733a2f2f676973742e6769746875622e636f6d2f6d6172756662642f373139313334302f7261772f616230353765656639323237653534393834333163303330633661643530343863623332366133612f7468756d626e61696c2e706e67" alt=""></li>
+</ul>
+<h2 id="Streamgraph"><a href="#Streamgraph" class="headerlink" title="Streamgraph"></a>Streamgraph</h2><ul>
+<li>Description: None.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/3cbc8c7898d1336e83e499cb66274c15e63f65bf/687474703a2f2f64336a732e6f72672f65782f73747265616d2e706e67" alt=""></li>
+</ul>
+<h2 id="Bar-Line-Scatter-Stacked-bar-etc"><a href="#Bar-Line-Scatter-Stacked-bar-etc" class="headerlink" title="Bar, Line, Scatter, Stacked bar, etc."></a>Bar, Line, Scatter, Stacked bar, etc.</h2><h2 id="Radial-plot"><a href="#Radial-plot" class="headerlink" title="Radial plot"></a>Radial plot</h2><ul>
+<li>Description: Boxplot for continuous data.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/f17a69dcf4d6cf3020fc77016844d6c46ae5419a/687474703a2f2f626c2e6f636b732e6f72672f646176696477636c696e2f7261772f61643564313364623236306361656666653962332f7468756d626e61696c2e706e67" alt=""></li>
+</ul>
+<h2 id="Radar-Chart"><a href="#Radar-Chart" class="headerlink" title="Radar Chart"></a>Radar Chart</h2><ul>
+<li>Description: Comparation between n properties, all of them have the save<br>sacle.</li>
+<li>Example: <img src="https://raw.githubusercontent.com/nbremer/thumbnails/master/D3%20Radar%20Chart%20Redesign.png" alt=""></li>
+</ul>
+<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><h2 id="Choropleth"><a href="#Choropleth" class="headerlink" title="Choropleth"></a><a href="https://bl.ocks.org/mbostock/4060606" target="_blank" rel="noopener">Choropleth</a></h2><ul>
+<li>Description: Color stands for value and showd in a geo-map.</li>
+<li>Example: <img src="https://camo.githubusercontent.com/0afefbc191693b8ecaea58cda0b587a908fc0174/687474703a2f2f64336a732e6f72672f65782f63686f726f706c6574682e706e67" alt=""></li>
+</ul>
+<p>Not all, visit <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" rel="noopener">https://github.com/d3/d3/wiki/Gallery</a> for more examples.</p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/d3/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>d3</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/" itemprop="url">就折腾到这儿吧</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-12-27T19:00:58+08:00">2016-12-27 19:00:58</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/个人日记/" itemprop="url" rel="index"><span itemprop="name">个人日记</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>上上周从百度搜索部Rank组面试回来之后，就有点不安，三面的面试官直接告诉我这面的表现不好，让她很担心。说这句话分明是让我很担心，核心部门还是很值得期待的。一周都没有音信，想必是挂掉了，不曾想今天接到HR电话联系offer事宜，终于可以把心放肚子里了。</p>
+<p>今年四月份的时候面了一次腾讯实习，不意外地终止在一面。回来之后那个惶恐啊，突然间发现以自身的能力什么工作都找不到，但同时还欠着小论文没写，刚换了题目还没有看文献，一下子都不知道该做什么了。接下来的几个月也是最痛苦的，东一棒槌西一榔头，压根没有主心骨。</p>
+<p>好在暑期的时候终于把小论文凑完了，赶紧刷算法，面试也都陆陆续续的开始了，准备了不到一个月，就进入秋招高峰期，也就没有再静心准备了。笔试一个接着一个，面试仍还是倒在一面。腾讯地图部门提前批感觉还不错，结果不行，微店一面感觉不好，挂掉…从来不知道二面是什么样子，更担心——妈的这得到什么时候才能找到工作。</p>
+<p>面京东的时候比较顺利，虽然在一二面中已经知道岗位不是我想做的，但为了保底也要面下去，滑稽的是HR面挂了…真是见鬼了，短短5分钟的电面，我想犯错都难啊。后来华为也是，两面觉得非常顺利，不料仍然是failed，莫非真如师兄所说的：我犯了低级错误？但已然不记得了…</p>
+<p>百度是第一个给offer的公司，也是唯一一个给了两次offer的。9月份校招面试机器学习，一面就挂了，面试官觉得coding还不错，推荐我去面开发测试，并给了一点职业规划的建议（真是好人啊，哈哈），后来顺利通过开发测试的三轮面试，所以说多数人当天都是三轮面试，我却面了四轮，也是够有趣的。之后觉得岗位不太合适就拒绝掉了，需要说明的是我一直是以岗位为目标的，对公司没有什么要求，所以后面一个小公司给了数据挖掘的岗位觉得还不错就签了，搜狗面试要我进去做web开发，犹豫了一下之后就以“目前还没有在web开发上有较清晰的职业规划”婉拒了，也就不意外的无果而终了。</p>
+<p>现在想来真是作，为什么非得一根筋的非得去面数据挖掘\机器学习，压根没有任何相关的项目经验怎么去面！在签了小公司的数据挖掘岗位后进入观望阶段，赶紧的补补课，事实上囫囵吐枣半懂不懂地学习了一段时间后就也没再坚持。直到看到百度搜索部门的补招信息，并意外的有面试机会，真心不容易。一二面还不错，三面面试官在说了我表现不好之后还补充一句：其实你的简历在机器筛选的时候就没能通过，后来看你项目经历涉及的方面比较多，所以才又给提出来看看你的综合能力…</p>
+<p>简历平平，因为能力、经历实在是太一般，也难怪很多公司始终没给我面试的机会。大师兄没少给加油打气，导致我自己都快相信他说的了（肯定没问题！），思考后才明白:鼓励不是你已经做到了，而是需要做到的，我们太容易认为那些鼓励的话都已是事实了。</p>
+<p>这已经是我能折腾到的最好结果了，纯粹是撞运气的结果，论真实力怎么也不可能胜任的。虽然我也是个百度黑，很多人也骂它，但能“委身”于这样的现实也很满足了。接下来就是有个明确的规划和计划，总不能跳离的时候还是平平吧？</p>
+<p>感谢给我内推的师兄、师姐和一些个招聘平台，感谢老板给我开放、自由的时间和空间，感谢周围的小伙伴儿，最后感谢一下面试官吧。</p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/面试/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>面试</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a>
+  </nav>
+  
+  
+</section>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/sidebar_background.png);">
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI" alt="dequn">
+  
+  <h1 class="author-name">dequn</h1>
+  <h2 class="author-description"> 这些文章没啥用</h2>
+  <div class="site-count">
+    
+    <div class="archives-count">
+      <div class="site-count-title">Archives</div>
+      <div><a href="/archives/">38</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="categories-count">
+      <div class="site-count-title">Categories</div>
+      <div><a href="/categories/">11</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="tags-count">
+      <div class="site-count-title">Tags</div>
+      <div><a href="/tags/">44</a></div>
+    </div>
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+<hr>
+<div class="social-link sidebar-item">
+  <div><i class="far fa-address-card"></i>Social Links</p></div>
+  <ul>
+    
+    <li><i class="fas fa-envelope"></i><a href="mailto:dqzhangchn@gmail.com" target="_blank">E-Mail</a></li>
+    
+    <li><i class="fab fa-github"></i><a href="https://github.com/dequn" target="_blank">GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <a id="back-to-top"><i class="fas fa-angle-double-up"></i></a>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">dequn</span><span class="year"><i class="far fa-copyright"></i>2018</span>
+        </div>
+        
+        
+<div class="busuanzi">
+  <span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv"></span></span>
+</div>
+
+
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

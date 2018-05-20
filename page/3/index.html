@@ -1,13 +1,913 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="这些文章没啥用"><title>dequn's blog | 这些文章没啥用</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create','UA-105163669-1','auto');ga('send','pageview');</script></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">dequn's blog</h1><a id="logo" href="/.">dequn's blog</a><p class="description">这些文章没啥用</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/">HBase RowFilter 的使用误区及如何加快 HBase 查询速度</a></h1><div class="post-meta">2016-08-24</div><a data-disqus-identifier="2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/" href="/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/#disqus_thread" class="disqus-comment-count"></a><div class="post-content">RowFilter 进行的是扫描结果的过滤，所以要加快查询速度，必须得设置 Rowkey 的范围！</div><p class="readmore"><a href="/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/07/03/hbase_cannot_find_existing_table/">HBase 找不到提示已存在的数据表</a></h1><div class="post-meta">2016-07-03</div><a data-disqus-identifier="2016/07/03/hbase_cannot_find_existing_table/" href="/2016/07/03/hbase_cannot_find_existing_table/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p> 今天在使用 HBase 创建数据表的时候，提示数据表已存在，但使用<code>list</code>命令又看不到该表，也无法 drop 掉。过程如下</p>
- <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hbase(main)<span class="symbol">:018</span><span class="symbol">:0</span>&gt;create 'pois','data</span><br><span class="line">Err<span class="symbol">or:</span> Table already exis<span class="symbol">ts:</span> pois!</span><br><span class="line">hbase(main)<span class="symbol">:019</span><span class="symbol">:0</span>&gt;list</span><br><span class="line">TABLE</span><br><span class="line"><span class="number">0</span> <span class="built_in">row</span>(s) in <span class="number">8.0245</span> seconds</span><br><span class="line"></span><br><span class="line">=&gt; []</span><br></pre></td></tr></table></figure></div><p class="readmore"><a href="/2016/07/03/hbase_cannot_find_existing_table/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/14/hbase-coprocessor-endpoint-helloworld/">HBase 协处理器之 EndPoint 简单示例</a></h1><div class="post-meta">2016-05-14</div><a data-disqus-identifier="2016/05/14/hbase-coprocessor-endpoint-helloworld/" href="/2016/05/14/hbase-coprocessor-endpoint-helloworld/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>关于 HBase 协处理器 Coprocessor 是什么，作用是什么，就不在多说，很多博、文档都有相关说明，Coprocessor 分为两类，一类是 Observer,另一类是 Endpoint,在看来很多博客后，发现都是比较老的一些内容，在学习过程中有不少疑惑，所以总结下来。此文只是针对 EndPoint 给出一个流程。</p></div><p class="readmore"><a href="/2016/05/14/hbase-coprocessor-endpoint-helloworld/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/">java操作hbase报java.net.UnknownHostException错误的解决方案</a></h1><div class="post-meta">2016-04-26</div><a data-disqus-identifier="2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/" href="/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>今天在使用 HBase API 执行 Put 操作的时候，进程一直在等待状态，而进行 createTable 和 dropTable的时候均正常，很是郁闷！看了一下 Console 中的信息，报错</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java<span class="selector-class">.net</span><span class="selector-class">.UnknownHostException</span>: unknown host: node2<span class="selector-class">.lreis2306</span> on node2<span class="selector-class">.lreis2306</span>,</span><br></pre></td></tr></table></figure></div><p class="readmore"><a href="/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/04/24/angular-inject-controller-to-controller/">Angular 向 Controller 注入 Controller</a></h1><div class="post-meta">2016-04-24</div><a data-disqus-identifier="2016/04/24/angular-inject-controller-to-controller/" href="/2016/04/24/angular-inject-controller-to-controller/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>如何在一个Controller中取到另一个Controller？下边事stackoverflow上的一个回答。</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    <meta name="keywords" content="Life, ARIA, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="dequn's blog" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>dequn's blog - 这些文章没啥用</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="en"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">dequn's blog</a></h1>
+        <h2 class="subtitle">这些文章没啥用</h2>
+      </div>
+      <div class="logo">
+        <img src="/images/ARIA_logo.png" alt="logo">
+      </div>
+    </div>
+    
+<nav id="nav" class="nav">
+  <a id="nav-toggle" class="nav-toggle"><i class="fas fa-bars"></i></a>
+  <ul id="menu">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/archives/">Archives</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+</nav>
+
+
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+
+<section id="index" class="index">
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/" itemprop="url">HBase RowFilter 的使用误区及如何加快 HBase 查询速度</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-08-24T21:27:39+08:00">2016-08-24 21:27:39</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      RowFilter 进行的是扫描结果的过滤，所以要加快查询速度，必须得设置 Rowkey 的范围！
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
+        
+        <a class="post-tag button" href="/tags/RowFilter/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>RowFilter</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/07/03/hbase_cannot_find_existing_table/" itemprop="url">HBase 找不到提示已存在的数据表</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-07-03T20:54:20+08:00">2016-07-03 20:54:20</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p> 今天在使用 HBase 创建数据表的时候，提示数据表已存在，但使用<code>list</code>命令又看不到该表，也无法 drop 掉。过程如下</p>
+ <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hbase(main)<span class="symbol">:018</span><span class="symbol">:0</span>&gt;create 'pois','data</span><br><span class="line">Err<span class="symbol">or:</span> Table already exis<span class="symbol">ts:</span> pois!</span><br><span class="line">hbase(main)<span class="symbol">:019</span><span class="symbol">:0</span>&gt;list</span><br><span class="line">TABLE</span><br><span class="line"><span class="number">0</span> <span class="built_in">row</span>(s) in <span class="number">8.0245</span> seconds</span><br><span class="line"></span><br><span class="line">=&gt; []</span><br></pre></td></tr></table></figure>
+<p> 可以看出，HBase 错误地判断了，经过一番 Google，找到了几个推荐的解决方案：</p>
+<p> ## <a href="http://stackoverflow.com/questions/10586246/hbase-cannot-find-an-existing-table" target="_blank" rel="noopener">方案1:hbase cannot find an existing table</a></p>
 <blockquote>
-<p>```<br> app.controller(‘TestCtrl2’, [‘$scope’, ‘$controller’, function ($scope, $controller) {<br>    var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.<br>    //Provide the scope, you can also do $scope.$new(true) in order to create an isolated scope.<br>    //In this case it is the child scope of this scope.<br>    $controller(‘TestCtrl1’,{$scope : testCtrl1ViewModel });<br>    testCtrl1ViewModel.myMethod(); //And call the method on the newScope.<br> }]);</p></div><p class="readmore"><a href="/2016/04/24/angular-inject-controller-to-controller/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/31/angular-ui-router-unit-test-unexpected-request/">Angular单元测试中由ui-router引起的$httpbackend unexpected request 错误解决办法</a></h1><div class="post-meta">2016-03-31</div><a data-disqus-identifier="2016/03/31/angular-ui-router-unit-test-unexpected-request/" href="/2016/03/31/angular-ui-router-unit-test-unexpected-request/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>在使用 Karma + Jasmine 进行angular 单元测试的时候，一直报 $httpbackend unexpected  requeest 错误 ，提示的是请求的一个html文件，后来才发现是因为用了ui-router进行路由，并且存在抽象状态的问题，记录一下解决办法。</p>
-<p>下载 <a href="https://gist.github.com/wilsonwc/8358542" target="_blank" rel="noopener">stateMock.js</a>,</p></div><p class="readmore"><a href="/2016/03/31/angular-ui-router-unit-test-unexpected-request/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/">mac上安装elasticsearch-analysis-ansj-2.1.1的过程</a></h1><div class="post-meta">2016-03-27</div><a data-disqus-identifier="2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/" href="/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p><a href="https://github.com/NLPchina/elasticsearch-analysis-ansj" target="_blank" rel="noopener">elasticserach-analysis-ansj</a>是一个elasticsearch的中文分词插件，基于ansj。<br>在Mac上使用brew安装的elasticsearch，如果是默认安装的话版本是2.2,由于插件不支持，所以只能卸载掉重新安装。</p></div><p class="readmore"><a href="/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/26/right-way-of-use-angualr-http-interceptors/">angualr中interceptors的正确配置方式</a></h1><div class="post-meta">2016-03-26</div><a data-disqus-identifier="2016/03/26/right-way-of-use-angualr-http-interceptors/" href="/2016/03/26/right-way-of-use-angualr-http-interceptors/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>Interceptors是AngularJS中的<strong>拦截器</strong>，个人感觉更像是JavaEE中的<strong>过滤器</strong>，即所有事件都依次通过过滤器，过滤器处理后向下传递，再到最终到处理程序。</p>
-<p>最近在网上看的博客都简单举了例子，但在本人实现过程中总是实现moduerr的错误提示，下面是出错记录：</p></div><p class="readmore"><a href="/2016/03/26/right-way-of-use-angualr-http-interceptors/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/">有话就说之女性职业选择</a></h1><div class="post-meta">2016-03-21</div><a data-disqus-identifier="2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/" href="/2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>昨天跟一位女性朋友打电话 ，聊着聊着聊到了女性职业选择的话题上了，紧接着就是脑洞大开了，简单讲述一下我的观点。首先需要澄清的是我并没有任何歧视的意思，也更不是直男癌。所说所想也仅仅只代表自己的一些观点，可以拍砖，但不接受任何带有漫骂、人身攻击的言论。</p>
-<h3 id="1-关于女性正常的职业选择与自然分工"><a href="#1-关于女性正常的职业选择与自然分工" class="headerlink" title="1.关于女性正常的职业选择与自然分工"></a>1.关于女性正常的职业选择与自然分工</h3><p>之所以重新用到了“自然分工”这个词，是从自然的角度进行考量的。从原始人类进化以来，女性在职业上的选择多是以维护家庭内部运转为中心的，少有强而对外者。远古时候，男的肌肉块儿大，就必须承担起狩猎的职责 ，女性相对而言更适合采摘等轻巧、安全的工作，到农业和游牧文明，放牧和种地等力气活儿也理所当然的由男人来做，女性做的更多的则是纺织、编织等，这也造成了女性有更多的时间待在家里，维系家庭内部的运转等更多的任务也就由女性承担。这样是很自然的一个分工，并且是结合了男女特性的不同的，不要非得跟我讲为什么，没有为什么，为什么男的是XY女的是XX？所以从这个角度来看，女性应该更容易偏向于一些轻便的、能够以家庭为重心的工作，与自然的进化也是一脉相承的。</p></div><p class="readmore"><a href="/2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/20/angular-redirect-to-login-if-not-auth/">Angular自动跳转到登录页面并跳回</a></h1><div class="post-meta">2016-03-20</div><a data-disqus-identifier="2016/03/20/angular-redirect-to-login-if-not-auth/" href="/2016/03/20/angular-redirect-to-login-if-not-auth/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>在一些页面需要登录才能访问的情况下，我们要先检测用户是否已经登录，如果已经登录，则正常访问，如果没有则自动跳转到登录页面，登录之后再自动跳转到需要访问的页面。下面就简单讲一下在Angular中如何使用ui-router来实现这一目标,仍然直接看代码。</p>
-<h2 id="1-路由配置："><a href="#1-路由配置：" class="headerlink" title="1.路由配置："></a>1.路由配置：</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">angular</span><span class="selector-class">.module</span>(<span class="string">'mApp'</span>)<span class="selector-class">.config</span>(function($stateProvider)&#123;</span><br><span class="line">     $<span class="selector-tag">stateProvider</span></span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'home'</span>,&#123;</span><br><span class="line">         <span class="comment">//home  page     </span></span><br><span class="line">      &#125;)</span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'userpage'</span>,&#123;</span><br><span class="line">         <span class="attribute">url</span>:<span class="string">'/user'</span>,</span><br><span class="line">         <span class="attribute">authencitate</span>:true,</span><br><span class="line">         <span class="comment">//other code,such as controller </span></span><br><span class="line">     &#125;)</span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'login'</span>,&#123;</span><br><span class="line">         <span class="attribute">url</span>:<span class="string">'/login'</span>,</span><br><span class="line">         <span class="comment">// other code</span></span><br><span class="line">     &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div><p class="readmore"><a href="/2016/03/20/angular-redirect-to-login-if-not-auth/">Read More</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/2/">Previous</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next</a></nav><script id="dsq-count-scr" src="//dequn-blog.disqus.com/count.js" async></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://dequn.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Others/">Others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Phoenix/">Phoenix</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Zeppelin/">Zeppelin</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人日记/">个人日记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/Zookeeper/" style="font-size: 15px;">Zookeeper</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/Secondary-Index/" style="font-size: 15px;">Secondary Index</a> <a href="/tags/hindex/" style="font-size: 15px;">hindex</a> <a href="/tags/Phoenix/" style="font-size: 15px;">Phoenix</a> <a href="/tags/Global-Index/" style="font-size: 15px;">Global Index</a> <a href="/tags/Local-Index/" style="font-size: 15px;">Local Index</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Controller/" style="font-size: 15px;">Controller</a> <a href="/tags/filter/" style="font-size: 15px;">filter</a> <a href="/tags/select-cascding/" style="font-size: 15px;">select-cascding</a> <a href="/tags/ui-router/" style="font-size: 15px;">ui-router</a> <a href="/tags/charset/" style="font-size: 15px;">charset</a> <a href="/tags/encode/" style="font-size: 15px;">encode</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/d3/" style="font-size: 15px;">d3</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/Intellij-IDEA/" style="font-size: 15px;">Intellij IDEA</a> <a href="/tags/Hadoop/" style="font-size: 15px;">Hadoop</a> <a href="/tags/Endpoint/" style="font-size: 15px;">Endpoint</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/CentOS/" style="font-size: 15px;">CentOS</a> <a href="/tags/VIM/" style="font-size: 15px;">VIM</a> <a href="/tags/MacVim/" style="font-size: 15px;">MacVim</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/MapReduce/" style="font-size: 15px;">MapReduce</a> <a href="/tags/args/" style="font-size: 15px;">args</a> <a href="/tags/spark/" style="font-size: 15px;">spark</a> <a href="/tags/pyenv/" style="font-size: 15px;">pyenv</a> <a href="/tags/格式化/" style="font-size: 15px;">格式化</a> <a href="/tags/Interceptor/" style="font-size: 15px;">Interceptor</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Encoding/" style="font-size: 15px;">Encoding</a> <a href="/tags/RowFilter/" style="font-size: 15px;">RowFilter</a> <a href="/tags/Docker/" style="font-size: 15px;">Docker</a> <a href="/tags/import/" style="font-size: 15px;">import</a> <a href="/tags/Zeppelin/" style="font-size: 15px;">Zeppelin</a> <a href="/tags/职业选择/" style="font-size: 15px;">职业选择</a> <a href="/tags/工作与初心/" style="font-size: 15px;">工作与初心</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/01/why-docker-has-OS-image/">Docker的OS image是做什么用的</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/02/理解python-with语句/">理解python with语句</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/21/关于目前工作的一点感想/">关于目前工作的一点感想</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/05/python-str-formation/">Python字符串格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/17/ways-of-python-import/">Python模块的相对导入和绝对导入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/05/switch-encoding-in-terminal/">终端高效切换编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/02/parse-command-line-args-in-python/">Python中解析命令行参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/19/charset-encoding-and-in-python/">字符集、字符编码以及Python中编码的那些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/31/d3-example-of-different-data-structures/">d3-example-of-different-data-structures</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/">就折腾到这儿吧</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> Recent Comments</i></div><script type="text/javascript" src="//dequn-blog.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">dequn's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<p>1) Delete all entries in the .META table for this table manually, and</p>
+</blockquote>
+<blockquote>
+<p>2) Delete the directory corresponding to this table from HDFS</p>
+</blockquote>
+<h2 id="方案2-Killing-the-HBase-zombie-table"><a href="#方案2-Killing-the-HBase-zombie-table" class="headerlink" title="方案2:Killing the HBase zombie table"></a><a href="http://arnon.me/2013/01/killing-hbase-zombie-table/" target="_blank" rel="noopener">方案2:Killing the HBase zombie table</a></h2><blockquote>
+<p>1) use ** hbase hbck ** to see health-checkk</p>
+<p>2) look at .META table</p>
+<p>3) clear zookeeper’s  cache</p>
+</blockquote>
+<hr>
+<h2 id="方案3-最简单"><a href="#方案3-最简单" class="headerlink" title="方案3:最简单"></a>方案3:最简单</h2><p>这两种方案对初学者来说都有一定的难度，并且容易误操作儿影响到其他的数据表，找一个简单的方法就很有必要了，那么找一找 HBase 自带的命令吧，经过试验，发现有一个命令`hbase-clean’，尝试运行，如下，</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">hbase</span><span class="literal">-</span><span class="comment">cleanup</span><span class="string">.</span><span class="comment">sh</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">Usage:</span> <span class="comment">hbase</span><span class="literal">-</span><span class="comment">cleanup</span><span class="string">.</span><span class="comment">sh</span> <span class="comment">(</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanZk|</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanHdfs|</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanAll|</span><span class="literal">-</span><span class="literal">-</span><span class="comment">cleanAcls)</span></span><br></pre></td></tr></table></figure>
+<p>从提示可以看出有三种模式，区别如下</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">-cleanZk   cleans hbase related data from zookeeper.</span></span><br><span class="line"><span class="ruby">--cleanHdfs cleans hbase related data from hdfs.</span></span><br><span class="line"><span class="ruby">--cleanAll  cleans hbase related data from both zookeeper <span class="keyword">and</span> hdfs.</span></span><br></pre></td></tr></table></figure>
+<p>想必接下来就知道如何处理了吧！这种方式要简单的多，适合初学用户！</p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="http://www.cloudera.com/documentation/enterprise/latest/topics/cdh_ig_hbase_tools.html#concept_wpc_nqv_hv" target="_blank" rel="noopener">Using HBase Command-Line Utilities</a></p>
+<p>2.<a href="http://arnon.me/2013/01/killing-hbase-zombie-table/" target="_blank" rel="noopener">Killing the HBase zombie table</a></p>
+<p>3.<a href="http://stackoverflow.com/questions/10586246/hbase-cannot-find-an-existing-table" target="_blank" rel="noopener">hbase cannot find an existing table</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
+        
+        <a class="post-tag button" href="/tags/Zookeeper/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Zookeeper</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/05/14/hbase-coprocessor-endpoint-helloworld/" itemprop="url">HBase 协处理器之 EndPoint 简单示例</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-05-14T14:55:47+08:00">2016-05-14 14:55:47</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>关于 HBase 协处理器 Coprocessor 是什么，作用是什么，就不在多说，很多博、文档都有相关说明，Coprocessor 分为两类，一类是 Observer,另一类是 Endpoint,在看来很多博客后，发现都是比较老的一些内容，在学习过程中有不少疑惑，所以总结下来。此文只是针对 EndPoint 给出一个流程。</p>
+<h1 id="基本环境"><a href="#基本环境" class="headerlink" title="基本环境"></a>基本环境</h1><blockquote>
+<p>Hbase: v1.1.2<br>JDK: v1.8<br>Maven: v3.3.9<br>protobuf: v2.6.1</p>
+</blockquote>
+<p>EndPoint 的定义在 Hbase 0.96后采用的是 Google 的开源protobuf RPC, 因此本文的说明只适用于高于 0.96 的 HBase 版本，老的版本请看对应的教程。</p>
+<h1 id="Mac-下-Protobuf-安装"><a href="#Mac-下-Protobuf-安装" class="headerlink" title="Mac 下 Protobuf 安装"></a>Mac 下 Protobuf 安装</h1><p>采用 HomeBrew 即可轻松安装，命令</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">home <span class="keyword">brew </span><span class="keyword">install </span>protobuf</span><br></pre></td></tr></table></figure>
+<h1 id="定义-RPC"><a href="#定义-RPC" class="headerlink" title="定义 RPC"></a>定义 RPC</h1><p>新建一个 *.proto 文件，键入以下内容,本文的目的是实现一个建立关于 Mac 列的索引，简单起见，直接返回值 buildOk = 1 表示建立成功。关于 protobuf 的更多定义可以参见官方文档<a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/</a>.</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">option</span> java_package = <span class="string">"lreis.bigdata.indoor.index.coprocessor"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">option</span> java_outer_classname = <span class="string">"BuildMacIndex"</span>;</span><br><span class="line"><span class="keyword">option</span> java_generic_services = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">option</span> optimize_for = SPEED;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">buildMacIndexRequest</span></span>&#123;</span><br><span class="line"><span class="built_in">int64</span> onlyForPresent ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">buildMacIndexResponse</span> </span>&#123;</span><br><span class="line"> <span class="keyword">optional</span> <span class="built_in">int64</span> buildOk = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">BuildMacIndexService</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">rpc</span> buildMacIndex(buildMacIndexRequest)</span></span><br><span class="line"><span class="function">  <span class="keyword">returns</span>(buildMacIndexResponse)</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>定以好之后就可以编译该文件了， 运行此命令会生成一个 BuildMacIndex 的类。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc <span class="comment">--java_out = your_project_dest your.proto</span></span><br></pre></td></tr></table></figure>
+<h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><p>由于本人使用 Maven 建立的工程，所以要完成EndPoint 的开发，需要加入以下一些依赖才可以。** 需要注意的是编译目标的版本是1.6，否则Hbase 不能正确加载生成的 Endpoint. **</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">hbase.version</span>&gt;</span>1.1.2<span class="tag">&lt;/<span class="name">hbase.version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hbase<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hbase-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;hbase.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hbase<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hbase-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;hbase.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.6<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.6<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="EndPoint-实现"><a href="#EndPoint-实现" class="headerlink" title="EndPoint 实现"></a>EndPoint 实现</h1><p>** EndPoint 必须要继承自 protobuf 中定义的 BuildMacIndexService 类，并且实现 CoprocessorService 和 Coprocessor 接口，实现其中的四个方法即可。**</p>
+<ul>
+<li><p>start() 方法<br>协处理器在 Region 打开的时候被 RegionServer 自动加载，并会调用器 start 接口，完成初始化工作。一般的该接口函数中仅仅需要将协处理器的运行上下文环境变量 CoprocessorEnviorment保存到本地即可。</p>
+</li>
+<li><p>stop()方法<br>Coprocessor 接口还定义了 stop() 接口函数。该函数在 Region 被关闭时调用，用来进行协处理器的清理工作。在本文中，我们没有任何清理工作，因此该方法一般不需要做什么。</p>
+</li>
+<li><p>getService()方法<br>oprocessorService 接口。该接口仅仅定义了一个接口函数 getService()。我们仅需要将本实例返回即可。HBase 的 RegionServer 在接受到客户端的调用请求时，将调用该接口获取实现了 RPC Service 的实例，因此本函数一般情况下就是返回自身实例即可。</p>
+</li>
+<li><p>当 Endpoint 类继承自 RPC Service 类的时候，会需要实现 proto 文件中定义buildMacIndex方法,这也是该 EndPoint 作用代码实现的方法，并且最后完成的Response 必须满足 proto 中定义的类型. 简单起见，只简单返回一个值。</p>
+</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> buildMacIndex(RpcController controller, BuildMacIndex.buildMacIndexRequest request, RpcCallback&lt;BuildMacIndex.buildMacIndexResponse&gt; <span class="keyword">done</span>) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Long l = request.getOnlyForPresent();<span class="comment">// proto 中 request 里边定义xxx,就用 getXxx 得到调用时候传过来的参数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// .... 其他逻辑</span></span><br><span class="line"></span><br><span class="line">    BuildMacIndex.buildMacIndexResponse.Builder resBuilder = BuildMacIndex.buildMacIndexResponse.newBuilder();</span><br><span class="line"></span><br><span class="line">    resBuilder.setBuildOK(<span class="number">100</span>L); <span class="comment">//返回 xxx，就用 SetXxx 进行赋值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">done</span>.run(resBuilder.build());<span class="comment">//完成</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上就完成了一个 EndPoint 的定义及实现，运行 mvn clean compile 就可以打包成 jar 文件了。</p>
+<h1 id="JAR文件上传及加载到-Table"><a href="#JAR文件上传及加载到-Table" class="headerlink" title="JAR文件上传及加载到 Table"></a>JAR文件上传及加载到 Table</h1><p><strong>将编译的 jar 文件上传到 $HBASE_HOME/lib 目录，如果是完全分布式，每个节点都需要有哦。</strong></p>
+<h2 id="配置文件全局加载-所有-Table-都有效"><a href="#配置文件全局加载-所有-Table-都有效" class="headerlink" title="配置文件全局加载(所有 Table 都有效)"></a>配置文件全局加载(所有 Table 都有效)</h2><p>编辑 hbase-site.xml, 添加以下内容，如果加载多个,用分号隔开每个类就行了，最后需要重启 HBase 集群。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt; &lt;name&gt;hbase<span class="selector-class">.coprocessor</span><span class="selector-class">.region</span><span class="selector-class">.classes</span>&lt;/name&gt; &lt;value&gt;lreis<span class="selector-class">.bigdata</span><span class="selector-class">.indoor</span><span class="selector-class">.index</span><span class="selector-class">.coprocessor</span><span class="selector-class">.server</span><span class="selector-class">.BuildMacIndexEndpoint</span>&lt;/value&gt; &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="命令行加载方式"><a href="#命令行加载方式" class="headerlink" title="命令行加载方式"></a>命令行加载方式</h2><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'lreis.bigdata.indoor.index.coprocessor.server.BuildMacIndexEndpoint'</span> #记住，有引号的</span><br></pre></td></tr></table></figure>
+<p>如果显示</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt; Ja<span class="symbol">va:</span><span class="symbol">:Lr</span>eisBigdataIndoorIndexCoprocessorServ<span class="symbol">er:</span><span class="symbol">:Bu</span>ildMacIndexEndpoint</span><br></pre></td></tr></table></figure>
+<p>则说明加载成功，接着运行下面的命令</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter 'idx_mac', 'coprocessor' =&gt; '|lreis.bigdata.indoor.index.coprocessor.server.BuildMacIndexEndpoint|<span class="number">1001</span>|'</span><br></pre></td></tr></table></figure>
+<p>如果显示如下，则说明修改表节定义成功</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Updating <span class="literal">all</span> regions <span class="keyword">with</span> the <span class="literal">new</span> schema<span class="params">...</span></span><br><span class="line"><span class="number">1</span>/<span class="number">1</span> regions updated.</span><br><span class="line">Done.</span><br><span class="line"><span class="number">0</span> row(s) <span class="keyword">in</span> <span class="number">2.3210</span> seconds</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最后就可以在客户端或者 shell 的方式调用 Coprocessor 了， 简单给一个 Java API 的调用方式</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">conn = DbcFactory.getConnection().getConnection()<span class="comment">;</span></span><br><span class="line">Admin admin = conn.getAdmin()<span class="comment">;</span></span><br><span class="line">Table table = conn.getTable(TableName.valueOf(<span class="string">"idx_mac"</span>))<span class="comment">;</span></span><br><span class="line">final <span class="keyword">BuildMacIndex.buildMacIndexRequest </span>req = <span class="keyword">BuildMacIndex.buildMacIndexRequest.newBuilder().build();</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">Map&lt;byte[], </span>Long&gt; tmpRet = table.coprocessorService(<span class="keyword">BuildMacIndex.BuildMacIndexService.class, </span>null, null, new <span class="keyword">Batch.Call&lt;BuildMacIndex.BuildMacIndexService, </span>Long&gt;() &#123;</span><br><span class="line">@Override</span><br><span class="line">public Long call(<span class="keyword">BuildMacIndex.BuildMacIndexService </span><span class="keyword">instance) </span>throws IOException &#123;</span><br><span class="line"></span><br><span class="line">ServerRpcController controller = new ServerRpcController()<span class="comment">;</span></span><br><span class="line"><span class="keyword">BlockingRpcCallback&lt;BuildMacIndex.buildMacIndexResponse&gt; </span>rpc = new <span class="keyword">BlockingRpcCallback&lt;BuildMacIndex.buildMacIndexResponse&gt;();</span></span><br><span class="line"><span class="keyword">instance.buildMacIndex(controller, </span>req, rpc)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">BuildMacIndex.buildMacIndexResponse </span>resp = rpc.get()<span class="comment">;</span></span><br><span class="line">return resp.getRowCount()<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;)<span class="comment">;</span></span><br><span class="line">long ret = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">for (long l : tmpRet.values())</span><br><span class="line">ret += l<span class="comment">;</span></span><br><span class="line">System.out.println(<span class="string">"lines: "</span> + ret)<span class="comment">;</span></span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">e.printStackTrace()<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-hbase-coprocessor1/index.html" target="_blank" rel="noopener">HBase 协处理器编程详解第一部分：Server 端代码编写</a></p>
+</li>
+<li><p><a href="https://blogs.apache.org/hbase/entry/coprocessor_introduction" target="_blank" rel="noopener">Coprocessor Introduction : Apache HBase</a></p>
+</li>
+<li><p><a href="http://www.cockybook.com/?p=35" target="_blank" rel="noopener">hbase0.98 coprocessor Endpoint 之 HelloWorld</a></p>
+</li>
+</ul>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
+        
+        <a class="post-tag button" href="/tags/Endpoint/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Endpoint</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/04/26/java-hbase-java-net-UnknownHostException-jie-jue-fang-an/" itemprop="url">java操作hbase报java.net.UnknownHostException错误的解决方案</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-04-26T14:13:18+08:00">2016-04-26 14:13:18</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>今天在使用 HBase API 执行 Put 操作的时候，进程一直在等待状态，而进行 createTable 和 dropTable的时候均正常，很是郁闷！看了一下 Console 中的信息，报错</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java<span class="selector-class">.net</span><span class="selector-class">.UnknownHostException</span>: unknown host: node2<span class="selector-class">.lreis2306</span> on node2<span class="selector-class">.lreis2306</span>,</span><br></pre></td></tr></table></figure>
+<p>由于node2.lreis2306的机器是我新加进去的，只是改了 hosts 中的配置，经过一番百度后，找到的解决方案：</p>
+<ul>
+<li>修改/etc/sysconfig/network中 HOSTNAME=与 HOSTS 中对应的机器名一致即可！</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://blog.csdn.net/chaijunkun/article/details/44238163" target="_blank" rel="noopener">http://blog.csdn.net/chaijunkun/article/details/44238163</a></li>
+</ul>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/04/24/angular-inject-controller-to-controller/" itemprop="url">Angular 向 Controller 注入 Controller</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-04-24T21:21:57+08:00">2016-04-24 21:21:57</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>如何在一个Controller中取到另一个Controller？下边事stackoverflow上的一个回答。</p>
+<blockquote>
+<p>```<br> app.controller(‘TestCtrl2’, [‘$scope’, ‘$controller’, function ($scope, $controller) {<br>    var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.<br>    //Provide the scope, you can also do $scope.$new(true) in order to create an isolated scope.<br>    //In this case it is the child scope of this scope.<br>    $controller(‘TestCtrl1’,{$scope : testCtrl1ViewModel });<br>    testCtrl1ViewModel.myMethod(); //And call the method on the newScope.<br> }]);</p>
+</blockquote>
+ <figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">In</span> any <span class="keyword">case</span> you cannot call TestCtrl1.myMethod() because you have attached the <span class="function"><span class="keyword">method</span> <span class="title">on</span> <span class="title">the</span> $<span class="title">scope</span> <span class="title">and</span> <span class="title">not</span> <span class="title">on</span> <span class="title">the</span> <span class="title">controller</span> <span class="title">instance</span>.</span></span><br><span class="line"><span class="function">&gt; </span></span><br><span class="line"><span class="function">&gt; <span class="title">If</span> <span class="title">you</span> <span class="title">are</span> <span class="title">sharing</span> <span class="title">the</span> <span class="title">controller</span>, <span class="title">then</span> <span class="title">it</span> <span class="title">would</span> <span class="title">always</span> <span class="title">be</span> <span class="title">better</span> <span class="title">to</span> <span class="title">do</span>:</span>-</span><br></pre></td></tr></table></figure>
+<p>.controller(‘TestCtrl1’, [‘$log’, function ($log) {<br>    this.myMethod = function () {<br>             $log.debug(“TestCtrl1 - myMethod”);<br>     }<br> }]);<br> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> and <span class="keyword">while</span> consuming <span class="keyword">do</span>:</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure></p>
+<p> .controller(‘TestCtrl2’, [‘$scope’, ‘$controller’, function ($scope, $controller) {<br>      var testCtrl1ViewModel = $controller(‘TestCtrl1’);<br>      testCtrl1ViewModel.myMethod();<br> }]);<br> <code>`</code></p>
+<blockquote>
+<p>In the first case really the $scope is your view model, and in the second case it the controller instance itself.</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://stackoverflow.com/questions/25417162/how-do-i-inject-a-controller-into-another-controller-in-Angularjs" target="_blank" rel="noopener">http://stackoverflow.com/questions/25417162/how-do-i-inject-a-controller-into-another-controller-in-Angularjs</a></li>
+</ul>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
+        
+        <a class="post-tag button" href="/tags/Controller/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Controller</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/31/angular-ui-router-unit-test-unexpected-request/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/03/31/angular-ui-router-unit-test-unexpected-request/" itemprop="url">Angular单元测试中由ui-router引起的$httpbackend unexpected request 错误解决办法</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-31T20:43:25+08:00">2016-03-31 20:43:25</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>在使用 Karma + Jasmine 进行angular 单元测试的时候，一直报 $httpbackend unexpected  requeest 错误 ，提示的是请求的一个html文件，后来才发现是因为用了ui-router进行路由，并且存在抽象状态的问题，记录一下解决办法。</p>
+<p>下载 <a href="https://gist.github.com/wilsonwc/8358542" target="_blank" rel="noopener">stateMock.js</a>,</p>
+<p>把 stateMock.js 添加到 karma.config.js 里边。</p>
+<p>测试文件中：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> $state ;</span><br><span class="line"><span class="keyword">var</span> $httpbackend;</span><br><span class="line"><span class="keyword">var</span> httpHandler;</span><br><span class="line"> </span><br><span class="line">beforeEach(module(<span class="string">'stateMock'</span>));</span><br><span class="line"></span><br><span class="line">beforeEach(inject(<span class="function"><span class="keyword">function</span><span class="params">(_$state_,_$httpbackend_)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    $state = _$state_;</span><br><span class="line">    $httpbackend = _$httpbackend_;</span><br><span class="line">    </span><br><span class="line">    httpHandler = $httpbackend.when(<span class="string">'GET'</span>, <span class="string">'/service/list'</span>).respond(<span class="comment">/*xxx*/</span>)</span><br><span class="line"></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">it(<span class="string">'http'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">      </span><br><span class="line">      $state.go(<span class="string">'user.service'</span>);</span><br><span class="line">      </span><br><span class="line">      $http.get(<span class="string">'/service/list'</span>);</span><br><span class="line">      </span><br><span class="line">      $httpBackend.expectGET(<span class="string">'/service/list'</span>);          </span><br><span class="line">      </span><br><span class="line">      <span class="comment">//.....</span></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样就可以避免请求了html而导致测试失败。、</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://stackoverflow.com/questions/23655307/ui-router-interfers-with-httpbackend-unit-test-angular-js/23670198#23670198" target="_blank" rel="noopener">http://stackoverflow.com/questions/23655307/ui-router-interfers-with-httpbackend-unit-test-angular-js/23670198#23670198</a></p>
+<p><a href="https://github.com/meanjs/mean/issues/198" target="_blank" rel="noopener">https://github.com/meanjs/mean/issues/198</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
+        
+        <a class="post-tag button" href="/tags/ui-router/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>ui-router</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/" itemprop="url">mac上安装elasticsearch-analysis-ansj-2.1.1的过程</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-27T22:14:14+08:00">2016-03-27 22:14:14</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p><a href="https://github.com/NLPchina/elasticsearch-analysis-ansj" target="_blank" rel="noopener">elasticserach-analysis-ansj</a>是一个elasticsearch的中文分词插件，基于ansj。<br>在Mac上使用brew安装的elasticsearch，如果是默认安装的话版本是2.2,由于插件不支持，所以只能卸载掉重新安装。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span>uninstall elasticsearch</span><br></pre></td></tr></table></figure>
+<p>使用homebrew/versions可以安装elasticsearch2.1.2的版本，仍然不能使用，不过还是要记录一下，安装其他环境指定版本的时候可以用此方法，参见<a href="https://github.com/Homebrew/homebrew-versions" target="_blank" rel="noopener">homebrew-versions</a>：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap homebrew/versions</span><br><span class="line">brew install elasticsearch21 #注意，这里的<span class="number">2.1</span>版本是<span class="number">2.1</span><span class="number">.2</span>,仍然不能满足要求！</span><br></pre></td></tr></table></figure>
+<p>下面是真正elasticsearch及elasticsearch-analysis-ansj-2.1.1版本的安装：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="symbol">https:</span>/<span class="regexp">/download.elasticsearch.org/elasticsearch</span><span class="regexp">/release/org</span><span class="regexp">/elasticsearch/distribution</span><span class="regexp">/tar/elasticsearch</span><span class="regexp">/2.1.1/elasticsearch</span>-<span class="number">2.1</span>.<span class="number">1</span>.tar.gz</span><br><span class="line">tar -zxf elasticsearch-<span class="number">2.1</span>.<span class="number">1</span>.tar.gz /usr/local/Cellar/</span><br><span class="line">cd /usr/local/Cellar/elasticsearch-<span class="number">2.1</span>.<span class="number">1</span>.tar.gz/bin</span><br><span class="line">./plugin install <span class="symbol">http:</span>/<span class="regexp">/maven.nlpcn.org/org</span><span class="regexp">/ansj/elasticsearch</span>-analysis-ansj/<span class="number">2.1</span>.<span class="number">1</span>/elasticsearch-analysis-ansj-<span class="number">2.1</span>.<span class="number">1</span>-release.zip</span><br><span class="line">./ealsticsearch  <span class="comment">#运行命令即可</span></span><br></pre></td></tr></table></figure>
+<p>注意最后需要把elasticsearch添加到环境变量中。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>[1]<a href="https://github.com/Homebrew/homebrew-versions" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-versions</a></p>
+<p>[2]<a href="https://github.com/NLPchina/elasticsearch-analysis-ansj" target="_blank" rel="noopener">https://github.com/NLPchina/elasticsearch-analysis-ansj</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/mac/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>mac</a>
+        
+        <a class="post-tag button" href="/tags/elasticsearch/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>elasticsearch</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/26/right-way-of-use-angualr-http-interceptors/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/03/26/right-way-of-use-angualr-http-interceptors/" itemprop="url">angualr中interceptors的正确配置方式</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-26T22:37:22+08:00">2016-03-26 22:37:22</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>Interceptors是AngularJS中的<strong>拦截器</strong>，个人感觉更像是JavaEE中的<strong>过滤器</strong>，即所有事件都依次通过过滤器，过滤器处理后向下传递，再到最终到处理程序。</p>
+<p>最近在网上看的博客都简单举了例子，但在本人实现过程中总是实现moduerr的错误提示，下面是出错记录：</p>
+<p>Angular version：1.4.6<br>不能正确实现的方式：服务实现</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">'app'</span>).factory(<span class="string">'httpInters'</span>,httpInters);</span><br><span class="line">httpInters.$inject = [<span class="string">'$q'</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">httpInters</span><span class="params">($q)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		responseError:<span class="function"><span class="keyword">function</span><span class="params">(response)</span></span>&#123;</span><br><span class="line">		   <span class="comment">// your code here</span></span><br><span class="line">		&#125;,</span><br><span class="line">		requestError:<span class="function"><span class="keyword">function</span><span class="params">(req)</span></span>&#123;</span><br><span class="line">		  <span class="comment">// your code here</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">angular.module(<span class="string">'app'</span>).config(<span class="function"><span class="keyword">function</span><span class="params">($http,httpInters)</span></span>&#123;</span><br><span class="line">	 $httpProvider.interceptors.push(httpInters);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>使用上边在方式发现一直不能正确注入服务模板，因此采用匿名函数的方法来做：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">'app'</span>).config(<span class="function"><span class="keyword">function</span><span class="params">($httpProvider)</span></span>&#123;</span><br><span class="line">	 $httpProvider.interceptors.push(<span class="function"><span class="keyword">function</span><span class="params">($q)</span></span>&#123;</span><br><span class="line">	      <span class="keyword">return</span> &#123;</span><br><span class="line">	      responseError:<span class="function"><span class="keyword">function</span><span class="params">(response)</span></span>&#123;</span><br><span class="line">		   <span class="comment">// your code here</span></span><br><span class="line">		   <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">				&#125;</span><br><span class="line">	      &#125;</span><br><span class="line">	 &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>具体原因还没有分析，暂时先记录下来。</p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
+        
+        <a class="post-tag button" href="/tags/Interceptor/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Interceptor</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/03/21/you-hua-jiu-shuo-zhi-nv-xing-zhi-ye-xuan-ze/" itemprop="url">有话就说之女性职业选择</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-21T20:33:08+08:00">2016-03-21 20:33:08</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/个人日记/" itemprop="url" rel="index"><span itemprop="name">个人日记</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>昨天跟一位女性朋友打电话 ，聊着聊着聊到了女性职业选择的话题上了，紧接着就是脑洞大开了，简单讲述一下我的观点。首先需要澄清的是我并没有任何歧视的意思，也更不是直男癌。所说所想也仅仅只代表自己的一些观点，可以拍砖，但不接受任何带有漫骂、人身攻击的言论。</p>
+<h3 id="1-关于女性正常的职业选择与自然分工"><a href="#1-关于女性正常的职业选择与自然分工" class="headerlink" title="1.关于女性正常的职业选择与自然分工"></a>1.关于女性正常的职业选择与自然分工</h3><p>之所以重新用到了“自然分工”这个词，是从自然的角度进行考量的。从原始人类进化以来，女性在职业上的选择多是以维护家庭内部运转为中心的，少有强而对外者。远古时候，男的肌肉块儿大，就必须承担起狩猎的职责 ，女性相对而言更适合采摘等轻巧、安全的工作，到农业和游牧文明，放牧和种地等力气活儿也理所当然的由男人来做，女性做的更多的则是纺织、编织等，这也造成了女性有更多的时间待在家里，维系家庭内部的运转等更多的任务也就由女性承担。这样是很自然的一个分工，并且是结合了男女特性的不同的，不要非得跟我讲为什么，没有为什么，为什么男的是XY女的是XX？所以从这个角度来看，女性应该更容易偏向于一些轻便的、能够以家庭为重心的工作，与自然的进化也是一脉相承的。</p>
+<h3 id="2-关于女性自我价值的体现"><a href="#2-关于女性自我价值的体现" class="headerlink" title="2.关于女性自我价值的体现"></a>2.关于女性自我价值的体现</h3><p>看到这里很多女性朋友估计要扔板砖了，凭什么你们男的能做我们女的不能，我们也要追求自己的人生价值。好好好，不过本少从来没说女人的价值就是为了男人，或是洗衣做饭。德国的法律有规定：夫妻双方都工作，工资低的一方要交高额的税。对，你没有看错 ，是工资低的一方！德国不至于是抽疯了让工资低的一方回家做饭吧？显而易见他们重视的是家庭教育！一个民族的家庭教育几乎决定了一个国家的未来 。言传身教，对一个孩子影响最大的也莫过于家庭教育了吧。如果选择以家庭为中心，能够源源不断地输出自己正确的观点、想法 ，我想其中的价值不容置疑吧！所以说，要体现自我价值的方法有很多，不是每个人都要出去累死累活的挣钱的。当然也有人说那工资低的一方也极有可能是男的，对，这点不否定，但请去统计一个比例。</p>
+<h3 id="3-女人要独立与男人不靠谱"><a href="#3-女人要独立与男人不靠谱" class="headerlink" title="3.女人要独立与男人不靠谱"></a>3.女人要独立与男人不靠谱</h3><p>女人要独立 ，不错，是的，支持。独立就一定是经济上的独立吗？如果思想不独立、精神依赖性强，即使给你很多money，就能独立的了吗？男的不靠谱，那什么靠谱，动物园里的雄性动物更靠谱些？论怎样找一个不靠谱的男的：<br>1：男的本身不靠谱，恰恰被某选中，然后推而广之。你选了一个不靠谱的，只能说明你眼光不靠谱，那么多靠谱的怎么没选上;<br>2：男的由靠谱退化到不靠谱。这么来讲男的确实有问题，不过你俩整天在一起生活，他的思想、观点应该受你的影响更大吧，他会变得不靠谱，那么你能靠谱几分呢？</p>
+<h3 id="4-吃软饭与女强人的不平等性"><a href="#4-吃软饭与女强人的不平等性" class="headerlink" title="4.吃软饭与女强人的不平等性"></a>4.吃软饭与女强人的不平等性</h3><p>如果一个男的没有女的挣钱多，则会被多数人戳脊梁骨，被带以“吃软饭”的帽子，在人群中都抬不起头来。如果一个女的是一个女强人，想必收到更多的是夸赞。按目前的情况来看，两者都是落在了一个较小概率的分布区域。为什么一个会受到鄙视而另一个受到的是仰视呢？至少其中一个是不合理的吧，且留作下面讨论。</p>
+<h3 id="5-女权运动与“历史颠覆”"><a href="#5-女权运动与“历史颠覆”" class="headerlink" title="5.女权运动与“历史颠覆”"></a>5.女权运动与“历史颠覆”</h3><p>自女权运动进行的几百年来，女性的社会地位提高了很多。这正是其积极意义的所在，女人再也不是男人的附属，作为一个独立而自由的个体进入到社会的发展潮流中。女权运动的正面意义有很多，这里就不再一一来讲。<br>现在讲一些个人觉得稍微有些问题的地方。男女平等了，女性有更多的自由 ，但这更多 的自由就是要更多人想都不想的要去做一个“女强人”吗？必须放弃自己的天性去选择“独立”吗？女性取代了男性的工作，那么你们原来的工作呢，能够抛弃掉而不影响社会的正常发展吗？且看国内的家庭教育，烂到何等程度？那么多的留守儿童，孤寡老人，这些人的处境是由什么造成的呢？这里有很多其他因素，但如此之多的女性放弃了其天职而去选择同男人一样面对生存想必是其直接原因。并不是讲这些辛辛苦苦奋斗的女性不对，而是讲男人没能撑起一个家，更多短视的投入到“经济发展”中。如果女方出来作女强人，撑起一个家，男人为什么就不能接手女人之前的工作呢，而非得背一个“吃软饭”的名声？<br>也有人讲，这正是社会的发展造成的进步呀 ，女性从家庭中解放出来，这也不是原始社会了，不要拿自然分工来说事。但请问，一个运动几百年来就能颠覆数十万年的演化史吗？各位学的马哲没有讲量变积累才能引起质变吗？有人说该运动短时间内颠覆了过去女性低位的现象啊，不错，但女性低位是自然现象吗？恐怕不是的吧，不过是过去统治阶级带以及学派学说强压给无辜的女性的吧，这些外力才能维持的现象当然在内因（本身男女地位不分高低 ，只是分工不同而已）面前显得不堪一击，轰然倒塌。单从时间长度来看，短时间内自然分工发生如此天翻地覆是属于正常现象吗？</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>说了这么多，到最后我只想说：选择自由是属于所有的人！但并不是所见到的多数选择就是好的、正确的，而且此种所见也极有可能是一种假象、或者“热”。</p>
+<p>本来想找些相关的论文来补充一下论据的，但由于实在是忙(lan)得(de)不(li)行(hai)，因此只留下论点，待以后有时间进行补充。</p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/职业选择/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>职业选择</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/20/angular-redirect-to-login-if-not-auth/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/03/20/angular-redirect-to-login-if-not-auth/" itemprop="url">Angular自动跳转到登录页面并跳回</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-20T11:34:56+08:00">2016-03-20 11:34:56</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>在一些页面需要登录才能访问的情况下，我们要先检测用户是否已经登录，如果已经登录，则正常访问，如果没有则自动跳转到登录页面，登录之后再自动跳转到需要访问的页面。下面就简单讲一下在Angular中如何使用ui-router来实现这一目标,仍然直接看代码。</p>
+<h2 id="1-路由配置："><a href="#1-路由配置：" class="headerlink" title="1.路由配置："></a>1.路由配置：</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">angular</span><span class="selector-class">.module</span>(<span class="string">'mApp'</span>)<span class="selector-class">.config</span>(function($stateProvider)&#123;</span><br><span class="line">     $<span class="selector-tag">stateProvider</span></span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'home'</span>,&#123;</span><br><span class="line">         <span class="comment">//home  page     </span></span><br><span class="line">      &#125;)</span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'userpage'</span>,&#123;</span><br><span class="line">         <span class="attribute">url</span>:<span class="string">'/user'</span>,</span><br><span class="line">         <span class="attribute">authencitate</span>:true,</span><br><span class="line">         <span class="comment">//other code,such as controller </span></span><br><span class="line">     &#125;)</span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'login'</span>,&#123;</span><br><span class="line">         <span class="attribute">url</span>:<span class="string">'/login'</span>,</span><br><span class="line">         <span class="comment">// other code</span></span><br><span class="line">     &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="2-监听-stateChangeStart事件"><a href="#2-监听-stateChangeStart事件" class="headerlink" title="2.监听$stateChangeStart事件"></a>2.监听<code>$stateChangeStart</code>事件</h2><p>可以在<code>$rootScope</code>中监听 ，也可以写在一个单独的服务中，这里以<code>$rootScope</code>为例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// other code </span></span><br><span class="line">angular.module(<span class="string">'mApp'</span>).run(run);</span><br><span class="line">run.$inject = [<span class="string">'$rootScope'</span>,<span class="string">'userService'</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">($rootScope,userService)</span></span>&#123;</span><br><span class="line">    $rootScope.$on(<span class="string">'$stateChangeStart'</span>,<span class="function"><span class="keyword">function</span><span class="params">(event,toState,toParams,fromState,fromParams)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(toState.authencitate &amp;&amp; !userService.isLogin())&#123;</span><br><span class="line"></span><br><span class="line">        event.preventDefault();<span class="comment">//must </span></span><br><span class="line">        $rootScope.returnState = fromState;</span><br><span class="line">        $rootScope.returnParams = fromParams;</span><br><span class="line">        $stete.go(<span class="string">'login'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-登录处的逻辑"><a href="#3-登录处的逻辑" class="headerlink" title="3.登录处的逻辑"></a>3.登录处的逻辑</h2><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ajax 登录成功后</span></span><br><span class="line"><span class="keyword">if</span>(!$rootScope.returnState)&#123;</span><br><span class="line">$state.go(<span class="string">'home'</span>);</span><br><span class="line"><span class="comment">//用户直接进的登录页面，returnState为undefined,跳转到默认主页就行了</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">   $state.go($rootScope.returnState,$rootScope.returnParams,&#123;reload:<span class="literal">true</span>,<span class="comment">/* other settings */</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里解释一下代码 ，在$stateChangeStart的监听代码中，判断一下toState,即要去的页面的authencitate是否为true,是的话意味着我们必须要登录才准许访问，如果不需要验证就正常访问（authencitate为自定义字段，什么名字都可以的）。<br>userService为定义的一个服务，包括判断是否已经登录、登录、登出逻辑。如果用户未登录并且所访问的页面需要授权，那么我们就要阻止跳转事件的正常进行<code>event.preventDefault();</code>，之后把要去的状态和参数暂存为<code>returnState</code>,<code>returnParams</code>,再人为跳转到login页面。<br>在登录逻辑中，当登录成功后，判断一下<code>returnState</code>是否为空，是的话就直接跳到网站主页，不是就<code>$state.go(returnState,returnParams)</code>就可以了。</p>
+<p>通过以上配置，我们就可以实现需求：自动跳转到登录页面并在登录后自动跑回需要访问的页面。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.jonahnisenson.com/angular-js-ui-router-redirect-after-login-to-requested-url/" target="_blank" rel="noopener">1</a>.<a href="http://www.jonahnisenson.com/angular-js-ui-router-redirect-after-login-to-requested-url/" target="_blank" rel="noopener">Angular.js UI-router redirect after login to requested url</a></p>
+<p><a href="http://angular-ui.github.io/ui-router/site/#/api" target="_blank" rel="noopener">2</a>.<a href="http://angular-ui.github.io/ui-router/site/#/api" target="_blank" rel="noopener">ui-router API</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
+  </nav>
+  
+  
+</section>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/sidebar_background.png);">
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI" alt="dequn">
+  
+  <h1 class="author-name">dequn</h1>
+  <h2 class="author-description"> 这些文章没啥用</h2>
+  <div class="site-count">
+    
+    <div class="archives-count">
+      <div class="site-count-title">Archives</div>
+      <div><a href="/archives/">38</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="categories-count">
+      <div class="site-count-title">Categories</div>
+      <div><a href="/categories/">11</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="tags-count">
+      <div class="site-count-title">Tags</div>
+      <div><a href="/tags/">44</a></div>
+    </div>
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+<hr>
+<div class="social-link sidebar-item">
+  <div><i class="far fa-address-card"></i>Social Links</p></div>
+  <ul>
+    
+    <li><i class="fas fa-envelope"></i><a href="mailto:dqzhangchn@gmail.com" target="_blank">E-Mail</a></li>
+    
+    <li><i class="fab fa-github"></i><a href="https://github.com/dequn" target="_blank">GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <a id="back-to-top"><i class="fas fa-angle-double-up"></i></a>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">dequn</span><span class="year"><i class="far fa-copyright"></i>2018</span>
+        </div>
+        
+        
+<div class="busuanzi">
+  <span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv"></span></span>
+</div>
+
+
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>
