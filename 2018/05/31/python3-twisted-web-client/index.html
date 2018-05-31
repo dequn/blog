@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    <meta name="keywords" content="Life, ARIA, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="dequn's blog" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>python3调用twisted web request的坑 | dequn's blog - 这些文章没啥用</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="en"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">dequn's blog</a></h1>
+        <h2 class="subtitle">这些文章没啥用</h2>
+      </div>
+      <div class="logo">
+        <img src="/images/ARIA_logo.png" alt="logo">
+      </div>
+    </div>
+    
+<nav id="nav" class="nav">
+  <a id="nav-toggle" class="nav-toggle"><i class="fas fa-bars"></i></a>
+  <ul id="menu">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/archives/">Archives</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+</nav>
+
+
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<section id="post" class="post">
+  
+  <article class="post-container card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/05/31/python3-twisted-web-client/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="dequn">
+       <meta itemprop="description" content="这些文章没啥用">
+       <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+       <span class="">python3调用twisted web request的坑</span>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-05-31T19:04:59+08:00">2018-05-31 19:04:59</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      <p>硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调用Django的REST接口保存数据到数据库，这就需要用到Twisted web client 发送数据。<a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">该回答</a> 分析了在Twisted和Django中“共享数据库”的几种方法。</p>
+<p>注：Twisted到最大优势在于异步非阻塞，而Django采用的是同步处理，如果直接引入Django的数据模型，这种同步处理放在Twisted的deferred里会让Twisted的优势丧失，所以采用了异步调用其他服务的方式。之所以现在采用Django进行网站开发，是因为现在是项目初期，能够快速开发落地是第一需求，但同时也兼顾到以后性能升级，所以保证各个模块的低耦合。</p>
+<p>关于Twisted web client<a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">官网</a>给出了很详细的示例，但跟着实验下来的情况竟然是没有反应，服务器根本都没接到任何请求！</p>
+<p>程序（参考官方示例）报的第一个错误是<code>TypeError: url must be bytes, not unicode</code>，没在意直接在url的字面量前加了一个<code>b</code>，其实这给后来的debug带来了极大的困难，因为一切都是按照示例写的，而根本看不到发送请求，没有版本只能再去翻看Twisted 的<a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">API DOC</a>了，这才发现，原来在Python3中，request的绝大多数参数要求是<code>bytes</code>类型，而示例其实是Python2的代码，把所有字符串都转换成<code>bytes</code>，问题解决。</p>
+<p>最后，刚开始写Python3的代码，还真是有些不适应，一些细节需要特别注意。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request</a><br>[2]. <a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">Sharing a database between Twisted and Django</a><br>[3]. <a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">Using the Twisted Web Client</a></p>
+
+    </main>
+    <footer class="post-footer">
+      
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Python3/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python3</a>
+        
+        <a class="post-tag button" href="/tags/Twisted/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Twisted</a>
+        
+        <a class="post-tag button" href="/tags/web/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>web</a>
+        
+        <a class="post-tag button" href="/tags/request/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>request</a>
+        
+        <a class="post-tag button" href="/tags/Django/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Django</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+<div class="reward" id="reward">
+  <p>坚持原创技术分享，您的支持是我前进的动力！</p>
+  <button id="reward-button" class="button" disable="enable">Reward</button>
+  <div id="qr" class="qr" style="display: none;">
+    
+    
+    
+  </div>
+</div>
+
+
+  
+  
+  <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+      
+      <a href="/2018/04/01/why-docker-has-OS-image/" rel="next" title="Docker的OS image是做什么用的"><i class="fas fa-angle-left"></i><span class="nav-title">Docker的OS image是做什么用的</span></a>
+      
+    </div>
+    <div class="post-nav-prev post-nav-item">
+      
+    </div>
+  </div>
+  
+  
+</section>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/sidebar_background.png);">
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI" alt="dequn">
+  
+  <h1 class="author-name">dequn</h1>
+  <h2 class="author-description"> 这些文章没啥用</h2>
+  <div class="site-count">
+    
+    <div class="archives-count">
+      <div class="site-count-title">Archives</div>
+      <div><a href="/archives/">39</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="categories-count">
+      <div class="site-count-title">Categories</div>
+      <div><a href="/categories/">11</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="tags-count">
+      <div class="site-count-title">Tags</div>
+      <div><a href="/tags/">49</a></div>
+    </div>
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+
+
+
+
+<hr>
+<div class="post-toc sidebar-item" id="toc-div">
+  <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+  <div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol></div>
+</div>
+
+
+
+    
+    
+    
+<hr>
+<div class="social-link sidebar-item">
+  <div><i class="far fa-address-card"></i>Social Links</p></div>
+  <ul>
+    
+    <li><i class="fas fa-envelope"></i><a href="mailto:dqzhangchn@gmail.com" target="_blank">E-Mail</a></li>
+    
+    <li><i class="fab fa-github"></i><a href="https://github.com/dequn" target="_blank">GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <a id="back-to-top"><i class="fas fa-angle-double-up"></i></a>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">dequn</span><span class="year"><i class="far fa-copyright"></i>2018</span>
+        </div>
+        
+        
+<div class="busuanzi">
+  <span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv"></span></span>
+</div>
+
+
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2018-04-01T13:49:27.000Z</updated>
+  <updated>2018-05-31T11:53:32.000Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python3调用twisted web request的坑</title>
+    <link href="http://dequn.github.io/2018/05/31/python3-twisted-web-client/"/>
+    <id>http://dequn.github.io/2018/05/31/python3-twisted-web-client/</id>
+    <published>2018-05-31T11:04:59.000Z</published>
+    <updated>2018-05-31T11:53:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调用Django的REST接口保存数据到数据库，这就需要用到Twisted web client 发送数据。<a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">该回答</a> 分析了在Twisted和Django中“共享数据库”的几种方法。</p><p>注：Twisted到最大优势在于异步非阻塞，而Django采用的是同步处理，如果直接引入Django的数据模型，这种同步处理放在Twisted的deferred里会让Twisted的优势丧失，所以采用了异步调用其他服务的方式。之所以现在采用Django进行网站开发，是因为现在是项目初期，能够快速开发落地是第一需求，但同时也兼顾到以后性能升级，所以保证各个模块的低耦合。</p><p>关于Twisted web client<a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">官网</a>给出了很详细的示例，但跟着实验下来的情况竟然是没有反应，服务器根本都没接到任何请求！</p><p>程序（参考官方示例）报的第一个错误是<code>TypeError: url must be bytes, not unicode</code>，没在意直接在url的字面量前加了一个<code>b</code>，其实这给后来的debug带来了极大的困难，因为一切都是按照示例写的，而根本看不到发送请求，没有版本只能再去翻看Twisted 的<a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">API DOC</a>了，这才发现，原来在Python3中，request的绝大多数参数要求是<code>bytes</code>类型，而示例其实是Python2的代码，把所有字符串都转换成<code>bytes</code>，问题解决。</p><p>最后，刚开始写Python3的代码，还真是有些不适应，一些细节需要特别注意。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request</a><br>[2]. <a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">Sharing a database between Twisted and Django</a><br>[3]. <a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">Using the Twisted Web Client</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调
+      
+    
+    </summary>
+    
+    
+      <category term="Python3" scheme="http://dequn.github.io/tags/Python3/"/>
+    
+      <category term="Twisted" scheme="http://dequn.github.io/tags/Twisted/"/>
+    
+      <category term="web" scheme="http://dequn.github.io/tags/web/"/>
+    
+      <category term="request" scheme="http://dequn.github.io/tags/request/"/>
+    
+      <category term="Django" scheme="http://dequn.github.io/tags/Django/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker的OS image是做什么用的</title>
@@ -528,32 +559,6 @@ img{height:200px;}
       <category term="Phoenix" scheme="http://dequn.github.io/tags/Phoenix/"/>
     
       <category term="Global Index" scheme="http://dequn.github.io/tags/Global-Index/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HBase 二级索引实现原理</title>
-    <link href="http://dequn.github.io/2016/08/29/HBase-Secondary-Index-Theory/"/>
-    <id>http://dequn.github.io/2016/08/29/HBase-Secondary-Index-Theory/</id>
-    <published>2016-08-29T13:41:53.000Z</published>
-    <updated>2017-08-24T12:49:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>项目中要用到HBase的二级索引，所谓的二级索引，就是对除了RowKey之外的其他列进行索引，因为HBase本身只支持Rowkey的索引，如果要以其他列的数据为约束进行查询，就需要我们做一点点小工作了，即建立二级索引。</p><p>在HBase中建立二级索引的思想就是：<strong> 新建一个数据表即索引表，以需要建立索引的列为主键，把其他需要查询的数据存储在该表中，或者存储对应的原数据表主键，最后需要使用此索引的时候，就来到这个表里边进行查询原数据或者主键，如果是主键的话再回到原表中根据主键查询，最终得到结果 </strong>。该索引表也可以是密集的，也可以是稀疏的，索引表中存储原始数据还是原主键就看个人需求，平衡空间和时间上的考量。</p><p>华为曾经在2013年开源了一个项目<a href="https://github.com/Huawei-Hadoop/hindex" target="_blank" rel="noopener">Huawei-hadoop/index</a>,不过最近两年都没有更新过了，应该是被停掉了，因为现在有很多例如Phoenix , Pig, Hive等可以利用，没必要自己花精力去维护，但是当时提出该索引的时候可是引起了不小的轰动，同时有两篇PPT，可以帮助理解二级索引的工作原理，有兴趣的读者可以下载研究，总好的过看我写的这些字！</p><ul><li><a href="http://obqjd695a.bkt.clouddn.com/HBase_Secondary_Index.pdf" target="_blank" rel="noopener">HBase – Secondary Index.pdf</a></li><li><a href="http://obqjd695a.bkt.clouddn.com/HuaWei_Secondary_Index_of_HBase.pdf" target="_blank" rel="noopener">HuaWei_Secondary_Index_of_HBase.pdf</a></li></ul><p>下一篇写Phoenix 的二级索引！</p>]]></content>
-    
-    <summary type="html">
-    
-      简单讲一下关于 HBase 二级索引的基本原理
-    
-    </summary>
-    
-      <category term="HBase" scheme="http://dequn.github.io/categories/HBase/"/>
-    
-    
-      <category term="HBase" scheme="http://dequn.github.io/tags/HBase/"/>
-    
-      <category term="Secondary Index" scheme="http://dequn.github.io/tags/Secondary-Index/"/>
-    
-      <category term="hindex" scheme="http://dequn.github.io/tags/hindex/"/>
     
   </entry>
   

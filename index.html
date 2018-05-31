@@ -115,6 +115,65 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/05/31/python3-twisted-web-client/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2018/05/31/python3-twisted-web-client/" itemprop="url">python3调用twisted web request的坑</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-05-31T19:04:59+08:00">2018-05-31 19:04:59</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调用Django的REST接口保存数据到数据库，这就需要用到Twisted web client 发送数据。<a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">该回答</a> 分析了在Twisted和Django中“共享数据库”的几种方法。</p>
+<p>注：Twisted到最大优势在于异步非阻塞，而Django采用的是同步处理，如果直接引入Django的数据模型，这种同步处理放在Twisted的deferred里会让Twisted的优势丧失，所以采用了异步调用其他服务的方式。之所以现在采用Django进行网站开发，是因为现在是项目初期，能够快速开发落地是第一需求，但同时也兼顾到以后性能升级，所以保证各个模块的低耦合。</p>
+<p>关于Twisted web client<a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">官网</a>给出了很详细的示例，但跟着实验下来的情况竟然是没有反应，服务器根本都没接到任何请求！</p>
+<p>程序（参考官方示例）报的第一个错误是<code>TypeError: url must be bytes, not unicode</code>，没在意直接在url的字面量前加了一个<code>b</code>，其实这给后来的debug带来了极大的困难，因为一切都是按照示例写的，而根本看不到发送请求，没有版本只能再去翻看Twisted 的<a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">API DOC</a>了，这才发现，原来在Python3中，request的绝大多数参数要求是<code>bytes</code>类型，而示例其实是Python2的代码，把所有字符串都转换成<code>bytes</code>，问题解决。</p>
+<p>最后，刚开始写Python3的代码，还真是有些不适应，一些细节需要特别注意。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request</a><br>[2]. <a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">Sharing a database between Twisted and Django</a><br>[3]. <a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">Using the Twisted Web Client</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Python3/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python3</a>
+        
+        <a class="post-tag button" href="/tags/Twisted/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Twisted</a>
+        
+        <a class="post-tag button" href="/tags/web/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>web</a>
+        
+        <a class="post-tag button" href="/tags/request/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>request</a>
+        
+        <a class="post-tag button" href="/tags/Django/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Django</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/04/01/why-docker-has-OS-image/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -922,68 +981,6 @@ img{height:200px;}
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/" itemprop="url">就折腾到这儿吧</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-12-27T19:00:58+08:00">2016-12-27 19:00:58</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/个人日记/" itemprop="url" rel="index"><span itemprop="name">个人日记</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>上上周从百度搜索部Rank组面试回来之后，就有点不安，三面的面试官直接告诉我这面的表现不好，让她很担心。说这句话分明是让我很担心，核心部门还是很值得期待的。一周都没有音信，想必是挂掉了，不曾想今天接到HR电话联系offer事宜，终于可以把心放肚子里了。</p>
-<p>今年四月份的时候面了一次腾讯实习，不意外地终止在一面。回来之后那个惶恐啊，突然间发现以自身的能力什么工作都找不到，但同时还欠着小论文没写，刚换了题目还没有看文献，一下子都不知道该做什么了。接下来的几个月也是最痛苦的，东一棒槌西一榔头，压根没有主心骨。</p>
-<p>好在暑期的时候终于把小论文凑完了，赶紧刷算法，面试也都陆陆续续的开始了，准备了不到一个月，就进入秋招高峰期，也就没有再静心准备了。笔试一个接着一个，面试仍还是倒在一面。腾讯地图部门提前批感觉还不错，结果不行，微店一面感觉不好，挂掉…从来不知道二面是什么样子，更担心——妈的这得到什么时候才能找到工作。</p>
-<p>面京东的时候比较顺利，虽然在一二面中已经知道岗位不是我想做的，但为了保底也要面下去，滑稽的是HR面挂了…真是见鬼了，短短5分钟的电面，我想犯错都难啊。后来华为也是，两面觉得非常顺利，不料仍然是failed，莫非真如师兄所说的：我犯了低级错误？但已然不记得了…</p>
-<p>百度是第一个给offer的公司，也是唯一一个给了两次offer的。9月份校招面试机器学习，一面就挂了，面试官觉得coding还不错，推荐我去面开发测试，并给了一点职业规划的建议（真是好人啊，哈哈），后来顺利通过开发测试的三轮面试，所以说多数人当天都是三轮面试，我却面了四轮，也是够有趣的。之后觉得岗位不太合适就拒绝掉了，需要说明的是我一直是以岗位为目标的，对公司没有什么要求，所以后面一个小公司给了数据挖掘的岗位觉得还不错就签了，搜狗面试要我进去做web开发，犹豫了一下之后就以“目前还没有在web开发上有较清晰的职业规划”婉拒了，也就不意外的无果而终了。</p>
-<p>现在想来真是作，为什么非得一根筋的非得去面数据挖掘\机器学习，压根没有任何相关的项目经验怎么去面！在签了小公司的数据挖掘岗位后进入观望阶段，赶紧的补补课，事实上囫囵吐枣半懂不懂地学习了一段时间后就也没再坚持。直到看到百度搜索部门的补招信息，并意外的有面试机会，真心不容易。一二面还不错，三面面试官在说了我表现不好之后还补充一句：其实你的简历在机器筛选的时候就没能通过，后来看你项目经历涉及的方面比较多，所以才又给提出来看看你的综合能力…</p>
-<p>简历平平，因为能力、经历实在是太一般，也难怪很多公司始终没给我面试的机会。大师兄没少给加油打气，导致我自己都快相信他说的了（肯定没问题！），思考后才明白:鼓励不是你已经做到了，而是需要做到的，我们太容易认为那些鼓励的话都已是事实了。</p>
-<p>这已经是我能折腾到的最好结果了，纯粹是撞运气的结果，论真实力怎么也不可能胜任的。虽然我也是个百度黑，很多人也骂它，但能“委身”于这样的现实也很满足了。接下来就是有个明确的规划和计划，总不能跳离的时候还是平平吧？</p>
-<p>感谢给我内推的师兄、师姐和一些个招聘平台，感谢老板给我开放、自由的时间和空间，感谢周围的小伙伴儿，最后感谢一下面试官吧。</p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/面试/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>面试</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a>
@@ -1009,7 +1006,7 @@ img{height:200px;}
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">38</a></div>
+      <div><a href="/archives/">39</a></div>
     </div>
     
     
@@ -1027,7 +1024,7 @@ img{height:200px;}
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">44</a></div>
+      <div><a href="/tags/">49</a></div>
     </div>
     
   </div>

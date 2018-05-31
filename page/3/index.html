@@ -115,6 +115,63 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/08/29/HBase-Secondary-Index-Theory/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/08/29/HBase-Secondary-Index-Theory/" itemprop="url">HBase 二级索引实现原理</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-08-29T21:41:53+08:00">2016-08-29 21:41:53</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      简单讲一下关于 HBase 二级索引的基本原理
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
+        
+        <a class="post-tag button" href="/tags/Secondary-Index/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Secondary Index</a>
+        
+        <a class="post-tag button" href="/tags/hindex/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>hindex</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/08/24/right-way-to-use-hbase-rowfilter_and_accelerate_hbase_query/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -731,67 +788,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/20/angular-redirect-to-login-if-not-auth/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/03/20/angular-redirect-to-login-if-not-auth/" itemprop="url">Angular自动跳转到登录页面并跳回</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-20T11:34:56+08:00">2016-03-20 11:34:56</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>在一些页面需要登录才能访问的情况下，我们要先检测用户是否已经登录，如果已经登录，则正常访问，如果没有则自动跳转到登录页面，登录之后再自动跳转到需要访问的页面。下面就简单讲一下在Angular中如何使用ui-router来实现这一目标,仍然直接看代码。</p>
-<h2 id="1-路由配置："><a href="#1-路由配置：" class="headerlink" title="1.路由配置："></a>1.路由配置：</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">angular</span><span class="selector-class">.module</span>(<span class="string">'mApp'</span>)<span class="selector-class">.config</span>(function($stateProvider)&#123;</span><br><span class="line">     $<span class="selector-tag">stateProvider</span></span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'home'</span>,&#123;</span><br><span class="line">         <span class="comment">//home  page     </span></span><br><span class="line">      &#125;)</span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'userpage'</span>,&#123;</span><br><span class="line">         <span class="attribute">url</span>:<span class="string">'/user'</span>,</span><br><span class="line">         <span class="attribute">authencitate</span>:true,</span><br><span class="line">         <span class="comment">//other code,such as controller </span></span><br><span class="line">     &#125;)</span><br><span class="line">     <span class="selector-class">.state</span>(<span class="string">'login'</span>,&#123;</span><br><span class="line">         <span class="attribute">url</span>:<span class="string">'/login'</span>,</span><br><span class="line">         <span class="comment">// other code</span></span><br><span class="line">     &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="2-监听-stateChangeStart事件"><a href="#2-监听-stateChangeStart事件" class="headerlink" title="2.监听$stateChangeStart事件"></a>2.监听<code>$stateChangeStart</code>事件</h2><p>可以在<code>$rootScope</code>中监听 ，也可以写在一个单独的服务中，这里以<code>$rootScope</code>为例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// other code </span></span><br><span class="line">angular.module(<span class="string">'mApp'</span>).run(run);</span><br><span class="line">run.$inject = [<span class="string">'$rootScope'</span>,<span class="string">'userService'</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">($rootScope,userService)</span></span>&#123;</span><br><span class="line">    $rootScope.$on(<span class="string">'$stateChangeStart'</span>,<span class="function"><span class="keyword">function</span><span class="params">(event,toState,toParams,fromState,fromParams)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(toState.authencitate &amp;&amp; !userService.isLogin())&#123;</span><br><span class="line"></span><br><span class="line">        event.preventDefault();<span class="comment">//must </span></span><br><span class="line">        $rootScope.returnState = fromState;</span><br><span class="line">        $rootScope.returnParams = fromParams;</span><br><span class="line">        $stete.go(<span class="string">'login'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="3-登录处的逻辑"><a href="#3-登录处的逻辑" class="headerlink" title="3.登录处的逻辑"></a>3.登录处的逻辑</h2><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ajax 登录成功后</span></span><br><span class="line"><span class="keyword">if</span>(!$rootScope.returnState)&#123;</span><br><span class="line">$state.go(<span class="string">'home'</span>);</span><br><span class="line"><span class="comment">//用户直接进的登录页面，returnState为undefined,跳转到默认主页就行了</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">   $state.go($rootScope.returnState,$rootScope.returnParams,&#123;reload:<span class="literal">true</span>,<span class="comment">/* other settings */</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里解释一下代码 ，在$stateChangeStart的监听代码中，判断一下toState,即要去的页面的authencitate是否为true,是的话意味着我们必须要登录才准许访问，如果不需要验证就正常访问（authencitate为自定义字段，什么名字都可以的）。<br>userService为定义的一个服务，包括判断是否已经登录、登录、登出逻辑。如果用户未登录并且所访问的页面需要授权，那么我们就要阻止跳转事件的正常进行<code>event.preventDefault();</code>，之后把要去的状态和参数暂存为<code>returnState</code>,<code>returnParams</code>,再人为跳转到login页面。<br>在登录逻辑中，当登录成功后，判断一下<code>returnState</code>是否为空，是的话就直接跳到网站主页，不是就<code>$state.go(returnState,returnParams)</code>就可以了。</p>
-<p>通过以上配置，我们就可以实现需求：自动跳转到登录页面并在登录后自动跑回需要访问的页面。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.jonahnisenson.com/angular-js-ui-router-redirect-after-login-to-requested-url/" target="_blank" rel="noopener">1</a>.<a href="http://www.jonahnisenson.com/angular-js-ui-router-redirect-after-login-to-requested-url/" target="_blank" rel="noopener">Angular.js UI-router redirect after login to requested url</a></p>
-<p><a href="http://angular-ui.github.io/ui-router/site/#/api" target="_blank" rel="noopener">2</a>.<a href="http://angular-ui.github.io/ui-router/site/#/api" target="_blank" rel="noopener">ui-router API</a></p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
@@ -817,7 +813,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">38</a></div>
+      <div><a href="/archives/">39</a></div>
     </div>
     
     
@@ -835,7 +831,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">44</a></div>
+      <div><a href="/tags/">49</a></div>
     </div>
     
   </div>
