@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    <meta name="keywords" content="Life, ARIA, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="dequn's blog" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>Django2结合Celery添加定时任务 | dequn's blog - 这些文章没啥用</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="en"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">dequn's blog</a></h1>
+        <h2 class="subtitle">这些文章没啥用</h2>
+      </div>
+      <div class="logo">
+        <img src="/images/ARIA_logo.png" alt="logo">
+      </div>
+    </div>
+    
+<nav id="nav" class="nav">
+  <a id="nav-toggle" class="nav-toggle"><i class="fas fa-bars"></i></a>
+  <ul id="menu">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/archives/">Archives</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+</nav>
+
+
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<section id="post" class="post">
+  
+  <article class="post-container card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/02/django-celery/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="dequn">
+       <meta itemprop="description" content="这些文章没啥用">
+       <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+       <span class="">Django2结合Celery添加定时任务</span>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-06-02T00:56:26+08:00">2018-06-02 00:56:26</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      <p>项目需要对一些观测数值做监控预警，没有找到特别合适的专门的开源项目，因此决定采用Celery实现任务调度，当然，除了Cerlery，还有就是可以采用APScheduler实现，也有<a href="https://github.com/jarekwg/django-apscheduler" target="_blank" rel="noopener">django-apscheduler</a>的开源项目利用Django的ORM存储APScheduler的任务和调度信息，但是APScheduler并没有那么灵活，比如要想修改例行信息，是需要修改源代码并且重启Django进程才可以，也正是参考了这个<a href="https://stackoverflow.com/questions/11654353/how-to-setup-apscheduler-in-a-django-project/15929907" target="_blank" rel="noopener">Stackoverflow问题</a>，才决定选用Celery来调度任务。</p>
+<p>关于Celery的定义，我想其项目网站主页的标题最为精确不过了——<strong>Distributed Task Queue</strong>，这里只简单的介绍一下Celery的工作模式，其他的使用细节可以参看网上的大量文章，不过建议以项目本身的文档为主，最为权威，尤其是在现在网络文章互相抄来抄去，质量极低！</p>
+<p>Celery是一个分布式任务队列，那么就需要一个Broker也就是经纪人（我看好多人翻译成中间人，觉得好low啊）来存储和分发任务消息，Worker是实际执行任务的角色，Worker进程启动后，从经纪人那里读取并执行相应任务，任务是一早定义好的，可以手动调用，也可以用CelerBeat实现例行。如果了解生产者消费者模型的话，Worker对应消费者，CeleryBeat对应生产者。</p>
+<p>也已经有开源项目<a href="https://github.com/celery/django-celery" target="_blank" rel="noopener">django-celery</a>，使得可以很方便的在Django中添加Celery任务，但是这个项目目前不支持Django 2及以上，原因是Celery调用的kombu库会抛出一个<code>missing 1 required positional argument: on_delete</code>的错误，而恰是在Django 2的时候，<code>on_delete</code>改成了必须字段，由于是Docker配置的开发环境，也懒得去修改镜像，因为Celery 本身就有对Django的支持，所以就自己动手，并不复杂。</p>
+<p>具体的过程可以参考<a href="https://medium.com/@markgituma/using-django-2-with-celery-and-redis-21343284827c" target="_blank" rel="noopener">Using Django 2 with Celery and Redis</a> 和 官方文档<a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html" target="_blank" rel="noopener">Using Celery with Django</a>，很简单就不上代码了，<strong>这里有一个很深的坑</strong>，celery.py中配置了任务自动发现<code>app.autodiscover_tasks()</code>，但<strong>在各个app中定义任务的模块名一定要是tasks，也就是示例代码中定义了任务的文件名一定要是tasks.py，而不能是其他的任何名称</strong>，因为自己尝试的时候手残敲错了，调试了很久才发现！</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> app1/</span></span><br><span class="line"><span class="ruby">    - tasks.py</span></span><br><span class="line"><span class="ruby">    - models.py</span></span><br><span class="line"><span class="ruby">- app2/</span></span><br><span class="line"><span class="ruby">    - tasks.py</span></span><br><span class="line"><span class="ruby">    - models.py</span></span><br></pre></td></tr></table></figure>
+<p>另外还有一个需要注意的问题就是调用任务时<strong>任务的name</strong>该如何写，从哪一层模块开始也至关重要，<a href="http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relative-imports" target="_blank" rel="noopener">task-naming-relative-imports</a>解释了why and how，这一点很多其他文章都没提及，也是容易出现的一个坑。具体放在Django中，以app1中任务为例，也就是在<code>INSTALLED_APPS</code>中添加的是app1，那么调用的时候要用到的任务名称就是<code>app1.tasks.task1</code>，也可以是嵌套的类如<code>app1.app2.tasks.task1</code>。</p>
+<p>写了一个简单的<a href="https://github.com/dequn/django2-celery-demo" target="_blank" rel="noopener">django2-celery-demo</a>，以供参考。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://stackoverflow.com/questions/11654353/how-to-setup-apscheduler-in-a-django-project/15929907" target="_blank" rel="noopener">Stackoverflow: How to setup APScheduler in a Django project?</a><br>[2]. <a href="https://github.com/celery/django-celery" target="_blank" rel="noopener">django-celery</a><br>[3]. <a href="https://github.com/jarekwg/django-apscheduler" target="_blank" rel="noopener">django-apscheduler</a><br>[4]. <a href="https://medium.com/@markgituma/using-django-2-with-celery-and-redis-21343284827c" target="_blank" rel="noopener">Using Django 2 with Celery and Redis</a><br>[5]. <a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html" target="_blank" rel="noopener">Using Celery with Django</a><br>[6]. <a href="http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relative-imports" target="_blank" rel="noopener">task-naming-relative-imports</a></p>
+
+    </main>
+    <footer class="post-footer">
+      
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Django/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Django</a>
+        
+        <a class="post-tag button" href="/tags/Celery/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Celery</a>
+        
+        <a class="post-tag button" href="/tags/APScheduler/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>APScheduler</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+<div class="reward" id="reward">
+  <p>坚持原创技术分享，您的支持是我前进的动力！</p>
+  <button id="reward-button" class="button" disable="enable">Reward</button>
+  <div id="qr" class="qr" style="display: none;">
+    
+    
+    
+  </div>
+</div>
+
+
+  
+  
+  <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+      
+      <a href="/2018/05/31/python3-twisted-web-client/" rel="next" title="python3调用twisted web request的坑"><i class="fas fa-angle-left"></i><span class="nav-title">python3调用twisted web request的坑</span></a>
+      
+    </div>
+    <div class="post-nav-prev post-nav-item">
+      
+    </div>
+  </div>
+  
+  
+</section>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/sidebar_background.png);">
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI" alt="dequn">
+  
+  <h1 class="author-name">dequn</h1>
+  <h2 class="author-description"> 这些文章没啥用</h2>
+  <div class="site-count">
+    
+    <div class="archives-count">
+      <div class="site-count-title">Archives</div>
+      <div><a href="/archives/">40</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="categories-count">
+      <div class="site-count-title">Categories</div>
+      <div><a href="/categories/">11</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="tags-count">
+      <div class="site-count-title">Tags</div>
+      <div><a href="/tags/">51</a></div>
+    </div>
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+
+
+
+
+<hr>
+<div class="post-toc sidebar-item" id="toc-div">
+  <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+  <div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol></div>
+</div>
+
+
+
+    
+    
+    
+<hr>
+<div class="social-link sidebar-item">
+  <div><i class="far fa-address-card"></i>Social Links</p></div>
+  <ul>
+    
+    <li><i class="fas fa-envelope"></i><a href="mailto:dqzhangchn@gmail.com" target="_blank">E-Mail</a></li>
+    
+    <li><i class="fab fa-github"></i><a href="https://github.com/dequn" target="_blank">GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <a id="back-to-top"><i class="fas fa-angle-double-up"></i></a>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">dequn</span><span class="year"><i class="far fa-copyright"></i>2018</span>
+        </div>
+        
+        
+<div class="busuanzi">
+  <span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv"></span></span>
+</div>
+
+
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

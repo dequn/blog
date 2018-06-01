@@ -1,1 +1,1 @@
-http://dequn.github.io/2018/05/31/python3-twisted-web-client/
+http://dequn.github.io/2018/06/02/django-celery/

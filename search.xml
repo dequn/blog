@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title><![CDATA[Django2结合Celery添加定时任务]]></title>
+      <url>http://dequn.github.io/2018/06/02/django-celery/</url>
+      <content type="html"><![CDATA[<p>项目需要对一些观测数值做监控预警，没有找到特别合适的专门的开源项目，因此决定采用Celery实现任务调度，当然，除了Cerlery，还有就是可以采用APScheduler实现，也有<a href="https://github.com/jarekwg/django-apscheduler" target="_blank" rel="noopener">django-apscheduler</a>的开源项目利用Django的ORM存储APScheduler的任务和调度信息，但是APScheduler并没有那么灵活，比如要想修改例行信息，是需要修改源代码并且重启Django进程才可以，也正是参考了这个<a href="https://stackoverflow.com/questions/11654353/how-to-setup-apscheduler-in-a-django-project/15929907" target="_blank" rel="noopener">Stackoverflow问题</a>，才决定选用Celery来调度任务。</p>
+<p>关于Celery的定义，我想其项目网站主页的标题最为精确不过了——<strong>Distributed Task Queue</strong>，这里只简单的介绍一下Celery的工作模式，其他的使用细节可以参看网上的大量文章，不过建议以项目本身的文档为主，最为权威，尤其是在现在网络文章互相抄来抄去，质量极低！</p>
+<p>Celery是一个分布式任务队列，那么就需要一个Broker也就是经纪人（我看好多人翻译成中间人，觉得好low啊）来存储和分发任务消息，Worker是实际执行任务的角色，Worker进程启动后，从经纪人那里读取并执行相应任务，任务是一早定义好的，可以手动调用，也可以用CelerBeat实现例行。如果了解生产者消费者模型的话，Worker对应消费者，CeleryBeat对应生产者。</p>
+<p>也已经有开源项目<a href="https://github.com/celery/django-celery" target="_blank" rel="noopener">django-celery</a>，使得可以很方便的在Django中添加Celery任务，但是这个项目目前不支持Django 2及以上，原因是Celery调用的kombu库会抛出一个<code>missing 1 required positional argument: on_delete</code>的错误，而恰是在Django 2的时候，<code>on_delete</code>改成了必须字段，由于是Docker配置的开发环境，也懒得去修改镜像，因为Celery 本身就有对Django的支持，所以就自己动手，并不复杂。</p>
+<p>具体的过程可以参考<a href="https://medium.com/@markgituma/using-django-2-with-celery-and-redis-21343284827c" target="_blank" rel="noopener">Using Django 2 with Celery and Redis</a> 和 官方文档<a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html" target="_blank" rel="noopener">Using Celery with Django</a>，很简单就不上代码了，<strong>这里有一个很深的坑</strong>，celery.py中配置了任务自动发现<code>app.autodiscover_tasks()</code>，但<strong>在各个app中定义任务的模块名一定要是tasks，也就是示例代码中定义了任务的文件名一定要是tasks.py，而不能是其他的任何名称</strong>，因为自己尝试的时候手残敲错了，调试了很久才发现！</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> app1/</span></span><br><span class="line"><span class="ruby">    - tasks.py</span></span><br><span class="line"><span class="ruby">    - models.py</span></span><br><span class="line"><span class="ruby">- app2/</span></span><br><span class="line"><span class="ruby">    - tasks.py</span></span><br><span class="line"><span class="ruby">    - models.py</span></span><br></pre></td></tr></table></figure>
+<p>另外还有一个需要注意的问题就是调用任务时<strong>任务的name</strong>该如何写，从哪一层模块开始也至关重要，<a href="http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relative-imports" target="_blank" rel="noopener">task-naming-relative-imports</a>解释了why and how，这一点很多其他文章都没提及，也是容易出现的一个坑。具体放在Django中，以app1中任务为例，也就是在<code>INSTALLED_APPS</code>中添加的是app1，那么调用的时候要用到的任务名称就是<code>app1.tasks.task1</code>，也可以是嵌套的类如<code>app1.app2.tasks.task1</code>。</p>
+<p>写了一个简单的<a href="https://github.com/dequn/django2-celery-demo" target="_blank" rel="noopener">django2-celery-demo</a>，以供参考。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://stackoverflow.com/questions/11654353/how-to-setup-apscheduler-in-a-django-project/15929907" target="_blank" rel="noopener">Stackoverflow: How to setup APScheduler in a Django project?</a><br>[2]. <a href="https://github.com/celery/django-celery" target="_blank" rel="noopener">django-celery</a><br>[3]. <a href="https://github.com/jarekwg/django-apscheduler" target="_blank" rel="noopener">django-apscheduler</a><br>[4]. <a href="https://medium.com/@markgituma/using-django-2-with-celery-and-redis-21343284827c" target="_blank" rel="noopener">Using Django 2 with Celery and Redis</a><br>[5]. <a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html" target="_blank" rel="noopener">Using Celery with Django</a><br>[6]. <a href="http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relative-imports" target="_blank" rel="noopener">task-naming-relative-imports</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Django </tag>
+            
+            <tag> Celery </tag>
+            
+            <tag> APScheduler </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[python3调用twisted web request的坑]]></title>
       <url>http://dequn.github.io/2018/05/31/python3-twisted-web-client/</url>
       <content type="html"><![CDATA[<p>硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调用Django的REST接口保存数据到数据库，这就需要用到Twisted web client 发送数据。<a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">该回答</a> 分析了在Twisted和Django中“共享数据库”的几种方法。</p>
@@ -24,6 +51,8 @@
         
         <tags>
             
+            <tag> Django </tag>
+            
             <tag> Python3 </tag>
             
             <tag> Twisted </tag>
@@ -31,8 +60,6 @@
             <tag> web </tag>
             
             <tag> request </tag>
-            
-            <tag> Django </tag>
             
         </tags>
         

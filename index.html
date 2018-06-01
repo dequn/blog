@@ -115,6 +115,64 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/02/django-celery/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2018/06/02/django-celery/" itemprop="url">Django2结合Celery添加定时任务</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-06-02T00:56:26+08:00">2018-06-02 00:56:26</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>项目需要对一些观测数值做监控预警，没有找到特别合适的专门的开源项目，因此决定采用Celery实现任务调度，当然，除了Cerlery，还有就是可以采用APScheduler实现，也有<a href="https://github.com/jarekwg/django-apscheduler" target="_blank" rel="noopener">django-apscheduler</a>的开源项目利用Django的ORM存储APScheduler的任务和调度信息，但是APScheduler并没有那么灵活，比如要想修改例行信息，是需要修改源代码并且重启Django进程才可以，也正是参考了这个<a href="https://stackoverflow.com/questions/11654353/how-to-setup-apscheduler-in-a-django-project/15929907" target="_blank" rel="noopener">Stackoverflow问题</a>，才决定选用Celery来调度任务。</p>
+<p>关于Celery的定义，我想其项目网站主页的标题最为精确不过了——<strong>Distributed Task Queue</strong>，这里只简单的介绍一下Celery的工作模式，其他的使用细节可以参看网上的大量文章，不过建议以项目本身的文档为主，最为权威，尤其是在现在网络文章互相抄来抄去，质量极低！</p>
+<p>Celery是一个分布式任务队列，那么就需要一个Broker也就是经纪人（我看好多人翻译成中间人，觉得好low啊）来存储和分发任务消息，Worker是实际执行任务的角色，Worker进程启动后，从经纪人那里读取并执行相应任务，任务是一早定义好的，可以手动调用，也可以用CelerBeat实现例行。如果了解生产者消费者模型的话，Worker对应消费者，CeleryBeat对应生产者。</p>
+<p>也已经有开源项目<a href="https://github.com/celery/django-celery" target="_blank" rel="noopener">django-celery</a>，使得可以很方便的在Django中添加Celery任务，但是这个项目目前不支持Django 2及以上，原因是Celery调用的kombu库会抛出一个<code>missing 1 required positional argument: on_delete</code>的错误，而恰是在Django 2的时候，<code>on_delete</code>改成了必须字段，由于是Docker配置的开发环境，也懒得去修改镜像，因为Celery 本身就有对Django的支持，所以就自己动手，并不复杂。</p>
+<p>具体的过程可以参考<a href="https://medium.com/@markgituma/using-django-2-with-celery-and-redis-21343284827c" target="_blank" rel="noopener">Using Django 2 with Celery and Redis</a> 和 官方文档<a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html" target="_blank" rel="noopener">Using Celery with Django</a>，很简单就不上代码了，<strong>这里有一个很深的坑</strong>，celery.py中配置了任务自动发现<code>app.autodiscover_tasks()</code>，但<strong>在各个app中定义任务的模块名一定要是tasks，也就是示例代码中定义了任务的文件名一定要是tasks.py，而不能是其他的任何名称</strong>，因为自己尝试的时候手残敲错了，调试了很久才发现！</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> app1/</span></span><br><span class="line"><span class="ruby">    - tasks.py</span></span><br><span class="line"><span class="ruby">    - models.py</span></span><br><span class="line"><span class="ruby">- app2/</span></span><br><span class="line"><span class="ruby">    - tasks.py</span></span><br><span class="line"><span class="ruby">    - models.py</span></span><br></pre></td></tr></table></figure>
+<p>另外还有一个需要注意的问题就是调用任务时<strong>任务的name</strong>该如何写，从哪一层模块开始也至关重要，<a href="http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relative-imports" target="_blank" rel="noopener">task-naming-relative-imports</a>解释了why and how，这一点很多其他文章都没提及，也是容易出现的一个坑。具体放在Django中，以app1中任务为例，也就是在<code>INSTALLED_APPS</code>中添加的是app1，那么调用的时候要用到的任务名称就是<code>app1.tasks.task1</code>，也可以是嵌套的类如<code>app1.app2.tasks.task1</code>。</p>
+<p>写了一个简单的<a href="https://github.com/dequn/django2-celery-demo" target="_blank" rel="noopener">django2-celery-demo</a>，以供参考。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://stackoverflow.com/questions/11654353/how-to-setup-apscheduler-in-a-django-project/15929907" target="_blank" rel="noopener">Stackoverflow: How to setup APScheduler in a Django project?</a><br>[2]. <a href="https://github.com/celery/django-celery" target="_blank" rel="noopener">django-celery</a><br>[3]. <a href="https://github.com/jarekwg/django-apscheduler" target="_blank" rel="noopener">django-apscheduler</a><br>[4]. <a href="https://medium.com/@markgituma/using-django-2-with-celery-and-redis-21343284827c" target="_blank" rel="noopener">Using Django 2 with Celery and Redis</a><br>[5]. <a href="http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html" target="_blank" rel="noopener">Using Celery with Django</a><br>[6]. <a href="http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relative-imports" target="_blank" rel="noopener">task-naming-relative-imports</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Django/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Django</a>
+        
+        <a class="post-tag button" href="/tags/Celery/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Celery</a>
+        
+        <a class="post-tag button" href="/tags/APScheduler/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>APScheduler</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/05/31/python3-twisted-web-client/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -164,15 +222,15 @@
         
         
         
-        <a class="post-tag button" href="/tags/Python3/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python3</a>
+        <a class="post-tag button" href="/tags/Django/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Django</a>
         
-        <a class="post-tag button" href="/tags/Twisted/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Twisted</a>
+        <a class="post-tag button" href="/tags/Python3/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Python3</a>
         
-        <a class="post-tag button" href="/tags/web/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>web</a>
+        <a class="post-tag button" href="/tags/Twisted/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>Twisted</a>
         
-        <a class="post-tag button" href="/tags/request/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>request</a>
+        <a class="post-tag button" href="/tags/web/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>web</a>
         
-        <a class="post-tag button" href="/tags/Django/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Django</a>
+        <a class="post-tag button" href="/tags/request/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>request</a>
         
       </div>
       
@@ -834,160 +892,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/03/31/d3-example-of-different-data-structures/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2017/03/31/d3-example-of-different-data-structures/" itemprop="url">d3-example-of-different-data-structures</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-03-31T15:10:46+08:00">2017-03-31 15:10:46</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <style>
-img{height:200px;}
-</style>
-
-
-<p>A simple list of chart types and data structure.</p>
-<h1 id="Single-property"><a href="#Single-property" class="headerlink" title="Single property"></a>Single property</h1><h2 id="Box-Plots"><a href="#Box-Plots" class="headerlink" title="Box Plots"></a>Box Plots</h2><ul>
-<li>Description: Use for Statistics: the smallest value, lower quartile, median, upper quartile,<br>and largest value.</li>
-<li>Example:None.</li>
-</ul>
-<h2 id="Bubble-Chart"><a href="#Bubble-Chart" class="headerlink" title="Bubble Chart"></a>Bubble Chart</h2><ul>
-<li>Description: Statistics, the area of circel stands for the count of a value, proper<br>to large amount of values than <strong>Bar Chart</strong>.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/dbaf877e0e81e571ae42fa1f6e1115bf052f72ca/687474703a2f2f64336a732e6f72672f65782f627562626c652e706e67" alt=""></li>
-</ul>
-<h2 id="Bullet-Chart"><a href="#Bullet-Chart" class="headerlink" title="Bullet Chart"></a>Bullet Chart</h2><ul>
-<li>Description: A variation on a bar chart, compare a quantitative measure anainst<br>qualiative ranges and related markders.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/490b4c309e5ecb769b3969bed04b3b49bf516065/687474703a2f2f64336a732e6f72672f65782f62756c6c65742e706e67" alt=""></li>
-</ul>
-<h2 id="Calendar-Chart"><a href="#Calendar-Chart" class="headerlink" title="Calendar Chart"></a>Calendar Chart</h2><ul>
-<li>Description: Values are visualized as colored cells per day, Use for compartion<br>between moths/years while having a day value detail.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/bc2b1c93d21e80d23c99da8ebd59617e94581327/687474703a2f2f64336a732e6f72672f65782f63616c656e6461722e706e67" alt=""></li>
-<li>Example: <img src="https://camo.githubusercontent.com/fb70dfff84f2b442e89a6799e13343eda2387dc1/68747470733a2f2f676973742e6769746875622e636f6d2f746a6465636b652f353535383038342f7261772f7468756d626e61696c322e706e67" alt=""></li>
-</ul>
-<h2 id="Circular-heat-chart"><a href="#Circular-heat-chart" class="headerlink" title="Circular heat chart"></a><a href="http://prcweb.co.uk/circularheatchart/" target="_blank" rel="noopener">Circular heat chart</a></h2><ul>
-<li>Description: A head map with a circular layout.</li>
-<li>Example: <img src="http://prcweb.co.uk/img/rainfall-1980-2012.jpg" alt=""></li>
-<li>Example: <img src="https://github.com/nicgirault/circosJS/raw/master/doc/temperatures.png" alt=""></li>
-</ul>
-<h2 id="A-3d-exmaple-for-one-property"><a href="#A-3d-exmaple-for-one-property" class="headerlink" title="A 3d exmaple for one property"></a>A 3d exmaple for one property</h2><p><img src="https://camo.githubusercontent.com/be49e2d5950922a2b221d6578fb2fe0f84b69384/687474703a2f2f616e696d61746564646174612e636f2e756b2f696d672f64332d67616c6c6572792f756b74656d70657261747572656c696e6573332e6a7067" alt=""></p>
-<h1 id="A-and-B"><a href="#A-and-B" class="headerlink" title="A and B"></a>A and B</h1><h2 id="Chord-Diagram"><a href="#Chord-Diagram" class="headerlink" title="Chord Diagram"></a>Chord Diagram</h2><ul>
-<li>Description: Show directed relationships among a group of entities.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/cc8ad10f5975dff97a5d6801269f8203101b20b9/687474703a2f2f64336a732e6f72672f65782f63686f72642e706e67" alt="abc"></li>
-</ul>
-<h2 id="Force-Directed-Graph"><a href="#Force-Directed-Graph" class="headerlink" title="Force-Directed Graph"></a>Force-Directed Graph</h2><ul>
-<li>Description: Shows character co-occurence, related character in closer<br>proximity and unrelated characters are farther apart.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/d7b97d7c0873e949f827918763174efcca6c4a5f/687474703a2f2f64336a732e6f72672f65782f666f7263652e706e67" alt=""></li>
-<li>Variants: <a href="https://bl.ocks.org/mbostock/4600693" target="_blank" rel="noopener">Curved Links</a>, <a href="http://bost.ocks.org/mike/fisheye/" target="_blank" rel="noopener">Fisheye<br>Distoration</a>, <a href="http://bost.ocks.org/mike/miserables/" target="_blank" rel="noopener">Matrix diagram</a><br>, <a href="http://mbostock.github.io/d3/talk/20111116/force-collapsible.html" target="_blank" rel="noopener">Collapse Force layout</a><br>, <a href="http://bl.ocks.org/MoritzStefaner/1377729" target="_blank" rel="noopener">Force-based label</a></li>
-</ul>
-<h2 id="Sector-Comparation"><a href="#Sector-Comparation" class="headerlink" title="Sector Comparation"></a><a href="http://www.brightpointinc.com/united-states-trade-deficit/" target="_blank" rel="noopener">Sector Comparation</a></h2><ul>
-<li>Description: Comparation between two main properties with some sub propritis.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/c2826f9a0c78f2f0404b094c891348b72d38d54e/687474703a2f2f7777772e627269676874706f696e74696e632e636f6d2f696e7465726163746976652f696d616765732f446566696369745f32303270782e706e67" alt=""></li>
-</ul>
-<h1 id="A-B-and-C"><a href="#A-B-and-C" class="headerlink" title="A, B and C"></a>A, B and C</h1><h2 id="Circle-gram"><a href="#Circle-gram" class="headerlink" title="Circle gram"></a>Circle gram</h2><ul>
-<li>Description:(X,Y)-&gt;Z, Z use circle and the area stands for Z value.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/d5cc8b32409a9d498d83ce13c3f13ec7ac664601/687474703a2f2f6e657572616c656e67722e636f6d2f61736966722f6a6f75726e616c732f6a6f75726e616c732e706e67" alt=""><br><img src="https://camo.githubusercontent.com/3fb6699cd8462e7a82b69c04ac5cb37b968c0f09/687474703a2f2f64336a732e6f72672f65782f66616365626f6f6b2d69706f2e706e67" alt=""></li>
-</ul>
-<h1 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h1><p>The following charts are used for showing data which has a tree data structure.</p>
-<h2 id="Dendrogram"><a href="#Dendrogram" class="headerlink" title="Dendrogram"></a>Dendrogram</h2><ul>
-<li>Description: Leaf nodes of the tree at the same depth, are aligned on the<br>right edge.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/e1a1948f0bcfa095d54793afd3ab96af97731773/687474703a2f2f64336a732e6f72672f65782f636c75737465722e706e67" alt=""></li>
-</ul>
-<h2 id="Hierarchical-Edge-Bundling"><a href="#Hierarchical-Edge-Bundling" class="headerlink" title="Hierarchical Edge Bundling"></a>Hierarchical Edge Bundling</h2><ul>
-<li>Exampel: <img src="https://camo.githubusercontent.com/75572c7b80dabb1a0984bd8ea9d3ee16c5200fe3/687474703a2f2f64336a732e6f72672f65782f62756e646c652e706e67" alt=""></li>
-</ul>
-<h2 id="Treemap"><a href="#Treemap" class="headerlink" title="Treemap"></a>Treemap</h2><ul>
-<li>Description: A treemap recursively subdivideds area into rectangles, the area<br>of any node in the tree corresponds to its value.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/e6612268ca90a8c2f6d1da62f85d7d86616c37de/687474703a2f2f64336a732e6f72672f65782f747265656d61702e706e67" alt=""></li>
-</ul>
-<h2 id="Partition-layout"><a href="#Partition-layout" class="headerlink" title="Partition layout"></a>Partition layout</h2><ul>
-<li>Description: A treemap recursively subdivideds in horizational.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/48f41725f95dad3f65f65e5f47c1b70e932be48c/687474703a2f2f64336a732e6f72672f65782f706172746974696f6e2d7a6f6f6d2e706e67" alt=""></li>
-</ul>
-<h2 id="Circle-packing"><a href="#Circle-packing" class="headerlink" title="Circle packing"></a>Circle packing</h2><ul>
-<li>Description: Use containment to represent the hierarchy, the area of circle<br>can stand for item value, it better reveals the hierarchy than treemap.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/428c04c95f2a18ce7178d9d6135f1eab8df10ebd/687474703a2f2f64336a732e6f72672f65782f7061636b2e706e67" alt=""></li>
-<li>Variants: <a href="http://mbostock.github.com/d3/talk/20111116/pack-hierarchy.html" target="_blank" rel="noopener">Zoomable Pack layout</a></li>
-</ul>
-<h2 id="Sunburst"><a href="#Sunburst" class="headerlink" title="Sunburst"></a>Sunburst</h2><ul>
-<li>Description: A treemap has a radial layout, all the root nodes are at the<br>center.</li>
-<li>Exampel: <img src="https://camo.githubusercontent.com/1415e2af369262e466534480edbc7baa883e5b58/687474703a2f2f64336a732e6f72672f65782f73756e62757273742e706e67" alt=""></li>
-<li>Variants: <a href="http://www.jasondavies.com/coffee-wheel/" target="_blank" rel="noopener">Zoomable Sunburst</a>, <a href="http://bl.ocks.org/kerryrodden/7090426" target="_blank" rel="noopener">Sequences sunburst</a></li>
-</ul>
-<h2 id="Node-Link-Tree"><a href="#Node-Link-Tree" class="headerlink" title="Node-Link Tree"></a>Node-Link Tree</h2><ul>
-<li>Description: The depth of nodes is computed by distance from the root, leading<br>to a ragged appearance.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/e646acd936244a6db8a140fb0e1e421d95b97d8e/687474703a2f2f64336a732e6f72672f65782f747265652e706e67" alt=""></li>
-</ul>
-<h1 id="A-B-C-…-gt-D-E-F-…-with-intermediate-nodes"><a href="#A-B-C-…-gt-D-E-F-…-with-intermediate-nodes" class="headerlink" title="A, B , C, … -&gt; D, E, F, … with intermediate nodes."></a>A, B , C, … -&gt; D, E, F, … with intermediate nodes.</h1><h2 id="Sankey-Diagrams"><a href="#Sankey-Diagrams" class="headerlink" title="Sankey Diagrams"></a><a href="https://bost.ocks.org/mike/sankey/" target="_blank" rel="noopener">Sankey Diagrams</a></h2><ul>
-<li>Description: Sankey diagrams visualize the magnitude of flow between nodes in<br>a network. This intricate diagram shows a possible scenario for UK energy<br>production and consumption in 2050: energy supplies are on the left, and<br>demands are on the right. Intermediate nodes group related forms of production<br>and show how energy is converted and transmitted before it is consumed (or<br>lost!). The thickness of each link encodes the amount of flow from source to<br>target.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/d9abb5b2b474c0e37728abedb9ba722f8b6e4f24/687474703a2f2f64336a732e6f72672f65782f73616e6b65792e706e67" alt=""></li>
-</ul>
-<h1 id="Compare-n-properties"><a href="#Compare-n-properties" class="headerlink" title="Compare n properties"></a>Compare n properties</h1><h2 id="Time-Series-Comparation"><a href="#Time-Series-Comparation" class="headerlink" title="Time Series Comparation"></a>Time Series Comparation</h2><ul>
-<li>Description: None.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/aa4653694ba96e7991206963a698584169d54204/68747470733a2f2f676973742e6769746875622e636f6d2f6d6172756662642f373139313334302f7261772f616230353765656639323237653534393834333163303330633661643530343863623332366133612f7468756d626e61696c2e706e67" alt=""></li>
-</ul>
-<h2 id="Streamgraph"><a href="#Streamgraph" class="headerlink" title="Streamgraph"></a>Streamgraph</h2><ul>
-<li>Description: None.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/3cbc8c7898d1336e83e499cb66274c15e63f65bf/687474703a2f2f64336a732e6f72672f65782f73747265616d2e706e67" alt=""></li>
-</ul>
-<h2 id="Bar-Line-Scatter-Stacked-bar-etc"><a href="#Bar-Line-Scatter-Stacked-bar-etc" class="headerlink" title="Bar, Line, Scatter, Stacked bar, etc."></a>Bar, Line, Scatter, Stacked bar, etc.</h2><h2 id="Radial-plot"><a href="#Radial-plot" class="headerlink" title="Radial plot"></a>Radial plot</h2><ul>
-<li>Description: Boxplot for continuous data.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/f17a69dcf4d6cf3020fc77016844d6c46ae5419a/687474703a2f2f626c2e6f636b732e6f72672f646176696477636c696e2f7261772f61643564313364623236306361656666653962332f7468756d626e61696c2e706e67" alt=""></li>
-</ul>
-<h2 id="Radar-Chart"><a href="#Radar-Chart" class="headerlink" title="Radar Chart"></a>Radar Chart</h2><ul>
-<li>Description: Comparation between n properties, all of them have the save<br>sacle.</li>
-<li>Example: <img src="https://raw.githubusercontent.com/nbremer/thumbnails/master/D3%20Radar%20Chart%20Redesign.png" alt=""></li>
-</ul>
-<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><h2 id="Choropleth"><a href="#Choropleth" class="headerlink" title="Choropleth"></a><a href="https://bl.ocks.org/mbostock/4060606" target="_blank" rel="noopener">Choropleth</a></h2><ul>
-<li>Description: Color stands for value and showd in a geo-map.</li>
-<li>Example: <img src="https://camo.githubusercontent.com/0afefbc191693b8ecaea58cda0b587a908fc0174/687474703a2f2f64336a732e6f72672f65782f63686f726f706c6574682e706e67" alt=""></li>
-</ul>
-<p>Not all, visit <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" rel="noopener">https://github.com/d3/d3/wiki/Gallery</a> for more examples.</p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/d3/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>d3</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a>
@@ -1013,7 +917,7 @@ img{height:200px;}
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">39</a></div>
+      <div><a href="/archives/">40</a></div>
     </div>
     
     
@@ -1031,7 +935,7 @@ img{height:200px;}
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">49</a></div>
+      <div><a href="/tags/">51</a></div>
     </div>
     
   </div>
