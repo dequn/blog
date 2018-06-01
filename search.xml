@@ -8,8 +8,15 @@
       <url>http://dequn.github.io/2018/05/31/python3-twisted-web-client/</url>
       <content type="html"><![CDATA[<p>硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调用Django的REST接口保存数据到数据库，这就需要用到Twisted web client 发送数据。<a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">该回答</a> 分析了在Twisted和Django中“共享数据库”的几种方法。</p>
 <p>注：Twisted到最大优势在于异步非阻塞，而Django采用的是同步处理，如果直接引入Django的数据模型，这种同步处理放在Twisted的deferred里会让Twisted的优势丧失，所以采用了异步调用其他服务的方式。之所以现在采用Django进行网站开发，是因为现在是项目初期，能够快速开发落地是第一需求，但同时也兼顾到以后性能升级，所以保证各个模块的低耦合。</p>
+<p>环境信息：</p>
+<ul>
+<li>Python 3.6.5</li>
+<li>Twisted 18.4.0</li>
+<li>Django 2.0.5</li>
+</ul>
 <p>关于Twisted web client<a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">官网</a>给出了很详细的示例，但跟着实验下来的情况竟然是没有反应，服务器根本都没接到任何请求！</p>
 <p>程序（参考官方示例）报的第一个错误是<code>TypeError: url must be bytes, not unicode</code>，没在意直接在url的字面量前加了一个<code>b</code>，其实这给后来的debug带来了极大的困难，因为一切都是按照示例写的，而根本看不到发送请求，没有版本只能再去翻看Twisted 的<a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">API DOC</a>了，这才发现，原来在Python3中，request的绝大多数参数要求是<code>bytes</code>类型，而示例其实是Python2的代码，把所有字符串都转换成<code>bytes</code>，问题解决。</p>
+<p>还有一点需要特别注意的是，request请求的url必须带上<code>http://</code>协议前缀，不然服务器端也是接收不到请求的！</p>
 <p>最后，刚开始写Python3的代码，还真是有些不适应，一些细节需要特别注意。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request" target="_blank" rel="noopener">https://twistedmatrix.com/documents/14.0.1/api/twisted.web.iweb.IAgent.html#request</a><br>[2]. <a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">Sharing a database between Twisted and Django</a><br>[3]. <a href="https://twistedmatrix.com/documents/14.0.1/web/howto/client.html" target="_blank" rel="noopener">Using the Twisted Web Client</a></p>
 ]]></content>
