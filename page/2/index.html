@@ -115,6 +115,123 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/08/19/charset-encoding-and-in-python/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2017/08/19/charset-encoding-and-in-python/" itemprop="url">字符集、字符编码以及Python中编码的那些事</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-08-19T22:53:43+08:00">2017-08-19 22:53:43</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>总会遇到乱码的问题，也总是按照网上的教程一步一步操作，解决的过程就像碰运气，从来没有总结过，再次遇到的时候还是不知道是什么问题，所以，花一点时间，总结一下。</p>
+<h1 id="字符集和字符编码"><a href="#字符集和字符编码" class="headerlink" title="字符集和字符编码"></a>字符集和字符编码</h1><p><strong>字符集</strong>是一个系统支持的抽象字符的集合。这个集合是有限集合，包括文字、标点和数字等，由于计算机内部全部都是数字存储，所以字符集本身也是一个符号与数字之间的映射关系，比如ASCII字符集中大写字母A的编号是65。存储或传输的时候计算机根据字符集将人能看懂的字符换算成计算机能看懂的数字，输出的时候再换算成人能看懂的字符。</p>
+<p><strong>字符编码</strong>，计算机系统内部全部采用二进制，那么将数字转换成二进制的时候采用什么规则呢，比如采用几位，高位代表什么，低位代表什么等，这就是所谓的编码规则。</p>
+<p><strong>乱码</strong>，计算机按照指定或默认的编码规则对bit位进行解码，由于与存储或接收时使用的编码规则不一致，就导致了翻译出来的字符不是原来的字符，造成所谓的乱码，即我们人类看不懂。</p>
+<h1 id="常用的字符集和字符编码"><a href="#常用的字符集和字符编码" class="headerlink" title="常用的字符集和字符编码"></a>常用的字符集和字符编码</h1><p>常见的字符集有ASCII，能表示128个字符，扩展ASCII能表示256个字符，GBXXX字符集是我国专家设计的一套字符集，还有包括繁体字的汉字字符集BIG5，这些字符集同时规定了编码规则，所以他们<strong>同时也是字符编码</strong>，需要说明的是，他们都是兼容ASCII编码的。</p>
+<h1 id="Unicode-和-UTF-8"><a href="#Unicode-和-UTF-8" class="headerlink" title="Unicode 和 UTF-8"></a>Unicode 和 UTF-8</h1><p>最容易搞混的是Unicode和UTF-8了，因为像上面那样每个语言或者地区都搞一套，在互联网中普及非常不便，于是就出现了<strong>Unicode字符集</strong>，目前已经超过了十万字符，可以包括多种文字，这个字符集规定了符号系统到数字的映射，但是并没有规定统一的编码规则。</p>
+<p>UTF-8，UTF-16，UTF-32都是Unicode的编码规则，其中UTF-32同意采用4个字节表示字符，空间浪费较大，所以不常见，UTF-8是一种变长的编码方式，因为文本的重点不在于关注编码规则的细节，所以就不再赘述，具体实现可以参见其他作者的文章。</p>
+<p><strong>所以，我们常见的GBXXX,ASCII,BIG5等本身即是指代字符集，也是字符编码，而Unicode只是字符集，UTF-8只是字符编码。</strong></p>
+<h1 id="Python-中的编码"><a href="#Python-中的编码" class="headerlink" title="Python 中的编码"></a>Python 中的编码</h1><p>这里主要有三个问题：</p>
+<ol>
+<li>str和unicode类型有什么区别？</li>
+<li>源文件开头的#coding:utf-8是做什么用的，跟源文件的编码有什么关系？</li>
+<li>源文件的编码对程序有没有影响？</li>
+<li>file = open(‘xxx’),file.read()是怎样对文件进行解码的？</li>
+</ol>
+<p>首先来看第一个问题，再Python2中，通过<code>s1=&#39;str字符串&#39;</code>得到的是str对象，而<code>s2=u&#39;unicode字符串&#39;</code>得到的是unicode对象，这两种都是<code>basestring</code>类型的子类，从官方文档<a href="https://docs.python.org/2/howto/unicode.html" target="_blank" rel="noopener">Unicode HOWTO</a>中的解释</p>
+<blockquote>
+<p>Python represents Unicode strings as either 16- or 32-bit integers, depending on how the Python interpreter was compiled.</p>
+</blockquote>
+<p>可以看出，unicode字符串可以看做直接存储的是该字符对应的Unicode数字码，在<a href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#str-he-unicode" target="_blank" rel="noopener">PYTHON-进阶-编码处理小结</a>一文中，还对比了用<code>len()</code>求两者长度的区别，其中，<code>len(&#39;中文&#39;)</code>得到的结果为6，而<code>len(u&#39;中文&#39;)</code>得到的结果才是实际意义上的2。在<a href="https://pythonhosted.org/kitchen/unicode-frustrations.html" target="_blank" rel="noopener">Overcoming frustration: Correctly using unicode in python2</a>中也解释了str类型和unicode类型的不同，str类型是实际上bytes序列，<code>len(str)</code>所得到的也是序列的长度，而不是实际意义上的字符串长度。</p>
+<blockquote>
+<p>In python, the unicode type stores an abstract sequence of code points. Each code point represents a grapheme. By contrast, byte str stores a sequence of bytes which can then be mapped to a sequence of code points. Each unicode encoding (UTF-8, UTF-7, UTF-16, UTF-32, etc) maps different sequences of bytes to the unicode code points.</p>
+</blockquote>
+<p>Python开发者通常会写<code>#coding: utf-8</code>或者类似的encoding hint在源文件的前两行（也只有在前两行才起作用，并且该编码必须兼容ASCII，UTF-16就不能正常工作）。 很多人明白的一点就是：<strong>如果源代码文件中出现了非ASCII字符集中的字符，我们需要写这样的注释</strong>。 但是对于像我这样的新手来说，常常会有一个问题，这句话的作用是什么，又和源文件本身的编码什么关系？</p>
+<p>在Python2.1中，Unicode字符串只能采用”unicode-escape”的方式，比如需要定义”中文”两个字，须得<code>s = u&#39;\u4e2d\u6587&#39;</code>，而不能直接出现<code>s = u&#39;中文&#39;</code>这样的代码，这就对使用非拉丁字符的开发者非常不友好，所以就有了<a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="noopener">PEP263</a>，该网页中也解释了该lint的作用，即<strong>使用指定的编码将源代码中的字符串字面量转换成unicode，而这与源文件编码本身并没有直接关系</strong>。</p>
+<blockquote>
+<p>This PEP proposes to introduce a syntax to declare the encoding of a Python source file. The encoding information is then used by the Python parser to interpret the file using the given encoding. <strong>Most notably this enhances the interpretation of Unicode literals in the source code and makes it possible to write Unicode literals using e.g. UTF-8 directly in an Unicode aware editor</strong>.</p>
+</blockquote>
+<blockquote>
+<p>…</p>
+</blockquote>
+<blockquote>
+<p>In Python 2.1, Unicode literals can only be written using the Latin-1 based encoding “unicode-escape”. This makes the programming environment rather unfriendly to Python users who live and work in non-Latin-1 locales such as many of the Asian countries. <strong>Programmers can write their 8-bit strings using the favorite encoding, but are bound to the “unicode-escape” encoding for <em>Unicode literals</em> </strong>.</p>
+</blockquote>
+<p>有的读者可能看到了，刚才的引用中明明提到了</p>
+<blockquote>
+<p>The encoding information is then used by the Python parser to interpret the file using the given encoding.</p>
+</blockquote>
+<p>怎么能说与源文件的编码无关呢？</p>
+<p>这里就需要了解Python解释器工作的流程了，在<a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="noopener">PEP263</a>中有说明：</p>
+<blockquote>
+<p>Python’s tokenizer/compiler combo will need to be updated to work as follows:<br>A. read the file<br>B. decode it into Unicode assuming a fixed per-file encoding<br>C. convert it into a UTF-8 byte string<br>D. tokenize the UTF-8 content<br>E. compile it, creating Unicode objects from the given Unicode data and creating string objects from the Unicode literal data by first reencoding the UTF-8 data into 8-bit string data using the given file encoding</p>
+</blockquote>
+<p>注意：步骤B中的encoding指的不是我们声明的<code>coding:encoding</code>，而是源文件保存在磁盘上的编码，我们用到的编码只在步骤E中使用到，下面的实验中也证明了这一点。</p>
+<p>最后需要说明的是open(‘file’).read()得到的按字节读取的str类型，可以参考<a href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#str-he-unicode" target="_blank" rel="noopener">PYTHON-进阶-编码处理小结</a>。</p>
+<p>现在有两个文件及其运行结果，因为我的终端环境为UTF-8，所以GB18030的str输出始终是乱码的。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#utf8.<span class="keyword">py</span></span><br><span class="line">#codin<span class="variable">g:utf</span>-<span class="number">8</span></span><br><span class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'UTF-8源py中的str中文字符'</span></span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">u</span><span class="string">'UTF-8源py中的unicode中文字符'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./utf8text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./gb18030text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline().decode(<span class="string">'gb18030'</span>)</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line"># 运行:<span class="keyword">python</span> utf8.<span class="keyword">py</span></span><br><span class="line"></span><br><span class="line">UTF-<span class="number">8</span>源<span class="keyword">py</span>中的str中文字符</span><br><span class="line">UTF-<span class="number">8</span>源<span class="keyword">py</span>中的unicode中文字符</span><br><span class="line">UTF8文件中的编码</span><br><span class="line"></span><br><span class="line">GB18030�ļ��еı���</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#gb18030.<span class="keyword">py</span></span><br><span class="line">#codin<span class="variable">g:</span> GB18030</span><br><span class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'GB18030源py中的str中文'</span></span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">u</span><span class="string">'GB18030源py中的unicode中文'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./utf8text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./gb18030text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line">#python gb18030.<span class="keyword">py</span></span><br><span class="line">GB18030Դ<span class="keyword">py</span>�е�str����</span><br><span class="line">GB18030源<span class="keyword">py</span>中的unicode中文</span><br><span class="line">UTF8文件中的编码</span><br><span class="line"></span><br><span class="line">GB18030�ļ��еı���</span><br></pre></td></tr></table></figure>
+<p>还有一个文件utf8gb18030.py，它的源文件编码为UTF-8，但是我在头部声明了<code>coding:utf-8</code>，来看一下这个文件的运行结果为什么：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#codin<span class="variable">g:</span> GB18030</span><br><span class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'str:UTF-8源py中的中文字符,但是coding声明为GB18033'</span></span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">u</span><span class="string">'unicode:UTF-8源py中的中文字符,但是coding声明为GB18033'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./utf8text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'./gb18030text'</span>,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">file</span>.readline()</span><br><span class="line">    <span class="keyword">file</span>.<span class="keyword">close</span>()</span><br><span class="line"></span><br><span class="line"># <span class="keyword">python</span> utf8gb18030.<span class="keyword">py</span></span><br><span class="line">str:UTF-<span class="number">8</span>源<span class="keyword">py</span>中的中文字符,但是coding声明为GB18033</span><br><span class="line">unicode:UTF-<span class="number">8</span>婧恜<span class="keyword">y</span>涓殑涓枃瀛楃,浣嗘槸coding澹版槑涓篏B18033</span><br><span class="line">UTF8文件中的编码</span><br><span class="line"></span><br><span class="line">GB18030�ļ��еı���</span><br></pre></td></tr></table></figure>
+<p>我们知道，unicode对象在print到时候会根据sys.out的默认编码进行encode()的，所以不应该出现乱码情况，但是在第三次试验中，本该乱码的str没有问题，不该出现乱码的unicode却乱码了，这说明在上述解释器运行的过程中，步骤B和步骤E使用的不是同一编码，否则运行结果中unicode是不会乱码的。虽然两者不必相等，但是我们也看到了，这会带来更大的困扰，更难定位问题所在，所以<strong>一定要保证源文件的编码与声明的<code>#coding:encoding</code>一致，否则很难跳出坑的</strong>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>作为一个非纯Latin-1开发者，一定要在头部声明encoding hint。</li>
+<li>为了避免不必要的麻烦，声明的encoding hint 一定要与源文件的编码一致。</li>
+<li>在程序内部最好统一处理为unicode进行，在输出的时候在进行encode，如file.readline().decode(‘你的文件编码’)得到unicode，在写文件的时候可以指定unicode_str.encode(‘你需要的编码’)。</li>
+<li>字面量字符串只是用u’xxx’得到unicode。</li>
+<li>str可以decode得到unicode，unicode可以encode得到str，其他方向的编解码是不可行的！</li>
+</ol>
+<p>难免出错，还请不吝指教。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode和UTF-8</a><br><a href="http://www.cnblogs.com/skynet/archive/2011/05/03/2035105.html" target="_blank" rel="noopener">字符集和字符编码（Charset &amp; Encoding）</a><br><a href="cn.nytimes.com/culture/20150123/t23questions">关于Python脚本开头两行的：#!/usr/bin/python和# -<em>- coding: utf-8 -</em>-的作用 – 指定文件编码类型</a><br><a href="https://www.python.org/dev/peps/pep-0263/" target="_blank" rel="noopener">PEP 263 – Defining Python Source Code Encodings</a><br><a href="https://pythonhosted.org/kitchen/unicode-frustrations.html" target="_blank" rel="noopener">Overcoming frustration: Correctly using unicode in python2</a><br><a href="https://docs.python.org/2/howto/unicode.html" target="_blank" rel="noopener">Unicode HOWTO</a><br><a href="http://stormhouse.github.io/posts/2013/character-encoding-python/" target="_blank" rel="noopener">python中的字符编码</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/charset/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>charset</a>
+        
+        <a class="post-tag button" href="/tags/encode/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>encode</a>
+        
+        <a class="post-tag button" href="/tags/Python/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>Python</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/03/31/d3-example-of-different-data-structures/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -774,68 +891,9 @@ img{height:200px;}
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/" itemprop="url">Phoenix Secondary Index初探之Local Index</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-09-02T20:54:37+08:00">2016-09-02 20:54:37</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      Phoenix 二级索引中 Local Index 是通过在索引表中关联原始表的 Rowkey 来实现的。
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
-        
-        <a class="post-tag button" href="/tags/Secondary-Index/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Secondary Index</a>
-        
-        <a class="post-tag button" href="/tags/Phoenix/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>Phoenix</a>
-        
-        <a class="post-tag button" href="/tags/Local-Index/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Local Index</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a>
   </nav>
   
   
@@ -858,7 +916,7 @@ img{height:200px;}
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">40</a></div>
+      <div><a href="/archives/">41</a></div>
     </div>
     
     
@@ -876,7 +934,7 @@ img{height:200px;}
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">51</a></div>
+      <div><a href="/tags/">53</a></div>
     </div>
     
   </div>

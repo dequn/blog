@@ -115,6 +115,65 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/" itemprop="url">Phoenix Secondary Index初探之Local Index</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-09-02T20:54:37+08:00">2016-09-02 20:54:37</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      Phoenix 二级索引中 Local Index 是通过在索引表中关联原始表的 Rowkey 来实现的。
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
+        
+        <a class="post-tag button" href="/tags/Secondary-Index/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Secondary Index</a>
+        
+        <a class="post-tag button" href="/tags/Phoenix/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>Phoenix</a>
+        
+        <a class="post-tag button" href="/tags/Local-Index/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Local Index</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/08/29/Phoenix-Secondary-Index-Exploration-Global-Index/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -724,71 +783,9 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/26/right-way-of-use-angualr-http-interceptors/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/03/26/right-way-of-use-angualr-http-interceptors/" itemprop="url">angualr中interceptors的正确配置方式</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-26T22:37:22+08:00">2016-03-26 22:37:22</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>Interceptors是AngularJS中的<strong>拦截器</strong>，个人感觉更像是JavaEE中的<strong>过滤器</strong>，即所有事件都依次通过过滤器，过滤器处理后向下传递，再到最终到处理程序。</p>
-<p>最近在网上看的博客都简单举了例子，但在本人实现过程中总是实现moduerr的错误提示，下面是出错记录：</p>
-<p>Angular version：1.4.6<br>不能正确实现的方式：服务实现</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">'app'</span>).factory(<span class="string">'httpInters'</span>,httpInters);</span><br><span class="line">httpInters.$inject = [<span class="string">'$q'</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">httpInters</span><span class="params">($q)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		responseError:<span class="function"><span class="keyword">function</span><span class="params">(response)</span></span>&#123;</span><br><span class="line">		   <span class="comment">// your code here</span></span><br><span class="line">		&#125;,</span><br><span class="line">		requestError:<span class="function"><span class="keyword">function</span><span class="params">(req)</span></span>&#123;</span><br><span class="line">		  <span class="comment">// your code here</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">angular.module(<span class="string">'app'</span>).config(<span class="function"><span class="keyword">function</span><span class="params">($http,httpInters)</span></span>&#123;</span><br><span class="line">	 $httpProvider.interceptors.push(httpInters);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>使用上边在方式发现一直不能正确注入服务模板，因此采用匿名函数的方法来做：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">'app'</span>).config(<span class="function"><span class="keyword">function</span><span class="params">($httpProvider)</span></span>&#123;</span><br><span class="line">	 $httpProvider.interceptors.push(<span class="function"><span class="keyword">function</span><span class="params">($q)</span></span>&#123;</span><br><span class="line">	      <span class="keyword">return</span> &#123;</span><br><span class="line">	      responseError:<span class="function"><span class="keyword">function</span><span class="params">(response)</span></span>&#123;</span><br><span class="line">		   <span class="comment">// your code here</span></span><br><span class="line">		   <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">				&#125;</span><br><span class="line">	      &#125;</span><br><span class="line">	 &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>具体原因还没有分析，暂时先记录下来。</p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
-        
-        <a class="post-tag button" href="/tags/Interceptor/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Interceptor</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
   </nav>
   
   
@@ -811,7 +808,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">40</a></div>
+      <div><a href="/archives/">41</a></div>
     </div>
     
     
@@ -829,7 +826,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">51</a></div>
+      <div><a href="/tags/">53</a></div>
     </div>
     
   </div>
