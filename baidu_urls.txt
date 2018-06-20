@@ -1,1 +1,1 @@
-http://dequn.github.io/2018/06/12/django-allauth-weixin-login/
+http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/

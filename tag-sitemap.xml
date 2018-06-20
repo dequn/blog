@@ -23,20 +23,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Global-Index/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/tags/Local-Index/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/filter/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -45,13 +31,6 @@
 
     <url>
         <loc>http://dequn.github.io/tags/Controller/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/tags/elasticsearch/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -72,6 +51,13 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/tags/elasticsearch/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/tags/%E9%9D%A2%E8%AF%95/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -80,6 +66,20 @@
 
     <url>
         <loc>http://dequn.github.io/tags/Interceptor/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Local-Index/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Global-Index/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -331,13 +331,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Django/</loc>
-        <lastmod>2018-06-13T14:09:19.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/allauth/</loc>
         <lastmod>2018-06-13T14:09:19.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -347,6 +340,34 @@
     <url>
         <loc>http://dequn.github.io/tags/%E5%BE%AE%E4%BF%A1/</loc>
         <lastmod>2018-06-13T14:09:19.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Django/</loc>
+        <lastmod>2018-06-20T11:32:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Channels/</loc>
+        <lastmod>2018-06-20T11:32:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/WebSocket/</loc>
+        <lastmod>2018-06-20T11:32:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/IOT/</loc>
+        <lastmod>2018-06-20T11:32:21.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

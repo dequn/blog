@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    <meta name="keywords" content="Life, ARIA, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="dequn's blog" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>基于Django & Channels & WebSocket & Twisted的物联网远程控制 | dequn's blog - 这些文章没啥用</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="en"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">dequn's blog</a></h1>
+        <h2 class="subtitle">这些文章没啥用</h2>
+      </div>
+      <div class="logo">
+        <img src="/images/ARIA_logo.png" alt="logo">
+      </div>
+    </div>
+    
+<nav id="nav" class="nav">
+  <a id="nav-toggle" class="nav-toggle"><i class="fas fa-bars"></i></a>
+  <ul id="menu">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/archives/">Archives</a></li>
+    
+    <li><a href="/categories/">Categories</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+</nav>
+
+
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<section id="post" class="post">
+  
+  <article class="post-container card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="dequn">
+       <meta itemprop="description" content="这些文章没啥用">
+       <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+       <span class="">基于Django & Channels & WebSocket & Twisted的物联网远程控制</span>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-06-19T23:34:46+08:00">2018-06-19 23:34:46</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      <p>公司业务需要开发IOT从硬件到软件的全部工作，由于一开始来的硬件工程师选择了基于TCP直接进行终端与控制中心交互，自己设计报文内容与格式，所以远程控制也需要自己实现。还是自己太年轻，放着好好的现成的MQTT协议不用，自己瞎折腾。</p>
+<p>硬件终端与服务器的通讯模块采用的是普通的2G卡，这样才能与自己的服务器直接通信（电信的物联网卡只能连接华为云，移动的物联网卡只能连接Oneconnect云平台，然后再对接自己的业务系统）。为了节省终端电池电量，终端5分钟唤醒一次连接服务器上报数据，也就是在这个时候，需要服务器查询控制任务队列，下发给下位机。所以，这里有下面几个工作需要完成：</p>
+<ul>
+<li>前端用户界面操作，发送任务给后端服务器（React + Django)，随后等待得到控制结果状态</li>
+<li>后端创建任务（写Redis)</li>
+<li>下位机每5分钟连接一次上位机，上位机（Twisted）查询任务队列（Redis），将对应的任务下发给下位机，下位机获取控制报执行相应操作后，返回控制结果给上位机</li>
+<li>上位机返回控制结果给web后端(Redis 发布)，后端监听服务（订阅 Redis）返回给前端（WebSocket）</li>
+<li>前端拿到结果，UI反馈给用户</li>
+</ul>
+<p>其中，不是必须通过Web后端才可以给硬件的上位机发送任务（这里是Twisted进程），比如本身就可以使用<a href="https://github.com/crossbario/autobahn-python" target="_blank" rel="noopener">autobahn-python</a>直接搭建一个WAMP，其运行在Twisted上，就可以省去一步交互了。由于在这个项目中涉及到权限验证、开关抽象（一个下位机有多个开关）等工作，所以还把这层放在Django中，反而省去很多开发。</p>
+<p>另外需要说明一下为什么web前后端之间用WebSocket，因为这里的任务相当于<strong>异步任务</strong>，前后端都不知道下位机执行任务的准确时间，除了前端轮询的解决方案，最好的就是建立一个双工长连接，这样当web后端一旦知道任务结果，就可以主动发送给前端，因此WebSocket是最合适的方案。当然，Django本身不支持长连接，幸得有大牛开发了<a href="https://github.com/django/channels" target="_blank" rel="noopener">channels</a>，使得我们可以基于Django开发WebSocet服务，并且还支持异步！</p>
+<p>以上的过程画成图是这样的!</p>
+<p><img src="http://obqjd695a.bkt.clouddn.com/blog/iot-remote-control-sequence.png" alt="iot-remote-control-sequence"></p>
+<p>补充：</p>
+<ul>
+<li>任务队列是写Redis</li>
+<li>注意任务队列消费过后，要删除（即此次任务已执行，不论结果成功与否）</li>
+<li>Django Channels需要建立一个后台监听服务（<a href="https://channels.readthedocs.io/en/latest/topics/channel_layers.html#using-outside-of-consumers" target="_blank" rel="noopener">Channel layers using outside of consumer</a>），第一时间通知给web前端</li>
+</ul>
+
+    </main>
+    <footer class="post-footer">
+      
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Django/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Django</a>
+        
+        <a class="post-tag button" href="/tags/Channels/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Channels</a>
+        
+        <a class="post-tag button" href="/tags/WebSocket/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>WebSocket</a>
+        
+        <a class="post-tag button" href="/tags/IOT/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>IOT</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+<div class="reward" id="reward">
+  <p>坚持原创技术分享，您的支持是我前进的动力！</p>
+  <button id="reward-button" class="button" disable="enable">Reward</button>
+  <div id="qr" class="qr" style="display: none;">
+    
+    
+    
+  </div>
+</div>
+
+
+  
+  
+  <div class="post-nav">
+    <div class="post-nav-next post-nav-item">
+      
+      <a href="/2018/06/12/django-allauth-weixin-login/" rel="next" title="django-allauth配置微信登陆"><i class="fas fa-angle-left"></i><span class="nav-title">django-allauth配置微信登陆</span></a>
+      
+    </div>
+    <div class="post-nav-prev post-nav-item">
+      
+    </div>
+  </div>
+  
+  
+</section>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/sidebar_background.png);">
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI" alt="dequn">
+  
+  <h1 class="author-name">dequn</h1>
+  <h2 class="author-description"> 这些文章没啥用</h2>
+  <div class="site-count">
+    
+    <div class="archives-count">
+      <div class="site-count-title">Archives</div>
+      <div><a href="/archives/">42</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="categories-count">
+      <div class="site-count-title">Categories</div>
+      <div><a href="/categories/">11</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="tags-count">
+      <div class="site-count-title">Tags</div>
+      <div><a href="/tags/">56</a></div>
+    </div>
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+
+
+
+
+
+
+    
+    
+    
+<hr>
+<div class="social-link sidebar-item">
+  <div><i class="far fa-address-card"></i>Social Links</p></div>
+  <ul>
+    
+    <li><i class="fas fa-envelope"></i><a href="mailto:dqzhangchn@gmail.com" target="_blank">E-Mail</a></li>
+    
+    <li><i class="fab fa-github"></i><a href="https://github.com/dequn" target="_blank">GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <a id="back-to-top"><i class="fas fa-angle-double-up"></i></a>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">dequn</span><span class="year"><i class="far fa-copyright"></i>2018</span>
+        </div>
+        
+        
+<div class="busuanzi">
+  <span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv"></span></span>
+</div>
+
+
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

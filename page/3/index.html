@@ -115,6 +115,61 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/10/07/phoenix-mapreduce-example/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/10/07/phoenix-mapreduce-example/" itemprop="url">用 Phoenix 跑 MapReduce 任务-官方例子</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-10-07T15:50:10+08:00">2016-10-07 15:50:10</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      在 Phoenix 上跑 MapReduce 任务，重点在如何编译、打包 jar、运行。
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/MapReduce/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>MapReduce</a>
+        
+        <a class="post-tag button" href="/tags/Phoenix/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Phoenix</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -719,70 +774,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/" itemprop="url">mac上安装elasticsearch-analysis-ansj-2.1.1的过程</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-27T22:14:14+08:00">2016-03-27 22:14:14</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p><a href="https://github.com/NLPchina/elasticsearch-analysis-ansj" target="_blank" rel="noopener">elasticserach-analysis-ansj</a>是一个elasticsearch的中文分词插件，基于ansj。<br>在Mac上使用brew安装的elasticsearch，如果是默认安装的话版本是2.2,由于插件不支持，所以只能卸载掉重新安装。</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span>uninstall elasticsearch</span><br></pre></td></tr></table></figure>
-<p>使用homebrew/versions可以安装elasticsearch2.1.2的版本，仍然不能使用，不过还是要记录一下，安装其他环境指定版本的时候可以用此方法，参见<a href="https://github.com/Homebrew/homebrew-versions" target="_blank" rel="noopener">homebrew-versions</a>：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap homebrew/versions</span><br><span class="line">brew install elasticsearch21 #注意，这里的<span class="number">2.1</span>版本是<span class="number">2.1</span><span class="number">.2</span>,仍然不能满足要求！</span><br></pre></td></tr></table></figure>
-<p>下面是真正elasticsearch及elasticsearch-analysis-ansj-2.1.1版本的安装：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="symbol">https:</span>/<span class="regexp">/download.elasticsearch.org/elasticsearch</span><span class="regexp">/release/org</span><span class="regexp">/elasticsearch/distribution</span><span class="regexp">/tar/elasticsearch</span><span class="regexp">/2.1.1/elasticsearch</span>-<span class="number">2.1</span>.<span class="number">1</span>.tar.gz</span><br><span class="line">tar -zxf elasticsearch-<span class="number">2.1</span>.<span class="number">1</span>.tar.gz /usr/local/Cellar/</span><br><span class="line">cd /usr/local/Cellar/elasticsearch-<span class="number">2.1</span>.<span class="number">1</span>.tar.gz/bin</span><br><span class="line">./plugin install <span class="symbol">http:</span>/<span class="regexp">/maven.nlpcn.org/org</span><span class="regexp">/ansj/elasticsearch</span>-analysis-ansj/<span class="number">2.1</span>.<span class="number">1</span>/elasticsearch-analysis-ansj-<span class="number">2.1</span>.<span class="number">1</span>-release.zip</span><br><span class="line">./ealsticsearch  <span class="comment">#运行命令即可</span></span><br></pre></td></tr></table></figure>
-<p>注意最后需要把elasticsearch添加到环境变量中。</p>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>[1]<a href="https://github.com/Homebrew/homebrew-versions" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-versions</a></p>
-<p>[2]<a href="https://github.com/NLPchina/elasticsearch-analysis-ansj" target="_blank" rel="noopener">https://github.com/NLPchina/elasticsearch-analysis-ansj</a></p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/mac/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>mac</a>
-        
-        <a class="post-tag button" href="/tags/elasticsearch/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>elasticsearch</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
@@ -808,7 +799,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">41</a></div>
+      <div><a href="/archives/">42</a></div>
     </div>
     
     
@@ -826,7 +817,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">53</a></div>
+      <div><a href="/tags/">56</a></div>
     </div>
     
   </div>

@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/</loc>
+        <lastmod>2018-06-20T11:32:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2018/06/12/django-allauth-weixin-login/</loc>
         <lastmod>2018-06-13T14:09:19.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -247,22 +255,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/08/29/Phoenix-Secondary-Index-Exploration-Global-Index/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -295,14 +287,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -319,6 +303,14 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2016/12/27/jiu-zhe-teng-dao-zhe-er-ba/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -328,6 +320,22 @@
 
     <url>
         <loc>http://dequn.github.io/2016/03/26/right-way-of-use-angualr-http-interceptors/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/08/29/Phoenix-Secondary-Index-Exploration-Global-Index/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
