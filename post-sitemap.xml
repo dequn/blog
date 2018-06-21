@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-%E9%85%8D%E7%BD%AE%E9%87%8A%E7%96%91/</loc>
+        <lastmod>2018-06-21T14:35:31.129Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/</loc>
         <lastmod>2018-06-20T11:32:21.000Z</lastmod>
         <changefreq>weekly</changefreq>

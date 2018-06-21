@@ -1,1 +1,1 @@
-http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/
+http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-配置释疑/

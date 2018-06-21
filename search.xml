@@ -4,6 +4,36 @@
   
     
     <entry>
+      <title><![CDATA[ShadowsocksX-NG kcptun加速配置释疑]]></title>
+      <url>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-%E9%85%8D%E7%BD%AE%E9%87%8A%E7%96%91/</url>
+      <content type="html"><![CDATA[<p>新版<a href="https://github.com/shadowsocks/ShadowsocksX-NG" target="_blank" rel="noopener">ShadowsocksX-NG</a> 已经自带了kcptun 客户端，这样就不用自己单独启动kcptun进程了。但是<a href="https://github.com/shadowsocks" target="_blank" rel="noopener">shadowsocks团队</a>并没有给出配置示例，导致很多网友对设置含含糊糊，从Google 搜索的第一页结果就可以看出来。</p>
+<p><img src="http://obqjd695a.bkt.clouddn.com/blog/ShadowsocksX-NG/google_search_results.png" alt="搜索ShadowsocksX-NG的结果"></p>
+<p>建立好kcptun服务器端后，运行<code>kcptun.sh show</code>打印出服务器信息，如下。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">可使用的客户端配置文件为:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"localaddr"</span>: <span class="string">":443"</span>,</span><br><span class="line">  <span class="string">"remoteaddr"</span>: <span class="string">"xxx.xxx.xxx.xxx:29900"</span>,</span><br><span class="line">  <span class="string">"key"</span>: <span class="string">"very fast"</span>,</span><br><span class="line">  <span class="string">"crypt"</span>: <span class="string">"aes-128"</span>,</span><br><span class="line">  <span class="string">"mode"</span>: <span class="string">"fast2"</span>,</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1350</span>,</span><br><span class="line">  <span class="string">"sndwnd"</span>: <span class="number">512</span>,</span><br><span class="line">  <span class="string">"rcvwnd"</span>: <span class="number">512</span>,</span><br><span class="line">  <span class="string">"datashard"</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="string">"parityshard"</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="string">"dscp"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"nocomp"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"quiet"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端配置如下图。</p>
+<p><img src="http://obqjd695a.bkt.clouddn.com/blog/ShadowsocksX-NG/ShadowsocksX-NG%E9%85%8D%E7%BD%AE%E5%9B%BE.jpg" alt="ShadowsocksX-NG kcptun设置"></p>
+<p>这里说一下经常配置错的地方：</p>
+<ul>
+<li>Kcptun Port填写的是服务器端打印出来的那个端口，这个时候上边的端口也会变，不要紧。</li>
+<li><strong>画框处的Password，不是Shadowsocks服务端的密码，是Kcptun服务端打出来的key</strong>，在本文中就是”very fast”，这里是最容易搞混的地方</li>
+<li>其他选项对应填写就行，如果有其他参数不一样，可以在Arguments中填写，比如默认我kcp_client.log中打印出来的sndwnd是128，这里改成512</li>
+<li>有问题先看<code>~/Library/kcptun_client.log</code> 自主分析，对照各个参数</li>
+<li>其他设置不需要改就可以运行</li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> ShadowsocksX-NG </tag>
+            
+            <tag> kcptun </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[基于Django & Channels & WebSocket & Twisted的物联网远程控制]]></title>
       <url>http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/</url>
       <content type="html"><![CDATA[<p>公司业务需要开发IOT从硬件到软件的全部工作，由于一开始来的硬件工程师选择了基于TCP直接进行终端与控制中心交互，自己设计报文内容与格式，所以远程控制也需要自己实现。还是自己太年轻，放着好好的现成的MQTT协议不用，自己瞎折腾。</p>

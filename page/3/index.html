@@ -115,6 +115,61 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/10/27/mapreduce-output-to-hbase-at-mapper-phase-without-reducer/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/10/27/mapreduce-output-to-hbase-at-mapper-phase-without-reducer/" itemprop="url">MapReduce 在 Map 阶段写数据库，没有 Reducer</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-10-27T15:58:41+08:00">2016-10-27 15:58:41</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      不设置 Reducer 的任务会有一个默认的 Reducer, 如果必要，明确设置job.setNumReduceTasks(0);
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Hadoop/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Hadoop</a>
+        
+        <a class="post-tag button" href="/tags/MapReduce/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>MapReduce</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/10/07/phoenix-mapreduce-example/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -711,69 +766,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/31/angular-ui-router-unit-test-unexpected-request/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/03/31/angular-ui-router-unit-test-unexpected-request/" itemprop="url">Angular单元测试中由ui-router引起的$httpbackend unexpected request 错误解决办法</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-31T20:43:25+08:00">2016-03-31 20:43:25</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>在使用 Karma + Jasmine 进行angular 单元测试的时候，一直报 $httpbackend unexpected  requeest 错误 ，提示的是请求的一个html文件，后来才发现是因为用了ui-router进行路由，并且存在抽象状态的问题，记录一下解决办法。</p>
-<p>下载 <a href="https://gist.github.com/wilsonwc/8358542" target="_blank" rel="noopener">stateMock.js</a>,</p>
-<p>把 stateMock.js 添加到 karma.config.js 里边。</p>
-<p>测试文件中：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> $state ;</span><br><span class="line"><span class="keyword">var</span> $httpbackend;</span><br><span class="line"><span class="keyword">var</span> httpHandler;</span><br><span class="line"> </span><br><span class="line">beforeEach(module(<span class="string">'stateMock'</span>));</span><br><span class="line"></span><br><span class="line">beforeEach(inject(<span class="function"><span class="keyword">function</span><span class="params">(_$state_,_$httpbackend_)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    $state = _$state_;</span><br><span class="line">    $httpbackend = _$httpbackend_;</span><br><span class="line">    </span><br><span class="line">    httpHandler = $httpbackend.when(<span class="string">'GET'</span>, <span class="string">'/service/list'</span>).respond(<span class="comment">/*xxx*/</span>)</span><br><span class="line"></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">it(<span class="string">'http'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">      </span><br><span class="line">      $state.go(<span class="string">'user.service'</span>);</span><br><span class="line">      </span><br><span class="line">      $http.get(<span class="string">'/service/list'</span>);</span><br><span class="line">      </span><br><span class="line">      $httpBackend.expectGET(<span class="string">'/service/list'</span>);          </span><br><span class="line">      </span><br><span class="line">      <span class="comment">//.....</span></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>这样就可以避免请求了html而导致测试失败。、</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://stackoverflow.com/questions/23655307/ui-router-interfers-with-httpbackend-unit-test-angular-js/23670198#23670198" target="_blank" rel="noopener">http://stackoverflow.com/questions/23655307/ui-router-interfers-with-httpbackend-unit-test-angular-js/23670198#23670198</a></p>
-<p><a href="https://github.com/meanjs/mean/issues/198" target="_blank" rel="noopener">https://github.com/meanjs/mean/issues/198</a></p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
-        
-        <a class="post-tag button" href="/tags/ui-router/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>ui-router</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
@@ -799,7 +791,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">42</a></div>
+      <div><a href="/archives/">43</a></div>
     </div>
     
     
@@ -817,7 +809,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">56</a></div>
+      <div><a href="/tags/">58</a></div>
     </div>
     
   </div>

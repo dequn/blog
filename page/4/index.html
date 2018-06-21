@@ -115,6 +115,69 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/31/angular-ui-router-unit-test-unexpected-request/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/03/31/angular-ui-router-unit-test-unexpected-request/" itemprop="url">Angular单元测试中由ui-router引起的$httpbackend unexpected request 错误解决办法</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-03-31T20:43:25+08:00">2016-03-31 20:43:25</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>在使用 Karma + Jasmine 进行angular 单元测试的时候，一直报 $httpbackend unexpected  requeest 错误 ，提示的是请求的一个html文件，后来才发现是因为用了ui-router进行路由，并且存在抽象状态的问题，记录一下解决办法。</p>
+<p>下载 <a href="https://gist.github.com/wilsonwc/8358542" target="_blank" rel="noopener">stateMock.js</a>,</p>
+<p>把 stateMock.js 添加到 karma.config.js 里边。</p>
+<p>测试文件中：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> $state ;</span><br><span class="line"><span class="keyword">var</span> $httpbackend;</span><br><span class="line"><span class="keyword">var</span> httpHandler;</span><br><span class="line"> </span><br><span class="line">beforeEach(module(<span class="string">'stateMock'</span>));</span><br><span class="line"></span><br><span class="line">beforeEach(inject(<span class="function"><span class="keyword">function</span><span class="params">(_$state_,_$httpbackend_)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    $state = _$state_;</span><br><span class="line">    $httpbackend = _$httpbackend_;</span><br><span class="line">    </span><br><span class="line">    httpHandler = $httpbackend.when(<span class="string">'GET'</span>, <span class="string">'/service/list'</span>).respond(<span class="comment">/*xxx*/</span>)</span><br><span class="line"></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">it(<span class="string">'http'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">      </span><br><span class="line">      $state.go(<span class="string">'user.service'</span>);</span><br><span class="line">      </span><br><span class="line">      $http.get(<span class="string">'/service/list'</span>);</span><br><span class="line">      </span><br><span class="line">      $httpBackend.expectGET(<span class="string">'/service/list'</span>);          </span><br><span class="line">      </span><br><span class="line">      <span class="comment">//.....</span></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样就可以避免请求了html而导致测试失败。、</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://stackoverflow.com/questions/23655307/ui-router-interfers-with-httpbackend-unit-test-angular-js/23670198#23670198" target="_blank" rel="noopener">http://stackoverflow.com/questions/23655307/ui-router-interfers-with-httpbackend-unit-test-angular-js/23670198#23670198</a></p>
+<p><a href="https://github.com/meanjs/mean/issues/198" target="_blank" rel="noopener">https://github.com/meanjs/mean/issues/198</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
+        
+        <a class="post-tag button" href="/tags/ui-router/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>ui-router</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -644,116 +707,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2015/12/25/hadoop-hbase-spark-install/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2015/12/25/hadoop-hbase-spark-install/" itemprop="url">Hadoop, HBase, Spark集群安装步骤</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2015-12-25T10:54:01+08:00">2015-12-25 10:54:01</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>安装 HBase, Spark都需要首先安装Hadoop！</p>
-<h1 id="1-基本环境准备"><a href="#1-基本环境准备" class="headerlink" title="1 基本环境准备"></a>1 基本环境准备</h1><h2 id="1-1-hadoop用户添加和权限配置"><a href="#1-1-hadoop用户添加和权限配置" class="headerlink" title="1.1 hadoop用户添加和权限配置"></a>1.1 hadoop用户添加和权限配置</h2><p>为了统一管理，主从结点上都用hadoop用户名来管理，不是非限定用hadoop!<br>这几条命令用root用户操作，普通用户用sudo,这些命令必须在所有要配置的机器上进行一次<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">adduser </span>hadoop</span><br><span class="line"><span class="keyword">adduser </span>hadoop sudo <span class="comment">#添加到sudo用户组里边</span></span><br></pre></td></tr></table></figure></p>
-<p>CentOS部分版本可能默认没有sudo组，需要执行<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su</span><br><span class="line"><span class="comment">#输入密码</span></span><br><span class="line">vim <span class="regexp">/etc/</span>sudoers</span><br></pre></td></tr></table></figure></p>
-<p>找到 root ALL=(ALL) ALL这一行，在它下面写入<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop <span class="literal">ALL</span>=(<span class="literal">ALL</span>)  <span class="literal">ALL</span> #hadoop是用户名</span><br></pre></td></tr></table></figure></p>
-<p>这样hadoop用户就可以用sudo命令了。</p>
-<h2 id="1-2-安装java，配置JAVA-HOME环境变量-已经安装过的跳过此步"><a href="#1-2-安装java，配置JAVA-HOME环境变量-已经安装过的跳过此步" class="headerlink" title="1.2 安装java，配置JAVA_HOME环境变量,已经安装过的跳过此步"></a>1.2 安装java，配置JAVA_HOME环境变量,已经安装过的跳过此步</h2><h3 id="1-2-1-安装oracle-jdk"><a href="#1-2-1-安装oracle-jdk" class="headerlink" title="1.2.1 安装oracle-jdk"></a>1.2.1 安装oracle-jdk</h3><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:webupd8team/java</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-2-设置JAVA-HOME"><a href="#1-2-2-设置JAVA-HOME" class="headerlink" title="1.2.2 设置JAVA_HOME"></a>1.2.2 设置JAVA_HOME</h3><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim ~<span class="regexp">/.bashrc </span></span><br><span class="line"><span class="regexp">sudo vim /etc</span><span class="regexp">/bashrc</span></span><br><span class="line"><span class="regexp">#使用以上两个命令都可以，/etc</span><span class="regexp">/bashrc对所有用户都有效，～/</span>.bashrc只对当前用户有效。下同</span><br></pre></td></tr></table></figure>
-<p>写入<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">JAVA_HOME</span>=/usr/lib/jvm/java-8-oracle</span><br></pre></td></tr></table></figure></p>
-<p>运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"><span class="comment">#source /etc/bashrc</span></span><br><span class="line"><span class="comment">#上边编辑的是哪个就source哪个，下同</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span> <span class="comment">#查看一下设置的对不对，生效了木有</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="1-3-hosts文件修改"><a href="#1-3-hosts文件修改" class="headerlink" title="1.3 hosts文件修改"></a>1.3 hosts文件修改</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>hosts</span><br></pre></td></tr></table></figure>
-<p>如下配置<br>192.168.6.131 hadoop-master<br>192.168.6.132 hadoop-slave1<br>如果需要其他机器，同样写入保存即可，我这里只有两台机器，一个做主结点，一个做从结点,之后ping一下看ip地址是否正确<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping hadoop-master -c 3</span><br><span class="line">ping hadoop-slave1 -c 3</span><br></pre></td></tr></table></figure></p>
-<h2 id="1-4-ssh-配置"><a href="#1-4-ssh-配置" class="headerlink" title="1.4 ssh 配置"></a>1.4 ssh 配置</h2><h3 id="1-4-1-openssh-server安装"><a href="#1-4-1-openssh-server安装" class="headerlink" title="1.4.1 openssh-server安装"></a>1.4.1 openssh-server安装</h3><p>首先需要所有的机器都能够进行ssh连接，一般购买的服务器默认都是安装了的(如果true直接进入第二步，无密码连接)，如果是自己的系统与电脑则需要安装openssh-server,安装方法如下<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install openssh-server</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后即可测试<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh localhost</span></span><br></pre></td></tr></table></figure></p>
-<p>提示输入密码，输入即可，我们需要不用密码登录，这样hadoop才能连接其他机器.接着进行下一步无密码连接配置</p>
-<h2 id="无密码连接"><a href="#无密码连接" class="headerlink" title="无密码连接"></a>无密码连接</h2><p>这里讲一下原理，如果机器A需要无密码ssh机器B，我们需要在机器A上生成公钥，然后把公钥分发给机器B，在机器B上我们把公钥添加到authorized_keys里边，当机器A需要连接机器B的时候，机器B生成随机串用机器A的公钥加密并传回给A，A用私钥对加密的串解密再返回给B，B验证解密结果，正确的话就让A成功连接，这样就免去了输入用户和密码的步骤啦！<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa #按提示完成后运行下边命令,其实一路回车下去就行了,如果其他机器上的用户名不一样，则需要按提示进行</span><br><span class="line">cat ~/.ssh/id_rsa<span class="selector-class">.pub</span> &gt;&gt; ~/.ssh/<span class="selector-class">.authorized_keys</span> <span class="selector-id">#id_rsa</span><span class="selector-class">.pub</span> 是刚生成的那个文件,这里做的是我们无密码连接自己！</span><br></pre></td></tr></table></figure></p>
-<p>再测试应该就是不要密码即可登录的了。如果还提示要密码，运行<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod og-wx ~<span class="regexp">/.ssh/</span>authorized_keys</span><br></pre></td></tr></table></figure></p>
-<p>把master上的公钥传输给所有的slave机器，在所有slave上把master的公钥都cat进authorized_keys,这样master机器访问所有的slave都不再需要密码了，如果有类似其他需求，按同样方法。</p>
-<p>经过以上步骤并验证没有问题，说明我们的基础准备已经完成，接下来就可以进行Hadoop,hbase,scala,spark的安装了，注意以下操作都是在一台机器上进行的，当操作完成后需要把配置好的文件都打包发送到所有机器上并解压，那样才算配置完成！</p>
-<h1 id="2-Hadoop下载安装"><a href="#2-Hadoop下载安装" class="headerlink" title="2 Hadoop下载安装"></a>2 Hadoop下载安装</h1><p>在官网上下载Hadoop压缩包,比如下载的文件名hadoop-2.7.1.tar.gz,之后将其解压到/usr/local下边</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf hadoop-2.7.1.tar.gz -C /usr/<span class="built_in">local</span></span><br><span class="line"><span class="built_in">cd</span> usr/<span class="built_in">local</span></span><br><span class="line">sudo mv hadoop-2.7.1 hadoop <span class="comment">#为了方便版本升级后不需要再修改~/.bashrc，所以这里将其重命名为hadoop</span></span><br><span class="line">sudo chown hadoop:hadoop ./hadoop </span><br><span class="line"><span class="comment">#为了避免权限不够的问题，这里将hadoop文件夹的权限赋于hadoop用户和用户组，如果是在如个人Home下边等不需要验证权限的位置，省略此步</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-1-PATH配置"><a href="#2-1-PATH配置" class="headerlink" title="2.1 PATH配置"></a>2.1 PATH配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc </span><br><span class="line"><span class="meta">#</span><span class="bash">sudo vim /etc/bashrc</span></span><br><span class="line"><span class="meta">#</span><span class="bash">使用以上两个命令都可以，/etc/bashrc对所有用户都有效，～/.bashrc只对当前用户有效。下同</span></span><br></pre></td></tr></table></figure>
-<p>写入<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=<span class="variable">$PATH</span><span class="symbol">:/usr/local/hadoop/bin</span><span class="symbol">:/usr/locao/hadoop/sbin</span> <span class="comment">#这里的路径是上一步解压安装Hadoop的路径</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="2-2-hadoop文件配置"><a href="#2-2-hadoop文件配置" class="headerlink" title="2.2 hadoop文件配置"></a>2.2 hadoop文件配置</h2><p>新的配置文件在hadoop/etc/hadoop/路径下面，网上许多教程都写的是在conf下，注意可能会找不到</p>
-<h3 id="2-2-1-hadoop-etc-hadoop-core-site-xml"><a href="#2-2-1-hadoop-etc-hadoop-core-site-xml" class="headerlink" title="2.2.1 hadoop/etc/hadoop/core-site.xml"></a>2.2.1 hadoop/etc/hadoop/core-site.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop-master:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span> <span class="comment">&lt;!--注意端口号，进行hadoop fs -xxx命令是需要这个端口号的，hbase配置也是需要这个端口号的 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>注意hadoop.tmp.dir的配置路径，默认的是系统tmp路径，重启后是会被清理掉的。</p>
-<h3 id="2-2-2-hadoop-etc-hadoop-hdfs-site-xml"><a href="#2-2-2-hadoop-etc-hadoop-hdfs-site-xml" class="headerlink" title="2.2.2 hadoop/etc/hadoop/hdfs-site.xml"></a>2.2.2 hadoop/etc/hadoop/hdfs-site.xml</h3><p>注意dfs.replication值，由于只有两台机器，所以一台做NameNode,另一台作为DataNode,值为1,如果有多台机器，需要配置为实际数。<br>dfs.namenode.name.dir存放的是namenode需要的相关数据，需要按实际需要更换位置，生产环境并不建议设置在tmp目录下边。<br>dfs.dtatnode.dtat.dir就是分布式文件在datanode上的存放位置，生产环境中当然不能在tmp下边啦！</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">&lt;configuration&gt;</span></span><br><span class="line"><span class="params">&lt;property&gt;</span></span><br><span class="line"><span class="params">&lt;name&gt;</span>dfs.replication<span class="params">&lt;/name&gt;</span></span><br><span class="line"><span class="params">&lt;value&gt;</span><span class="number">1</span><span class="params">&lt;/value&gt;</span></span><br><span class="line"><span class="params">&lt;/property&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;property&gt;</span></span><br><span class="line"><span class="params">&lt;name&gt;</span>dfs.namenode.name.dir<span class="params">&lt;/name&gt;</span></span><br><span class="line"><span class="params">&lt;value&gt;</span>file:<span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/hadoop/</span>tmp<span class="meta-keyword">/dfs/</span>name<span class="params">&lt;/value&gt;</span></span><br><span class="line"><span class="params">&lt;/property&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;property&gt;</span></span><br><span class="line"><span class="params">&lt;name&gt;</span>dfs.datanode.data.dir<span class="params">&lt;/name&gt;</span></span><br><span class="line"><span class="params">&lt;value&gt;</span>file:<span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/hadoop/</span>tmp<span class="meta-keyword">/dfs/</span>name<span class="params">&lt;/value&gt;</span></span><br><span class="line"><span class="params">&lt;/property&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;/configuration&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-3-mapred-site-xml"><a href="#2-2-3-mapred-site-xml" class="headerlink" title="2.2.3 mapred-site.xml"></a>2.2.3 mapred-site.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistroy.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop-master:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistroy.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop-master:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-4-yarn-site-xml"><a href="#2-2-4-yarn-site-xml" class="headerlink" title="2.2.4 yarn-site.xml"></a>2.2.4 yarn-site.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop-master<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-5-slaves文件配置"><a href="#2-2-5-slaves文件配置" class="headerlink" title="2.2.5 slaves文件配置"></a>2.2.5 slaves文件配置</h3><p>将所有的DataNode结点机器名写在文件中，一行一个机器名如下</p>
-<p>hadoop-slave1<br>hadoop-salve2<br>…</p>
-<h3 id="2-2-6-hadoop-env-sh"><a href="#2-2-6-hadoop-env-sh" class="headerlink" title="2.2.6 hadoop-env.sh"></a>2.2.6 hadoop-env.sh</h3><p>主要配置JAVA_HOME,设置为实际的路径即可！</p>
-<p>经过上面的配置，将hadoop文件压缩发送一其他集群机器上并解压到一致的路径下即可</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -zcf ~/hadoop<span class="selector-class">.lreis</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span> /usr/local/hadoop/</span><br><span class="line">scp ~/hadoop<span class="selector-class">.lreis</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span> hadoop-slave1:~/</span><br><span class="line">ssh hadoop-slave1</span><br><span class="line">sudo tar -zxf ~/hadoop<span class="selector-class">.lreis</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span> -C /usr/local/</span><br><span class="line">sudo chown -R hadoop:hadoop /usr/local/hadoop/</span><br></pre></td></tr></table></figure>
-<p>最后需要在hadoop-master机器上进行namenode的初始化<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>loacl<span class="regexp">/hadoop/</span>bin<span class="regexp">/hadoop namenode -format</span></span><br></pre></td></tr></table></figure></p>
-<p>最后执行start-dfs.sh,start-yarn.sh后，运行jps命令查看当前的java进行，在master上应该包括以下几个进程才属正常<br>NameNode<br>ResourceManager<br>在savle机器上的进程应该有如下进程<br>NodeManager<br>DataNode</p>
-<p>如果进程正常，浏览器查看hadooop-master:50070看到Live Nodes 不为零才可以，如果为零的话去查看日志分析原因！</p>
-<h1 id="3-hbase-安装"><a href="#3-hbase-安装" class="headerlink" title="3 hbase 安装"></a>3 hbase 安装</h1><p>下载hbase ，如下载下来的文件名叫做hbase-1.1.2-bin.tar.gz,同样解压到/usr/local/下边，重命名，更改权限，配置环境变量等 操作</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf hbase-1.1.2-bin.tar.gz -C /usr/<span class="built_in">local</span></span><br><span class="line"><span class="built_in">cd</span> usr/<span class="built_in">local</span></span><br><span class="line">sudo mv hbase-1.1.2-bin hbase <span class="comment">#为了方便版本升级后不需要再修改~/.bashrc，所以这里将其重命名为hbase</span></span><br><span class="line">sudo chown hadoop:hadoop ./hbase</span><br></pre></td></tr></table></figure>
-<h2 id="3-1-配置环境变量"><a href="#3-1-配置环境变量" class="headerlink" title="3.1 配置环境变量"></a>3.1 配置环境变量</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~<span class="string">/.bashrc</span></span><br></pre></td></tr></table></figure>
-<p>写入<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">HBASE_HOME</span>=/usr/local/hbase</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="variable">$PATH</span>:$HBASE_HOME/bin #这里的路径是上一步解压安装Hbase的路径</span><br></pre></td></tr></table></figure></p>
-<h2 id="3-2-hbase配置"><a href="#3-2-hbase配置" class="headerlink" title="3.2 hbase配置"></a>3.2 hbase配置</h2><p>hbase的配置文件在hbase/conf目录下,需要修改hbase-site.xml,hbase-env.sh,regionservers三个文件</p>
-<h3 id="3-2-1-hbase-site-xml"><a href="#3-2-1-hbase-site-xml" class="headerlink" title="3.2.1 hbase-site.xml"></a>3.2.1 hbase-site.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span> <span class="comment">&lt;!-- 说明是集群环境，不是伪分布式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop-master:9000/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span> <span class="comment">&lt;!-- 这里的hadoop-master:9000要与hadoop的core-site.xml配置文件位置一样，/hbase目录则是自己设置的值，也可以为其他路径/hbase2等等 </span></span><br><span class="line"><span class="comment">&lt;/property&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;/configuration&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-2-2-regionservers"><a href="#3-2-2-regionservers" class="headerlink" title="3.2.2 regionservers"></a>3.2.2 regionservers</h3><p>一行一个机器，如<br>hadoop-master<br>hadoop-slave1<br>….</p>
-<h3 id="3-2-3-hbase-env-sh"><a href="#3-2-3-hbase-env-sh" class="headerlink" title="3.2.3 hbase-env.sh"></a>3.2.3 hbase-env.sh</h3><p>配置JAVA_HOME即可</p>
-<p>配置完成后打包分发到其他机器上，操作如同hadoop中的步骤，不再赘述！<br>运行start-hbase.sh，查看jps,master机器上应该多出以下几个进程<br>HMster<br>HRegionServer<br>HQuorumPeer<br>slave机器上多出进程<br>HRegionServer</p>
-<h1 id="4-scala-spark安装"><a href="#4-scala-spark安装" class="headerlink" title="4 scala,spark安装"></a>4 scala,spark安装</h1><p>spark运行需要scala环境，所以scala要安装在spark前面，且是必须滴！<br>下载scala并解压到/usr/local下边，配置~/.bashrc即可<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">SCALA_HOME</span>=/usr/local/scala</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="variable">$PAHT</span>:$SCALA_HOME/bin</span><br></pre></td></tr></table></figure></p>
-<p>下载spark，并解压到/usr/local路径，配置~/.bashrc<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">SPARK_HOME</span>=/usr/local/spark</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PAHT</span>=<span class="variable">$PATH</span>:$SPARK_HOME/bin</span><br></pre></td></tr></table></figure></p>
-<p>运行source ~/.bashrc使配置生效</p>
-<h2 id="4-1-spark-配置"><a href="#4-1-spark-配置" class="headerlink" title="4.1 spark 配置"></a>4.1 spark 配置</h2><h3 id="4-1-1-slaves-文件"><a href="#4-1-1-slaves-文件" class="headerlink" title="4.1.1 slaves 文件"></a>4.1.1 slaves 文件</h3><p>没有此此文件就创建一个，内容一行一个机器，不再赘述</p>
-<h3 id="spark-env-sh"><a href="#spark-env-sh" class="headerlink" title="spark-env.sh"></a>spark-env.sh</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">JAVA_HOME</span>=/usr/java/jdk1.7.0_79</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">SCALA_HOME</span>=/usr/local/scala</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">SPARK_MASTER_IP</span>=hadoop-master #主结点名</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">SPARK_WORKER_MEMORY</span>=1g  #分配内存大小</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">HADOOP_CONF_DIR</span>=/usr/local/hadoop/etc/hadoop #hadoop配置文件的路径</span><br></pre></td></tr></table></figure>
-<p>记得把scala,spark在所有机器上都配置一下，方法不再赘述。运行/usr/local/spark/start-all.sh启动spark集群。<br>注意由于hadoop/sbin下也有一个start-all.sh，由于这两个文件都配置在PATH里边了，运行hadoop/sbin/start-all.sh的时候可以看到提示该方法已经不推荐使用了，可以把该文件重命名一下，这样直接运载start-all.sh就肯定是spark的了，不会发生歧义。</p>
-<p>至此，hadoop,hbase,scala,spark的安装配置就完成了，注意这里只是让集群环境跑了起来，真实的生产环境还有许多其他参数需要配置，参见官方文档！</p>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/HBase/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>HBase</a>
-        
-        <a class="post-tag button" href="/tags/Hadoop/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Hadoop</a>
-        
-        <a class="post-tag button" href="/tags/Spark/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>Spark</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/3/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fas fa-angle-right"></i></a>
@@ -779,7 +732,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">42</a></div>
+      <div><a href="/archives/">43</a></div>
     </div>
     
     
@@ -797,7 +750,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">56</a></div>
+      <div><a href="/tags/">58</a></div>
     </div>
     
   </div>
