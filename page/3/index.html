@@ -115,6 +115,66 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/10/28/macvim-auto-im/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/10/28/macvim-auto-im/" itemprop="url">MacVim自动切换中英文输入法</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-10-28T19:58:50+08:00">2016-10-28 19:58:50</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>中文用户的使用 VIM 最痛苦的就是来回切换输入法了，还好，在 OS 系统下使用 MacVim 可以设置在命令模式下禁用输入法，这样有了自动切换的效果，设置如下：</p>
+<p><strong>第一步</strong>.在.vimrc 中设置<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">set</span> noimd</span><br><span class="line"><span class="builtin-name">set</span> <span class="attribute">imi</span>=2</span><br><span class="line"><span class="builtin-name">set</span> <span class="attribute">ims</span>=2</span><br></pre></td></tr></table></figure></p>
+<p><strong>第二步</strong>.在 MacVim 的 Preferences 中的 Advanced 标签中，<strong>取消勾选 Draw marked text line</strong>。</p>
+<p>这样就可以达到一个自动切换的效果（只是在命令行模式下给禁用掉了而已），这个要比设置 vimim 好用多了，vimim 延迟太大，使用非常不方便。</p>
+<p>参考：<br>[1].<a href="https://www.v2ex.com/t/45772" target="_blank" rel="noopener">https://www.v2ex.com/t/45772</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/VIM/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>VIM</a>
+        
+        <a class="post-tag button" href="/tags/MacVim/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>MacVim</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/10/27/mapreduce-output-to-hbase-at-mapper-phase-without-reducer/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -698,74 +758,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2016/04/24/angular-inject-controller-to-controller/" itemprop="url">Angular 向 Controller 注入 Controller</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-04-24T21:21:57+08:00">2016-04-24 21:21:57</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>如何在一个Controller中取到另一个Controller？下边事stackoverflow上的一个回答。</p>
-<blockquote>
-<p>```<br> app.controller(‘TestCtrl2’, [‘$scope’, ‘$controller’, function ($scope, $controller) {<br>    var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.<br>    //Provide the scope, you can also do $scope.$new(true) in order to create an isolated scope.<br>    //In this case it is the child scope of this scope.<br>    $controller(‘TestCtrl1’,{$scope : testCtrl1ViewModel });<br>    testCtrl1ViewModel.myMethod(); //And call the method on the newScope.<br> }]);</p>
-</blockquote>
- <figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">In</span> any <span class="keyword">case</span> you cannot call TestCtrl1.myMethod() because you have attached the <span class="function"><span class="keyword">method</span> <span class="title">on</span> <span class="title">the</span> $<span class="title">scope</span> <span class="title">and</span> <span class="title">not</span> <span class="title">on</span> <span class="title">the</span> <span class="title">controller</span> <span class="title">instance</span>.</span></span><br><span class="line"><span class="function">&gt; </span></span><br><span class="line"><span class="function">&gt; <span class="title">If</span> <span class="title">you</span> <span class="title">are</span> <span class="title">sharing</span> <span class="title">the</span> <span class="title">controller</span>, <span class="title">then</span> <span class="title">it</span> <span class="title">would</span> <span class="title">always</span> <span class="title">be</span> <span class="title">better</span> <span class="title">to</span> <span class="title">do</span>:</span>-</span><br></pre></td></tr></table></figure>
-<p>.controller(‘TestCtrl1’, [‘$log’, function ($log) {<br>    this.myMethod = function () {<br>             $log.debug(“TestCtrl1 - myMethod”);<br>     }<br> }]);<br> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> and <span class="keyword">while</span> consuming <span class="keyword">do</span>:</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure></p>
-<p> .controller(‘TestCtrl2’, [‘$scope’, ‘$controller’, function ($scope, $controller) {<br>      var testCtrl1ViewModel = $controller(‘TestCtrl1’);<br>      testCtrl1ViewModel.myMethod();<br> }]);<br> <code>`</code></p>
-<blockquote>
-<p>In the first case really the $scope is your view model, and in the second case it the controller instance itself.</p>
-</blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://stackoverflow.com/questions/25417162/how-do-i-inject-a-controller-into-another-controller-in-Angularjs" target="_blank" rel="noopener">http://stackoverflow.com/questions/25417162/how-do-i-inject-a-controller-into-another-controller-in-Angularjs</a></li>
-</ul>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
-        
-        <a class="post-tag button" href="/tags/Controller/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Controller</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a>
@@ -791,7 +783,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">43</a></div>
+      <div><a href="/archives/">44</a></div>
     </div>
     
     
@@ -809,7 +801,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">58</a></div>
+      <div><a href="/tags/">60</a></div>
     </div>
     
   </div>

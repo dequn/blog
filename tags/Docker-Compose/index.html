@@ -47,7 +47,7 @@
     
     
 <link rel="stylesheet" type="text/css" href="/css/page.css">
-<link rel="stylesheet" type="text/css" href="/css/post.css">
+<link rel="stylesheet" type="text/css" href="/css/tag.css">
 
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
     <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
@@ -70,7 +70,7 @@
     <script defer type="text/javascript" src="/js/index.js"></script>
     
     <script defer type="text/javascript" src="/js/custom.js"></script>
-    <title>ShadowsocksX-NG kcptun加速配置释疑 | dequn's blog - 这些文章没啥用</title>
+    <title>Tag: Docker Compose | dequn's blog - 这些文章没啥用</title>
   </head>
   <body itemscope itemtype="http://schema.org/WebPage" lang="en"  data-spy="scroll" data-target=".list-group">
     
@@ -113,93 +113,24 @@
         <div class="main-container">
           <div class="content">
             
-<section id="post" class="post">
-  
-  <article class="post-container card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-配置释疑/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="dequn">
-       <meta itemprop="description" content="这些文章没啥用">
-       <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-       <meta itemprop="name" content="dequn's blog">
-      </span>
+<section id="tag" class="tag">
+  <div class="tag-container">
+    <div class="tag-title">
+      <h1>Docker Compose</h1>
     </div>
-    <header class="post-header">
+    
+    <article class="tag-post card" itemscope itemtype="http://schema.org/Article">
       <h1 class="post-title" itemprop="name headline">
-       <span class="">ShadowsocksX-NG kcptun加速配置释疑</span>
+        <a class="post-title-link post-title-link-external" href="/2018/06/23/docker-compose-subdirectory-dockerfile/" itemprop="url">docker-compose 子目录编译、运行</a>
       </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-06-21T22:00:42+08:00">2018-06-21 22:00:42</time></span>
-        </span>
-        
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      <p>新版<a href="https://github.com/shadowsocks/ShadowsocksX-NG" target="_blank" rel="noopener">ShadowsocksX-NG</a> 已经自带了kcptun 客户端，这样就不用自己单独启动kcptun进程了。但是<a href="https://github.com/shadowsocks" target="_blank" rel="noopener">shadowsocks团队</a>并没有给出配置示例，导致很多网友对设置含含糊糊，从Google 搜索的第一页结果就可以看出来。</p>
-<p><img src="http://obqjd695a.bkt.clouddn.com/blog/ShadowsocksX-NG/google_search_results.png" alt="搜索ShadowsocksX-NG的结果"></p>
-<p>建立好kcptun服务器端后，运行<code>kcptun.sh show</code>打印出服务器信息，如下。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">可使用的客户端配置文件为:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"localaddr"</span>: <span class="string">":443"</span>,</span><br><span class="line">  <span class="string">"remoteaddr"</span>: <span class="string">"xxx.xxx.xxx.xxx:29900"</span>,</span><br><span class="line">  <span class="string">"key"</span>: <span class="string">"very fast"</span>,</span><br><span class="line">  <span class="string">"crypt"</span>: <span class="string">"aes-128"</span>,</span><br><span class="line">  <span class="string">"mode"</span>: <span class="string">"fast2"</span>,</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1350</span>,</span><br><span class="line">  <span class="string">"sndwnd"</span>: <span class="number">512</span>,</span><br><span class="line">  <span class="string">"rcvwnd"</span>: <span class="number">512</span>,</span><br><span class="line">  <span class="string">"datashard"</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="string">"parityshard"</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="string">"dscp"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"nocomp"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"quiet"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>客户端配置如下图。</p>
-<p><img src="http://obqjd695a.bkt.clouddn.com/blog/ShadowsocksX-NG/ShadowsocksX-NG%E9%85%8D%E7%BD%AE%E5%9B%BE.jpg" alt="ShadowsocksX-NG kcptun设置"></p>
-<p>这里说一下经常配置错的地方：</p>
-<ul>
-<li>Kcptun Port填写的是服务器端打印出来的那个端口，这个时候上边的端口也会变，不要紧。</li>
-<li><strong>画框处的Password，不是Shadowsocks服务端的密码，是Kcptun服务端打出来的key</strong>，在本文中就是”very fast”，这里是最容易搞混的地方</li>
-<li>其他选项对应填写就行，如果有其他参数不一样，可以在Arguments中填写，比如默认我kcp_client.log中打印出来的sndwnd是128，这里改成512</li>
-<li>有问题先看<code>~/Library/kcptun_client.log</code> 自主分析，对照各个参数</li>
-<li>其他设置不需要改就可以运行</li>
-</ul>
-
-    </main>
-    <footer class="post-footer">
       
+      <span class="post-date">
+        <time title="post-date" itemprop="dateCreated datePublished" datetime="2018-06-23T15:55:46+08:00">06-23</time>
+      </span>
       
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/ShadowsocksX-NG/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>ShadowsocksX-NG</a>
-        
-        <a class="post-tag button" href="/tags/kcptun/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>kcptun</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
-  
-<div class="reward" id="reward">
-  <p>坚持原创技术分享，您的支持是我前进的动力！</p>
-  <button id="reward-button" class="button" disable="enable">Reward</button>
-  <div id="qr" class="qr" style="display: none;">
-    
-    
+    </article>
     
   </div>
-</div>
-
-
-  
-  
-  <div class="post-nav">
-    <div class="post-nav-next post-nav-item">
-      
-      <a href="/2018/06/19/django-channels-websocket-iot-remote-control/" rel="next" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制"><i class="fas fa-angle-left"></i><span class="nav-title">基于Django & Channels & WebSocket & Twisted的物联网远程控制</span></a>
-      
-    </div>
-    <div class="post-nav-prev post-nav-item">
-      
-    </div>
-  </div>
-  
   
 </section>
 
@@ -220,7 +151,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">43</a></div>
+      <div><a href="/archives/">44</a></div>
     </div>
     
     
@@ -238,7 +169,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">58</a></div>
+      <div><a href="/tags/">60</a></div>
     </div>
     
   </div>
@@ -251,14 +182,6 @@
 
 
   <div class="sidebar-sticky">
-    
-    
-
-
-
-
-
-
     
     
     

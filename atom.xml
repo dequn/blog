@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2018-06-21T14:35:31.129Z</updated>
+  <updated>2018-06-23T09:03:21.520Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -17,9 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>docker-compose 子目录编译、运行</title>
+    <link href="http://dequn.github.io/2018/06/23/docker-compose-subdirectory-dockerfile/"/>
+    <id>http://dequn.github.io/2018/06/23/docker-compose-subdirectory-dockerfile/</id>
+    <published>2018-06-23T07:55:46.000Z</published>
+    <updated>2018-06-23T09:03:21.520Z</updated>
+    
+    <content type="html"><![CDATA[<p>公司开发物联网业务，使用Twisted 基于TCP协议开发的上位机服务，使用Django开发的Web后端，虽然是分别开发的，但两个服务之间有一定的耦合，比如上篇【<a href="/2018/06/19/django-channels-websocket-iot-remote-control/" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制">基于Django & Channels & WebSocket & Twisted的物联网远程控制</a>】就需要Web后端和Twisted共同完成，而Twisted上位机接收到下位机但上传数据后，是异步调用了Web后端进行数据入库的，所以两个服务还是一块启动的，再加上Redis, Postgresql数据库服务等，最终选择使用Docker Compose 一块发布管理。</p><p>两个服务是分开开发的，也就要放在不同的目录中。</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iot</span><br><span class="line">├── docker-compose.yml</span><br><span class="line">├── tcp</span><br><span class="line">│   └── Dockerfile</span><br><span class="line">└── web</span><br><span class="line">    └── Dockerfile</span><br></pre></td></tr></table></figure><p>docker-compose.yml文件内容</p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span>: <span class="string">'3'</span></span><br><span class="line"><span class="attribute">services</span>:</span><br><span class="line">    <span class="attribute">web</span>:</span><br><span class="line">        <span class="attribute">build</span>: ./web</span><br><span class="line">        <span class="attribute">image</span>: <span class="attribute">web</span>:backend</span><br><span class="line">        <span class="attribute">command</span>: [<span class="string">"sh"</span>, <span class="string">"-c"</span>, <span class="string">"python3 manage.py runserver 0.0.0.0:8000"</span>]</span><br><span class="line">        <span class="attribute">ports</span>:</span><br><span class="line">            - <span class="string">"8000:8000"</span></span><br><span class="line">        <span class="attribute">depends_on</span>:</span><br><span class="line">            - pgdb</span><br><span class="line">            - redis</span><br><span class="line">        <span class="attribute">volumes</span>:</span><br><span class="line">            - ./<span class="attribute">web</span>:/code</span><br><span class="line"></span><br><span class="line">    <span class="attribute">twisted</span>:</span><br><span class="line">        <span class="attribute">build</span>: ./tcp</span><br><span class="line">        <span class="attribute">ports</span>:</span><br><span class="line">            - <span class="string">"21188:21188"</span></span><br><span class="line">        <span class="attribute">command</span>: [<span class="string">"sh"</span>, <span class="string">"-c"</span>, <span class="string">"twistd -ny service.tac"</span>]</span><br><span class="line">        <span class="attribute">depends_on</span>:</span><br><span class="line">            - redis</span><br><span class="line">        <span class="attribute">volumes</span>:</span><br><span class="line">            - ./<span class="attribute">tcp</span>:/code</span><br><span class="line"></span><br><span class="line">    <span class="attribute">redis</span>:</span><br><span class="line">        <span class="attribute">image</span>: redis</span><br><span class="line"></span><br><span class="line">    <span class="attribute">pgdb</span>:</span><br><span class="line">        <span class="attribute">image</span>: postgres</span><br><span class="line">        <span class="attribute">environment</span>:</span><br><span class="line">            <span class="attribute">POSTGRES_PASSWORD</span>: postgres</span><br><span class="line">        <span class="attribute">volumes</span>:</span><br><span class="line">            - <span class="attribute">pg-vol</span>:/var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line"><span class="attribute">volumes</span>:</span><br><span class="line">    <span class="attribute">pg-vol</span>:</span><br></pre></td></tr></table></figure><p><code>tcp/Dockerfile</code> 和 <code>web/Dockerfile</code>的内容都是一样的，所不同的就是各自目录下的代码。<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.6</span></span><br><span class="line"><span class="keyword">ENV</span> PYTHONUNBUFFERED <span class="number">1</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir /code</span></span><br><span class="line"><span class="bash">WORKDIR /code</span></span><br><span class="line"><span class="bash">ADD requirements.txt /code/</span></span><br><span class="line"><span class="bash">RUN pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt</span></span><br><span class="line"><span class="bash">ADD . /code/</span></span><br></pre></td></tr></table></figure></p><p>这里讲一下需要注意的两个地方：</p><ul><li>docker-compose.yml中build后要加上目录，也可以用<code>context</code>参数指定</li><li>特别需要注意的，各个服务需要添加自己的volumes，也就是示例中的<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">volumes:</span></span><br><span class="line">    - .<span class="regexp">/web:/</span>code</span><br><span class="line"><span class="string">volumes:</span></span><br><span class="line">    - .<span class="regexp">/tcp:/</span>code</span><br></pre></td></tr></table></figure></li></ul><p>不然虽然能正常生成container，但运行的时候<code>/code</code>下内容趋势<code>iot</code>目录，不是单个服务下但目录代码，导致不能正常运行。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://nickjanetakis.com/blog/docker-tip-10-project-structure-with-multiple-dockerfiles-and-docker-compose" target="_blank" rel="noopener">Docker Tip #10: Project Structure With Multiple Dockerfiles and Docker Compose</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;公司开发物联网业务，使用Twisted 基于TCP协议开发的上位机服务，使用Django开发的Web后端，虽然是分别开发的，但两个服务之间有一定的耦合，比如上篇【&lt;a href=&quot;/2018/06/19/django-channels-websocket-iot-remot
+      
+    
+    </summary>
+    
+    
+      <category term="Docker" scheme="http://dequn.github.io/tags/Docker/"/>
+    
+      <category term="Docker Compose" scheme="http://dequn.github.io/tags/Docker-Compose/"/>
+    
+      <category term="subdirectory" scheme="http://dequn.github.io/tags/subdirectory/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ShadowsocksX-NG kcptun加速配置释疑</title>
-    <link href="http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-%E9%85%8D%E7%BD%AE%E9%87%8A%E7%96%91/"/>
-    <id>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-配置释疑/</id>
+    <link href="http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/"/>
+    <id>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/</id>
     <published>2018-06-21T14:00:42.000Z</published>
     <updated>2018-06-21T14:35:31.129Z</updated>
     
@@ -536,34 +563,6 @@ img{height:200px;}
     
     
       <category term="pyenv" scheme="http://dequn.github.io/tags/pyenv/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MacVim自动切换中英文输入法</title>
-    <link href="http://dequn.github.io/2016/10/28/macvim-auto-im/"/>
-    <id>http://dequn.github.io/2016/10/28/macvim-auto-im/</id>
-    <published>2016-10-28T11:58:50.000Z</published>
-    <updated>2017-08-24T15:03:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>中文用户的使用 VIM 最痛苦的就是来回切换输入法了，还好，在 OS 系统下使用 MacVim 可以设置在命令模式下禁用输入法，这样有了自动切换的效果，设置如下：</p><p><strong>第一步</strong>.在.vimrc 中设置<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">set</span> noimd</span><br><span class="line"><span class="builtin-name">set</span> <span class="attribute">imi</span>=2</span><br><span class="line"><span class="builtin-name">set</span> <span class="attribute">ims</span>=2</span><br></pre></td></tr></table></figure></p><p><strong>第二步</strong>.在 MacVim 的 Preferences 中的 Advanced 标签中，<strong>取消勾选 Draw marked text line</strong>。</p><p>这样就可以达到一个自动切换的效果（只是在命令行模式下给禁用掉了而已），这个要比设置 vimim 好用多了，vimim 延迟太大，使用非常不方便。</p><p>参考：<br>[1].<a href="https://www.v2ex.com/t/45772" target="_blank" rel="noopener">https://www.v2ex.com/t/45772</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;中文用户的使用 VIM 最痛苦的就是来回切换输入法了，还好，在 OS 系统下使用 MacVim 可以设置在命令模式下禁用输入法，这样有了自动切换的效果，设置如下：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;第一步&lt;/strong&gt;.在.vimrc 中设置&lt;br&gt;&lt;figure clas
-      
-    
-    </summary>
-    
-      <category term="Others" scheme="http://dequn.github.io/categories/Others/"/>
-    
-    
-      <category term="VIM" scheme="http://dequn.github.io/tags/VIM/"/>
-    
-      <category term="MacVim" scheme="http://dequn.github.io/tags/MacVim/"/>
     
   </entry>
   

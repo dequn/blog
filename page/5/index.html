@@ -115,6 +115,68 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2016/01/13/angular-select-cascading/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2016/01/13/angular-select-cascading/" itemprop="url">利用Angular select实现多级联动</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2016-01-13T20:59:53+08:00">2016-01-13 20:59:53</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>Angular中的select标签提供了很好的下拉选项，利用多个select就可以实现多级联动了，直接看例子。<br>首先需要定义好数据，这里我使用的是一个JS的Object对象，propertyName是父级选择，propertyValue是子级选择，这里只有两层，也可以再往下嵌套到三层等，如下所示。</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$scope.lineTypes = &#123;</span><br><span class="line">  <span class="string">'A 自然景观线路'</span>: [</span><br><span class="line">    <span class="string">'AA 山路'</span>,</span><br><span class="line">    <span class="string">'AB 水路'</span>,</span><br><span class="line">    <span class="string">'AC 峡谷'</span>,</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">'B 购物线路'</span>: [</span><br><span class="line">    <span class="string">'BA 土特产'</span>,</span><br><span class="line">    <span class="string">'BB 工艺品'</span>,</span><br><span class="line">    <span class="string">'BC 日用品'</span>,</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">'C 美食线路'</span>: [</span><br><span class="line">    <span class="string">'CA 地方小吃街'</span>,</span><br><span class="line">    <span class="string">'CB 高档餐饮街'</span>,</span><br><span class="line">    <span class="string">'CC 酒吧街'</span>,</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">'D 历史文化线路'</span>: [</span><br><span class="line">    <span class="string">'DA 历史人物'</span>,</span><br><span class="line">    <span class="string">'DB 历史事件'</span>,</span><br><span class="line">    <span class="string">'DC 文学艺术'</span>,</span><br><span class="line">    <span class="string">'DD 美术'</span>,</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">'E 名俗风情线路'</span>: [</span><br><span class="line">    <span class="string">'EA 地方风俗与民间礼仪'</span>,</span><br><span class="line">    <span class="string">'EB 民间节庆'</span>,</span><br><span class="line">    <span class="string">'EC 民间演艺'</span>,</span><br><span class="line">    <span class="string">'ED 民间健身活动与赛事'</span>,</span><br><span class="line">    <span class="string">'EE 宗教活动'</span>,</span><br><span class="line">    <span class="string">'EF 庙会与民间集会'</span>,</span><br><span class="line">    <span class="string">'EG 饮食习俗'</span>,</span><br><span class="line">    <span class="string">'EH 特色服饰'</span>,</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>另外还需要定义一个filter,用来过滤出子级数据，如下所示:<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$scope.filter(<span class="string">'toSubTypeArray'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(input, mainType)</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">input</span>[mainType];</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>定义好数据就可以直接在网页上展示了，select的具体用法可以看<em><a href="http://docs.angularjs.cn/api/ng/directive/select" target="_blank" rel="noopener">官方文档</a></em>,这里不细讲了，直接看例子。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">select</span> <span class="keyword">class</span>=<span class="string">"form-control"</span> style=<span class="string">"width:200px;"</span> ng-options=<span class="string">"key as key for (key,value) in activityTypes"</span> ng-model=<span class="string">"selectedActivityMainType"</span>&gt;</span><br><span class="line">  &lt;option <span class="keyword">value</span>=<span class="string">""</span>&gt;---请选择大类---&lt;/option&gt;</span><br><span class="line">&lt;/<span class="keyword">select</span>&gt;</span><br><span class="line">&lt;<span class="keyword">select</span> <span class="keyword">class</span>=<span class="string">"form-control"</span> style=<span class="string">"width:200px;"</span> ng-options=<span class="string">"type for type in  activityTypes | toSubTypeArray:selectedActivityMainType track by type"</span> ng-model=<span class="string">"selectedActivitySubType"</span>&gt;</span><br><span class="line">  &lt;option <span class="keyword">value</span>=<span class="string">""</span>&gt;---请选择子类---&lt;/option&gt;</span><br><span class="line">&lt;/<span class="keyword">select</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意，这里解释一下为什么数据定义成Object对象而不是Array对象，在第一个下拉中，我们把propertyName当作官方文档中介绍select和label，select就是选择的那个值，label就是界面上显示出来的值,这两个可以不是同一个值哦！定义成一个Object对象后，可以直接按照PropertyName取出子级的数组，比较方便！</p>
+<p>效果如下:<br><img src="http://obqjd695a.bkt.clouddn.com/%E5%A4%9A%E7%BA%A7%E8%81%94%E5%8A%A81.png" alt="第一级选择"><br><img src="http://obqjd695a.bkt.clouddn.com/%E5%A4%9A%E7%BA%A7%E8%81%94%E5%8A%A82.png" alt="第二级选择"></p>
+<p>这样就完成了多级联动的效果，目前存在的一个问题是如果使用filter过滤，测试中发现会多次触发，性能有所下降，当然也可以通过添加select的ng-change事件，在ng-change中更新子列表来实现，这里就不再实现了！</p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Angular/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Angular</a>
+        
+        <a class="post-tag button" href="/tags/select-cascding/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>select-cascding</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2015/12/25/hadoop-hbase-spark-install/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
@@ -360,7 +422,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">43</a></div>
+      <div><a href="/archives/">44</a></div>
     </div>
     
     
@@ -378,7 +440,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">58</a></div>
+      <div><a href="/tags/">60</a></div>
     </div>
     
   </div>

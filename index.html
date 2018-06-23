@@ -115,7 +115,7 @@
   
   <article class="index-post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-配置释疑/">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/23/docker-compose-subdirectory-dockerfile/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="dequn">
         <meta itemprop="description" content="这些文章没啥用">
@@ -127,7 +127,70 @@
     </div>
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2018/06/21/ShadowsocksX-NG-kcptun-配置释疑/" itemprop="url">ShadowsocksX-NG kcptun加速配置释疑</a>
+        <a class="post-title-link post-title-link-external" href="/2018/06/23/docker-compose-subdirectory-dockerfile/" itemprop="url">docker-compose 子目录编译、运行</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-06-23T15:55:46+08:00">2018-06-23 15:55:46</time></span>
+        </span>
+        
+        
+        
+      </div>
+    </header>
+    <main class="post-body" itemprop="articleBody">
+      
+      <p>公司开发物联网业务，使用Twisted 基于TCP协议开发的上位机服务，使用Django开发的Web后端，虽然是分别开发的，但两个服务之间有一定的耦合，比如上篇【<a href="/2018/06/19/django-channels-websocket-iot-remote-control/" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制">基于Django & Channels & WebSocket & Twisted的物联网远程控制</a>】就需要Web后端和Twisted共同完成，而Twisted上位机接收到下位机但上传数据后，是异步调用了Web后端进行数据入库的，所以两个服务还是一块启动的，再加上Redis, Postgresql数据库服务等，最终选择使用Docker Compose 一块发布管理。</p>
+<p>两个服务是分开开发的，也就要放在不同的目录中。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iot</span><br><span class="line">├── docker-compose.yml</span><br><span class="line">├── tcp</span><br><span class="line">│   └── Dockerfile</span><br><span class="line">└── web</span><br><span class="line">    └── Dockerfile</span><br></pre></td></tr></table></figure>
+<p>docker-compose.yml文件内容</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span>: <span class="string">'3'</span></span><br><span class="line"><span class="attribute">services</span>:</span><br><span class="line">    <span class="attribute">web</span>:</span><br><span class="line">        <span class="attribute">build</span>: ./web</span><br><span class="line">        <span class="attribute">image</span>: <span class="attribute">web</span>:backend</span><br><span class="line">        <span class="attribute">command</span>: [<span class="string">"sh"</span>, <span class="string">"-c"</span>, <span class="string">"python3 manage.py runserver 0.0.0.0:8000"</span>]</span><br><span class="line">        <span class="attribute">ports</span>:</span><br><span class="line">            - <span class="string">"8000:8000"</span></span><br><span class="line">        <span class="attribute">depends_on</span>:</span><br><span class="line">            - pgdb</span><br><span class="line">            - redis</span><br><span class="line">        <span class="attribute">volumes</span>:</span><br><span class="line">            - ./<span class="attribute">web</span>:/code</span><br><span class="line"></span><br><span class="line">    <span class="attribute">twisted</span>:</span><br><span class="line">        <span class="attribute">build</span>: ./tcp</span><br><span class="line">        <span class="attribute">ports</span>:</span><br><span class="line">            - <span class="string">"21188:21188"</span></span><br><span class="line">        <span class="attribute">command</span>: [<span class="string">"sh"</span>, <span class="string">"-c"</span>, <span class="string">"twistd -ny service.tac"</span>]</span><br><span class="line">        <span class="attribute">depends_on</span>:</span><br><span class="line">            - redis</span><br><span class="line">        <span class="attribute">volumes</span>:</span><br><span class="line">            - ./<span class="attribute">tcp</span>:/code</span><br><span class="line"></span><br><span class="line">    <span class="attribute">redis</span>:</span><br><span class="line">        <span class="attribute">image</span>: redis</span><br><span class="line"></span><br><span class="line">    <span class="attribute">pgdb</span>:</span><br><span class="line">        <span class="attribute">image</span>: postgres</span><br><span class="line">        <span class="attribute">environment</span>:</span><br><span class="line">            <span class="attribute">POSTGRES_PASSWORD</span>: postgres</span><br><span class="line">        <span class="attribute">volumes</span>:</span><br><span class="line">            - <span class="attribute">pg-vol</span>:/var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line"><span class="attribute">volumes</span>:</span><br><span class="line">    <span class="attribute">pg-vol</span>:</span><br></pre></td></tr></table></figure>
+<p><code>tcp/Dockerfile</code> 和 <code>web/Dockerfile</code>的内容都是一样的，所不同的就是各自目录下的代码。<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.6</span></span><br><span class="line"><span class="keyword">ENV</span> PYTHONUNBUFFERED <span class="number">1</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir /code</span></span><br><span class="line"><span class="bash">WORKDIR /code</span></span><br><span class="line"><span class="bash">ADD requirements.txt /code/</span></span><br><span class="line"><span class="bash">RUN pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt</span></span><br><span class="line"><span class="bash">ADD . /code/</span></span><br></pre></td></tr></table></figure></p>
+<p>这里讲一下需要注意的两个地方：</p>
+<ul>
+<li>docker-compose.yml中build后要加上目录，也可以用<code>context</code>参数指定</li>
+<li>特别需要注意的，各个服务需要添加自己的volumes，也就是示例中的<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">volumes:</span></span><br><span class="line">    - .<span class="regexp">/web:/</span>code</span><br><span class="line"><span class="string">volumes:</span></span><br><span class="line">    - .<span class="regexp">/tcp:/</span>code</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>不然虽然能正常生成container，但运行的时候<code>/code</code>下内容趋势<code>iot</code>目录，不是单个服务下但目录代码，导致不能正常运行。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://nickjanetakis.com/blog/docker-tip-10-project-structure-with-multiple-dockerfiles-and-docker-compose" target="_blank" rel="noopener">Docker Tip #10: Project Structure With Multiple Dockerfiles and Docker Compose</a></p>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        
+        
+        
+        <a class="post-tag button" href="/tags/Docker/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Docker</a>
+        
+        <a class="post-tag button" href="/tags/Docker-Compose/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>Docker Compose</a>
+        
+        <a class="post-tag button" href="/tags/subdirectory/" style="background: #47aaff;" rel="tag"><i class="fas fa-tags"></i>subdirectory</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="dequn">
+        <meta itemprop="description" content="这些文章没啥用">
+        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="dequn's blog">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2018/06/21/ShadowsocksX-NG-kcptun-settings/" itemprop="url">ShadowsocksX-NG kcptun加速配置释疑</a>
       </h1>
       <div class="post-meta">
         
@@ -731,96 +794,6 @@
     </footer>
   </article>
   
-  <article class="index-post card" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://dequn.github.io/2017/09/17/ways-of-python-import/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="dequn">
-        <meta itemprop="description" content="这些文章没啥用">
-        <meta itemprop="image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1rxWN2-S8kC34oi2QhbeQdm1hRAhzQTEpm5AFhnG3tJ-ccTI">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="dequn's blog">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2017/09/17/ways-of-python-import/" itemprop="url">Python模块的相对导入和绝对导入</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2017-09-17T13:25:27+08:00">2017-09-17 13:25:27</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-body" itemprop="articleBody">
-      
-      <p>刚开始用Python写代码，对于import的方式不是很理解，尤其是导入上层包的模块时，经常会使用<code>sys.path.append(&#39;..&#39;)</code>，然后再import，很不优雅，所以花些时间全部梳理一遍。</p>
-<p>首先需要明白明白两个概念<strong>包</strong>和<strong>模块</strong>，很多人也都了解，贴出<a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">runoob</a>（页面跟W3C好像，他们有什么关系吗？）上给出的两个定义。</p>
-<ul>
-<li><p>模块</p>
-<blockquote>
-<p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。<br>模块让你能够有逻辑地组织你的 Python 代码段。<br>把相关的代码分配到一个模块里能让你的代码更好用，更易懂。<br>模块能定义函数，类和变量，模块里也能包含可执行的代码。</p>
-</blockquote>
-</li>
-<li><p>包</p>
-<blockquote>
-<p>包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。<br>简单来说，包就是文件夹，但该文件夹下必须存在 <code>__init__.py</code> 文件, 该文件的内容可以为空。<code>__int__.py</code>用于标识当前文件夹是一个包。</p>
-</blockquote>
-</li>
-</ul>
-<p>从顶层模块（sys.path）或者当前的包中导入模块，使用<code>import module</code>或者<code>from module import xxx</code>的方式就不再赘述，不过有一种使用括号进行的多模块导入方式，如：<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">from</span> from <span class="type">Tkinter</span> <span class="keyword">import</span> (<span class="type">Tk</span>, <span class="type">Frame</span>, <span class="type">Button</span>, <span class="type">Entry</span>, <span class="type">Canvas</span>, <span class="type">Text</span>,</span><br><span class="line">    <span class="type">LEFT</span>, <span class="type">DISABLED</span>, <span class="type">NORMAL</span>, <span class="type">RIDGE</span>, <span class="type">END</span>)</span><br></pre></td></tr></table></figure></p>
-<p>这样可以避免使用反斜杠续行，稍微优雅一些，多行的字符串也可以使用一样的括号语法实现。记住，<code>from module import *</code>是绝对的不推荐的，会意外地“污染”命名空间。</p>
-<p><strong>相对导入和绝对导入</strong>是这次讨论的重点，在项目中，肯定不意外地会建立不同层级和结构关系的包，那么在这些包之间，我们又应该如何导入要引用的模块？</p>
-<h1 id="绝对导入"><a href="#绝对导入" class="headerlink" title="绝对导入"></a>绝对导入</h1><p>在Python 2.4之前，如果使用了<code>import foo</code>，如果当前包内也有一个模块foo，由于解释器是不知道你导入的是顶层模块还是当前包内的模块，根据模块寻找加载的顺序[]，当前包内的foo模块就会覆盖掉顶层的foo模块，而可能引起不必要的歧义。于是要求foo必须是在sys.path中能够寻到的模块或包，这就是绝对导入的定义。python-dev 社区选择将绝对导入作为默认导入的方式，一来是因为更常用，二是因为绝对导入可以提供相对导入的全部功能.</p>
-<p>在Python 2.5 和 2.6中，绝对导入是可选的，需要在文件开头添加<code>from __future__ import absolute_import</code>来实现默认的绝对导入。</p>
-<h1 id="相对导入"><a href="#相对导入" class="headerlink" title="相对导入"></a>相对导入</h1><p>相对导入是根据模块的<code>__name__</code>属性来决定模块的位置，然后计算相对路径，在同一个项目相邻层级的包和模块中最为常用，也最为方便。关于相对导入的语法实现模式，有一个很有趣也很广泛的讨论，看着那些先驱开发者的讨论，收获也是蛮多的，感兴趣的参考<a href="https://www.python.org/dev/peps/pep-0328/" title="PEP 328 -- Imports: Multi-Line and Absolute/Relative" target="_blank" rel="noopener">PEP 328 – Imports: Multi-Line and Absolute/Relative</a>。最后，Guido采用”.”前缀表示相对导入，和Unix系统中的目录表示含义一样，一个”.”表示当年层级，多一个就表示向上一层。下面是一些例子：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .moduleY <span class="keyword">import</span> spam</span><br><span class="line"><span class="keyword">from</span> .moduleY <span class="keyword">import</span> spam <span class="keyword">as</span> ham</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> moduleY</span><br><span class="line"><span class="keyword">from</span> ..subpackage1 <span class="keyword">import</span> moduleY</span><br><span class="line"><span class="keyword">from</span> ..subpackage2.moduleZ <span class="keyword">import</span> eggs</span><br><span class="line"><span class="keyword">from</span> ..moduleA <span class="keyword">import</span> foo</span><br><span class="line"><span class="keyword">from</span> ...package <span class="keyword">import</span> bar</span><br><span class="line"><span class="keyword">from</span> ...sys <span class="keyword">import</span> path</span><br></pre></td></tr></table></figure></p>
-<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>相对导入必须使用 <code>from .&lt;&gt; import xxx</code>(并且至少含有一个.符号)的模式，<code>import &lt;&gt;</code>总是绝对导入，当然，如果<code>from &lt;&gt; import</code>中没有句点，那么也是绝对导入。但是类似<code>import .foo</code>的方式是非合法语句，因为<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import XXX<span class="selector-class">.YYY</span><span class="selector-class">.ZZZ</span></span><br></pre></td></tr></table></figure></p>
-<p>的<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XXX<span class="selector-class">.YYY</span><span class="selector-class">.ZZZ</span></span><br></pre></td></tr></table></figure></p>
-<p>是可用的表达式，而<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> .moduleY</span><br></pre></td></tr></table></figure></p>
-<p>的<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">.moduleY</span></span><br></pre></td></tr></table></figure></p>
-<p>不是一个可用的表达式。</p>
-<h1 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h1><p>使用相对导入还是绝对导入，可以完全凭个人喜好。但是为了代码的可阅读性，一般的共识是不超过两层的层级可以使用相对导入，试想一下，如果有超过3个的”.”，还能够正确快速地知道向上到了哪个层级吗?这个时候使用绝对导入会更加方便，代码也更好维护。不论哪一种导入方式，也都会有重构时的麻烦（如重命名一个模块），但是我想在IDE如此普遍使用的情况下，这个因素应该是最不值得考虑的了。加一个TODO吧，参阅一些优秀的开源框架源码，看看他们是如何组织的。</p>
-<h1 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h1><p>使用了相对导入以后，如果直接以<code>python script_name.py</code>的方式运行脚本，Python解释器会报<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#python 2</span></span><br><span class="line"><span class="symbol">ValueError:</span> Attempted relative import <span class="keyword">in</span> non-package</span><br></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#python 3</span></span><br><span class="line">SystemError: Parent <span class="keyword">module</span> <span class="string">''</span> <span class="keyword">not</span> loaded, cannot perform relative <span class="keyword">import</span></span><br></pre></td></tr></table></figure></p>
-<p>的错误，可以使用<code>python -m script_name.py</code>加上-m开关的方式运行，-m用于告诉解释器以脚本的方式运行模块，具体这样做的原因将在下一篇文章中分析。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li><a href="http://kuanghy.github.io/2016/07/21/python-import-relative-and-absolute" title="Python 相对导入与绝对导入" target="_blank" rel="noopener">Python 相对导入与绝对导入</a></li>
-<li><a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">http://www.runoob.com/python/python-modules.html</a></li>
-<li><a href="https://www.python.org/dev/peps/pep-0328/" title="PEP 328 -- Imports: Multi-Line and Absolute/Relative" target="_blank" rel="noopener">PEP 328 – Imports: Multi-Line and Absolute/Relative</a></li>
-<li><a href="http://codingpy.com/article/python-import-101/" title="Python导入模块的几种姿势" target="_blank" rel="noopener">Python导入模块的几种姿势</a></li>
-</ol>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        
-        
-        
-        <a class="post-tag button" href="/tags/Python/" style="background: #fc6423;" rel="tag"><i class="fas fa-tags"></i>Python</a>
-        
-        <a class="post-tag button" href="/tags/import/" style="background: #a3bb54;" rel="tag"><i class="fas fa-tags"></i>import</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a>
@@ -846,7 +819,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">Archives</div>
-      <div><a href="/archives/">43</a></div>
+      <div><a href="/archives/">44</a></div>
     </div>
     
     
@@ -864,7 +837,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">Tags</div>
-      <div><a href="/tags/">58</a></div>
+      <div><a href="/tags/">60</a></div>
     </div>
     
   </div>
