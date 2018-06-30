@@ -4,6 +4,36 @@
   
     
     <entry>
+      <title><![CDATA[记一次Confluence迁移数据库和Docker network网络修改]]></title>
+      <url>http://dequn.github.io/2018/06/30/docker-network/</url>
+      <content type="html"><![CDATA[<p>公司的Confluence越来越慢，查看了一下日志，好多数据库连接超过最大数错误，另外由于数据库有很多定时任务，磁盘读写频繁，所以选择在另一台机器上重建一个数据库。</p>
+<p>由于Confluence是破解的，如果每次创建新容器序列号会变，所以原有的Confluence容器不能删除。</p>
+<p>由于同一台机器可能有多个数据库实例服务于不同的应用，所以不能将数据库端口映射到主机上，那么在confluence中如何填写数据库连接呢？</p>
+<p>Docker会默认将容器添加到<code>bridge</code>中，但是<code>bridge</code>网络内的容器不能通过容器名访问，所以需要新建network并将已有的Confluence容器和新建的数据库容器添加进来。如果一开始就决定是组合应用的话，使用docker-compose最方便，此次情况是作修改。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker<span class="built_in"> network </span>create confluence-network # 新建一个network</span><br><span class="line">docker<span class="built_in"> network </span>connect confluence-network herisk-confluence # 把容器herisk-confluence添加到confluence-network 中</span><br><span class="line">docker <span class="builtin-name">run</span> --name confluence-postgres -v confluence-postgres-db:/var/lib/postgresql/data -e <span class="attribute">POSTGRES_PASSWORD</span>=postgres <span class="attribute">--network</span>=confluence-network -d postgres #创建数据库容器并添加到confluence-network中</span><br></pre></td></tr></table></figure>
+<p>备份和恢复数据库使用<code>pg_dump 和 pg_restore</code>比较简单，就不在赘述了。</p>
+<p>修改Confluence 的配置文件<code>confluence.cfg.xml</code>，数据库连接的主机部分填写数据库容器名即可，本例中为<code>jdbc://confluence-postgres-db:5432/confluence</code>。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://docs-cn.docker.octowhale.com/engine/userguide/networking/container-networking.html" target="_blank" rel="noopener">Docker container networking</a><br>[2]. <a href="https://help.aliyun.com/document_detail/26157.html" target="_blank" rel="noopener">使用 psql 命令迁移 PostgreSQL 数据</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Docker </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Docker </tag>
+            
+            <tag> network </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[docker-compose 子目录编译、运行]]></title>
       <url>http://dequn.github.io/2018/06/23/docker-compose-subdirectory-dockerfile/</url>
       <content type="html"><![CDATA[<p>公司开发物联网业务，使用Twisted 基于TCP协议开发的上位机服务，使用Django开发的Web后端，虽然是分别开发的，但两个服务之间有一定的耦合，比如上篇【<a href="/2018/06/19/django-channels-websocket-iot-remote-control/" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制">基于Django & Channels & WebSocket & Twisted的物联网远程控制</a>】就需要Web后端和Twisted共同完成，而Twisted上位机接收到下位机但上传数据后，是异步调用了Web后端进行数据入库的，所以两个服务还是一块启动的，再加上Redis, Postgresql数据库服务等，最终选择使用Docker Compose 一块发布管理。</p>

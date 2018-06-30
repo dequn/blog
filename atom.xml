@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2018-06-23T09:03:21.520Z</updated>
+  <updated>2018-06-30T06:17:10.822Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次Confluence迁移数据库和Docker network网络修改</title>
+    <link href="http://dequn.github.io/2018/06/30/docker-network/"/>
+    <id>http://dequn.github.io/2018/06/30/docker-network/</id>
+    <published>2018-06-30T05:48:00.000Z</published>
+    <updated>2018-06-30T06:17:10.822Z</updated>
+    
+    <content type="html"><![CDATA[<p>公司的Confluence越来越慢，查看了一下日志，好多数据库连接超过最大数错误，另外由于数据库有很多定时任务，磁盘读写频繁，所以选择在另一台机器上重建一个数据库。</p><p>由于Confluence是破解的，如果每次创建新容器序列号会变，所以原有的Confluence容器不能删除。</p><p>由于同一台机器可能有多个数据库实例服务于不同的应用，所以不能将数据库端口映射到主机上，那么在confluence中如何填写数据库连接呢？</p><p>Docker会默认将容器添加到<code>bridge</code>中，但是<code>bridge</code>网络内的容器不能通过容器名访问，所以需要新建network并将已有的Confluence容器和新建的数据库容器添加进来。如果一开始就决定是组合应用的话，使用docker-compose最方便，此次情况是作修改。</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker<span class="built_in"> network </span>create confluence-network # 新建一个network</span><br><span class="line">docker<span class="built_in"> network </span>connect confluence-network herisk-confluence # 把容器herisk-confluence添加到confluence-network 中</span><br><span class="line">docker <span class="builtin-name">run</span> --name confluence-postgres -v confluence-postgres-db:/var/lib/postgresql/data -e <span class="attribute">POSTGRES_PASSWORD</span>=postgres <span class="attribute">--network</span>=confluence-network -d postgres #创建数据库容器并添加到confluence-network中</span><br></pre></td></tr></table></figure><p>备份和恢复数据库使用<code>pg_dump 和 pg_restore</code>比较简单，就不在赘述了。</p><p>修改Confluence 的配置文件<code>confluence.cfg.xml</code>，数据库连接的主机部分填写数据库容器名即可，本例中为<code>jdbc://confluence-postgres-db:5432/confluence</code>。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a href="https://docs-cn.docker.octowhale.com/engine/userguide/networking/container-networking.html" target="_blank" rel="noopener">Docker container networking</a><br>[2]. <a href="https://help.aliyun.com/document_detail/26157.html" target="_blank" rel="noopener">使用 psql 命令迁移 PostgreSQL 数据</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;公司的Confluence越来越慢，查看了一下日志，好多数据库连接超过最大数错误，另外由于数据库有很多定时任务，磁盘读写频繁，所以选择在另一台机器上重建一个数据库。&lt;/p&gt;
+&lt;p&gt;由于Confluence是破解的，如果每次创建新容器序列号会变，所以原有的Confluence
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://dequn.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="http://dequn.github.io/tags/Docker/"/>
+    
+      <category term="network" scheme="http://dequn.github.io/tags/network/"/>
+    
+  </entry>
   
   <entry>
     <title>docker-compose 子目录编译、运行</title>
@@ -538,31 +566,6 @@ img{height:200px;}
       <category term="spark" scheme="http://dequn.github.io/tags/spark/"/>
     
       <category term="Phoenix" scheme="http://dequn.github.io/tags/Phoenix/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pyenv安装多版本 Python 过程中提示警告</title>
-    <link href="http://dequn.github.io/2016/11/02/pyenv-install-with-warnings/"/>
-    <id>http://dequn.github.io/2016/11/02/pyenv-install-with-warnings/</id>
-    <published>2016-11-02T07:21:35.000Z</published>
-    <updated>2017-08-24T14:56:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在使用 pyenv 安装多版本 Python 时，有时候会遇到警告<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">WARNING:</span> The Python bz2 extension was not compiled. Missing the bzip2 <span class="class"><span class="keyword">lib</span>?</span></span><br><span class="line"><span class="symbol">WARNING:</span> The Python readline extension was not compiled. Missing the GNU readline <span class="class"><span class="keyword">lib</span>?</span></span><br><span class="line"><span class="symbol">WARNING:</span> The Python sqlite3 extension was not compiled. Missing the SQLite3 <span class="class"><span class="keyword">lib</span>?</span></span><br></pre></td></tr></table></figure></p><p>只需要根据提示安装就行了（CentOS7环境下):<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install </span>readline readline-devel readline-static -y</span><br><span class="line">yum <span class="keyword">install </span>openssl openssl-devel openssl-static -y</span><br><span class="line">yum <span class="keyword">install </span>sqlite-devel -y</span><br><span class="line">yum <span class="keyword">install </span><span class="keyword">bzip2-devel </span><span class="keyword">bzip2-libs </span>-y</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在使用 pyenv 安装多版本 Python 时，有时候会遇到警告&lt;br&gt;&lt;figure class=&quot;highlight crystal&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://dequn.github.io/categories/Python/"/>
-    
-    
-      <category term="pyenv" scheme="http://dequn.github.io/tags/pyenv/"/>
     
   </entry>
   
