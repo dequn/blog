@@ -8,7 +8,7 @@
 
     <url>
         <loc>http://dequn.github.io/2018/08/22/communication-between-twisted-services/</loc>
-        <lastmod>2018-08-23T12:55:15.118Z</lastmod>
+        <lastmod>2018-08-23T12:57:00.825Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -327,7 +327,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/</loc>
+        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -335,7 +335,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
+        <loc>http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2018-06-30T06:17:10.822Z</updated>
+  <updated>2018-08-23T12:57:00.825Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>twisted 服务间通信</title>
+    <link href="http://dequn.github.io/2018/08/22/communication-between-twisted-services/"/>
+    <id>http://dequn.github.io/2018/08/22/communication-between-twisted-services/</id>
+    <published>2018-08-22T12:33:01.000Z</published>
+    <updated>2018-08-23T12:57:00.825Z</updated>
+    
+    <content type="html"><![CDATA[<p>【<a href="/2018/06/19/django-channels-websocket-iot-remote-control/" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制">基于Django & Channels & WebSocket & Twisted的物联网远程控制</a>】写到，下位机每隔一段时间连接上位机传送数据和进行任务下发，现在领导改需求了，要求使用长链接，使得上位机的任务可以随时下发，方便用户。小米的智能家电采取的应该也都是长链接的方式，由于小米家电本身是市电供应，家里也都是wifi上网，所以除了会多消耗服务器资源外，这种即时的控制还是蛮不错的。但是真正用于野外的物联网终端，还是要平衡好电量、流量的问题才行。</p><p>之前也提到，web网页用户操作，web后台生成并发布到redis订阅，twisted 采用redis客户端监听，并在下位机连接的时候下发任务，这里我用的相当于是一个全局变量存下来哪些设备有任务，如果要改成长链接实时控制，这种方法就不太合适了。</p><p>上位机是一个单独的service，redis监听是一个单独的service，这就要求两个service能够通信——redis客户service告诉上位机服务serivce，有新任务啦，赶紧下发！</p><p>解决这个问题过程中，也加深了对twisted的理解，重要的有三点，参考<a href="https://stackoverflow.com/questions/21344343/how-to-communicate-between-services" target="_blank" rel="noopener">[1]</a>。</p><ul><li>service不接收也不发送数据，只负责启动和停止factory</li><li>factory也不接收和发送数据，负责生成和销毁protocol实例，protocol实例处理链接和收发数据</li><li>factory是长生命周期的，protocol实例是用完就销毁的</li></ul><p>有了以上三点，事情就简单多了。</p><ul><li>创建redis client factory的时候，传入上位机服务factory</li><li>让上位机服务factory 维护一个protocol实例的集合，protocol实例创建时添加，销毁是删除</li><li>通过 redis_facotry.up_service_factory.protocol_set 获取上位机服务protocol实例，执行相应任务（长链接protocol实例不会被销毁）</li></ul><p>直接看代码:</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FisheryProtocol</span>(<span class="title">protocol</span>.<span class="title">Protocol</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connectionMade</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.factory.protocol_set.add(<span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connectionLost</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.factory.protocol_set.pop(<span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisProtocol</span>(<span class="title">redis</span>.<span class="title">SubscriberProtocol</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">messageReceived</span><span class="params">(<span class="keyword">self</span>, pattern, channel, message)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.factory.fishery_factory.protocol_set <span class="comment"># get a specified protocol from protocol_set  </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisFactory</span>(<span class="title">redis</span>.<span class="title">SubscriberFactory</span>):</span></span><br><span class="line">    <span class="comment"># ... other code</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, fishery_factory)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">super</span>().__init_<span class="number">_</span>()</span><br><span class="line">        <span class="keyword">self</span>.fishery_factory = fishery_factory</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;【&lt;a href=&quot;/2018/06/19/django-channels-websocket-iot-remote-control/&quot; title=&quot;基于Django &amp; Channels &amp; WebSocket &amp; Twisted的物联网远程控制&quot;&gt;基于Django &amp;
+      
+    
+    </summary>
+    
+      <category term="twisted" scheme="http://dequn.github.io/categories/twisted/"/>
+    
+    
+      <category term="twisted" scheme="http://dequn.github.io/tags/twisted/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次Confluence迁移数据库和Docker network网络修改</title>
@@ -538,34 +563,6 @@ img{height:200px;}
       <category term="Spark" scheme="http://dequn.github.io/tags/Spark/"/>
     
       <category term="Intellij IDEA" scheme="http://dequn.github.io/tags/Intellij-IDEA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spark 连接 Phoenix 配置</title>
-    <link href="http://dequn.github.io/2016/11/08/phoenix-spark-setting/"/>
-    <id>http://dequn.github.io/2016/11/08/phoenix-spark-setting/</id>
-    <published>2016-11-08T06:06:40.000Z</published>
-    <updated>2017-08-24T14:55:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong><em>2017年1月3号更新：</em></strong></p><p>在Spark 2.x版本中更改了DataFrame的定义，而Phoenix4.9及以前(4.10后官方版本会修复）是在Spark1.x的环境下开发的，因此如果使用Spark2.x的环境，不能正常使用Phoenix Spark Interprter, 具体问题可以参考 <a href="https://issues.apache.org/jira/browse/PHOENIX-3333" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/PHOENIX-3333</a>，这里给出本人利用链接中的补丁编译后的phoenix，其他参考1.x版本中的配置方式即可。</p><p><a href="http://obqjd695a.bkt.clouddn.com/phoenix-4.9.0-HBase-1.2-server.jar" target="_blank" rel="noopener">phoenix-4.9.0-HBase-1.2-server.jar</a></p><p><a href="http://obqjd695a.bkt.clouddn.com/phoenix-4.9.0-HBase-1.2-client.jar" target="_blank" rel="noopener">phoenix-4.9.0-HBase-1.2-client.jar</a></p><hr><p>Phoenix 官方文档给出了如何配置Spark 连接的说明，但是由于版本更新比较快，教程已经有些过时了。</p><p>环境配置：</p><blockquote><p>Spark 1.5.2<br>Phoenix 4.8.0<br>HBase 1.1.2</p></blockquote><p>如果在 HBase上配置过 Phoenix ，服务端就不需要做任何改动了。</p><p>在<strong> Phoenix 4.8</strong> 版本中，已经没有官方示例中的<code>phoenix-&lt;version&gt;-client-spark.jar</code>的文件了，所有的客户端需要的 jar 只有一个<strong> <code>phoenix-&lt;version&gt;-client.jar</code></strong> ！</p><p>连接在 Spark 中连接Phoenix 也有两种方式：</p><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>spark-shell 启动时添加 phoenix jar.</p><p>启动spark-shell 是添加参数–jars 即可<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spark-shell --jars /usr/local/phoenix/phoenix<span class="number">-4.8</span><span class="number">.0</span>-HBase<span class="number">-1.1</span>-client.jar</span><br><span class="line"># ....</span><br><span class="line"># ....</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.phoenix.spark._</span><br><span class="line"></span><br><span class="line"># 这一句不报错的话就说明搞定了</span><br></pre></td></tr></table></figure></p><h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>配置 spark-defaults.conf</p><p>如果不想每次启动都添加 –jars 参数，可以配置$SPARK_HOME/conf 下边的spark-defaults.conf文件，添加下面两个配置项，注意 jar 文件路径与名称的正确性。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spark<span class="selector-class">.executor</span><span class="selector-class">.extraClassPath</span>      /usr/local/phoenix/phoenix-<span class="number">4.8</span>.<span class="number">0</span>-HBase-<span class="number">1.1</span>-client.jar</span><br><span class="line">spark<span class="selector-class">.driver</span><span class="selector-class">.extraClassPath</span>      /usr/local/phoenix/phoenix-<span class="number">4.8</span>.<span class="number">0</span>-HBase-<span class="number">1.1</span>-client.jar</span><br></pre></td></tr></table></figure></p><p>这样再启动spark-shell，就可以直接导入需要的包了，注意 SparkContext sc 和 SQLContext sqlContext 都已经是设置好了的，可以直接用。其他可以参考官方给出的示例。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;&lt;em&gt;2017年1月3号更新：&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在Spark 2.x版本中更改了DataFrame的定义，而Phoenix4.9及以前(4.10后官方版本会修复）是在Spark1.x的环境下开发的，因此如果使用Spark2.x的环
-      
-    
-    </summary>
-    
-      <category term="Phoenix" scheme="http://dequn.github.io/categories/Phoenix/"/>
-    
-    
-      <category term="spark" scheme="http://dequn.github.io/tags/spark/"/>
-    
-      <category term="Phoenix" scheme="http://dequn.github.io/tags/Phoenix/"/>
     
   </entry>
   
