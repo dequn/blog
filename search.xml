@@ -4,6 +4,36 @@
   
     
     <entry>
+      <title><![CDATA[Django添加用户Celery任务]]></title>
+      <url>http://dequn.github.io/2018/10/14/django-add-user-celery-task/</url>
+      <content type="html"><![CDATA[<p>系统开发需要添加用户自己设定的定时任务，当然这种任务不是用户自己编程那种，而是写好的逻辑，用户设定参数执行即可。</p>
+<p>上篇<a href="/2018/06/02/django-celery/" title="Django2结合Celery添加定时任务">Django2结合Celery添加定时任务</a>说明了如何利用Celery设定定时任务，这次需要用户添加自己的定时任务，总共分为步：</p>
+<ol>
+<li>写定时任务的代码，留出需要带入的参数；</li>
+<li>设计Model，通过用户表单获取到定时任务的参数，比如执行时间、其他参数等；</li>
+<li>注册Model 的<code>post_save</code> 或者 <code>pre_save</code> signal，添加或者删除<code>django_celery_beat.model.PeriodicTask</code> 记录;</li>
+<li>如果不想让用户的定时任务与系统的定时任务都存在一张数据表中，可以新建继承自<code>django_celery_beat.model.PeriodicTask</code>的类，当然这样也就需要新建继承自<code>django_celery_beat.schedulers.DatabaseScheduler</code>类，从新建的Task类中分发任务。</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Django </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Django </tag>
+            
+            <tag> Celery </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[twisted 服务间通信]]></title>
       <url>http://dequn.github.io/2018/08/22/communication-between-twisted-services/</url>
       <content type="html"><![CDATA[<p>【<a href="/2018/06/19/django-channels-websocket-iot-remote-control/" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制">基于Django & Channels & WebSocket & Twisted的物联网远程控制</a>】写到，下位机每隔一段时间连接上位机传送数据和进行任务下发，现在领导改需求了，要求使用长链接，使得上位机的任务可以随时下发，方便用户。小米的智能家电采取的应该也都是长链接的方式，由于小米家电本身是市电供应，家里也都是wifi上网，所以除了会多消耗服务器资源外，这种即时的控制还是蛮不错的。但是真正用于野外的物联网终端，还是要平衡好电量、流量的问题才行。</p>
