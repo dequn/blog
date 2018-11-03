@@ -37,6 +37,13 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/tags/Local-Index/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/tags/Endpoint/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -66,13 +73,6 @@
 
     <url>
         <loc>http://dequn.github.io/tags/Interceptor/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/tags/Local-Index/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -179,13 +179,6 @@
     <url>
         <loc>http://dequn.github.io/tags/encode/</loc>
         <lastmod>2017-08-24T15:02:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/tags/VIM/</loc>
-        <lastmod>2017-08-24T15:03:20.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -410,6 +403,27 @@
     <url>
         <loc>http://dequn.github.io/tags/Celery/</loc>
         <lastmod>2018-10-14T14:02:53.762Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/VIM/</loc>
+        <lastmod>2018-11-03T13:41:25.417Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/IDE/</loc>
+        <lastmod>2018-11-03T13:41:25.417Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/PyCharm/</loc>
+        <lastmod>2018-11-03T13:41:25.417Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

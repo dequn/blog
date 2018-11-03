@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title><![CDATA[一次可怕的误操作-暨IDE的重要性]]></title>
+      <url>http://dequn.github.io/2018/11/03/yi-ci-ke-pa-de-wu-cao-zuo/</url>
+      <content type="html"><![CDATA[<p>很早之前喜欢用VIM 敲代码，也跟着<a href="https://github.com/yangyangwithgnu/use_vim_as_ide" target="_blank" rel="noopener">yangyangwithgnu</a>的文档折腾过一段时间，不过随着几次换电脑、重装等（虽然配置也做了备份），热情逐渐退却，在项目开发中还是换回了IDE，平常写一些简单的脚本才会用VIM，也是第一反应，毕竟为了写两三个文件的代码是不需要用IDE的。也幸亏用了PyCharm，才免去了一次说大不大说小不小的损失。</p>
+<p>手头的项目进入到实质开发阶段，之前更像Demo的系统无论从代码质量还是数据库设计、框架方面，都避免不了要重构一次，单元测试等该实现也要实现，说动手就动手，辛苦了两天基本完成了初期的重构，交代一下，由于本人没有在IDE中配置Docker及其环境，所以每次运行单元测试都是在终端<code>docker-compose run ... test ...</code>的。</p>
+<p>也不得不说<code>Ctrl + R</code> 极大方便了重复执行命令（PS：个人很少能想起来直接 <code>Ctrl + P</code> 执行上一条命令，况且也不是所有的命令都是执行上一次），在有一次重启一个container 的时候，搜索 <em>res</em>(tart)，看也没看就敲回车运行，不过看到输出就崩溃了，<code>HEAD is now at ff156e1 ...</code>，原来找到的历史命令是<code>git reset --hard HEAD</code>，可这些重构都是<code>unstaged</code>的状态啊，万能的git也找不回来这些被<strong>reset</strong>的修改了！</p>
+<p>万般无奈，两天的工作（虽然一天也写不了多少）重做会很快，但心情更重要啊，瞬间就想下班静一静了，哈哈哈哈。</p>
+<p>正在准备出去溜达一圈换换脑子的时候，灵光一现，咱可是用了PyCharm的人啊，我记得她（注意用字，这就是让我重生的上帝啊）有一个<strong>Local History</strong> 的功能，这个<strong> Local History</strong>也是与Git 独立的，唯一的希望就是她了，命悬一线。</p>
+<p>战战兢兢的在项目目录上点击<em> Local History -&gt; Show History </em>，谢天谢地啊，左侧历史列表很帅气、准确、救世主一样的显示出了每一次文件改动的记录，找到被reset到记录，也显示出了修改来源——<strong>External change</strong>， 检查无误恢复成功，悬着的心终于放下了。</p>
+<p>不得不说，对JetBrain好感倍增！赶紧花钱去买一个正版对授权吧，还是那句话，心情很重要！</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> VIM </tag>
+            
+            <tag> IDE </tag>
+            
+            <tag> PyCharm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Django添加用户Celery任务]]></title>
       <url>http://dequn.github.io/2018/10/14/django-add-user-celery-task/</url>
       <content type="html"><![CDATA[<p>系统开发需要添加用户自己设定的定时任务，当然这种任务不是用户自己编程那种，而是写好的逻辑，用户设定参数执行即可。</p>
@@ -684,11 +709,11 @@
         
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> charset </tag>
             
             <tag> encode </tag>
+            
+            <tag> Python </tag>
             
         </tags>
         
@@ -957,9 +982,9 @@ img{height:200px;}
         
         <tags>
             
-            <tag> spark </tag>
-            
             <tag> Phoenix </tag>
+            
+            <tag> spark </tag>
             
         </tags>
         
@@ -1082,9 +1107,9 @@ img{height:200px;}
         
         <tags>
             
-            <tag> MapReduce </tag>
-            
             <tag> Phoenix </tag>
+            
+            <tag> MapReduce </tag>
             
         </tags>
         
@@ -1977,9 +2002,9 @@ img{height:200px;}
             
             <tag> HBase </tag>
             
-            <tag> Hadoop </tag>
-            
             <tag> Spark </tag>
+            
+            <tag> Hadoop </tag>
             
         </tags>
         
