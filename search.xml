@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title><![CDATA[DRF serializer中外键post使用id，get获取详细信息]]></title>
+      <url>http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/</url>
+      <content type="html"><![CDATA[<p>在使用Django REST framework Serializer的时候，并不一定单一的SerializerField就可以满足要求，比如遇到Model 中含有外键，如果<a href="https://www.django-rest-framework.org/api-guide/serializers/#writable-nested-representations" target="_blank" rel="noopener">Writable nested representations</a>，则参考官方的例子重写<code>create</code>或者<code>update</code>方法就行，但如果要是想在<code>deserializering</code>的时候使用外键键值——object_id, <code>serializering</code>的时候表达出一些必要的信息，那么就需要对Serializer的字段进行一些特定的设置了。</p>
+<p>根据Django 中对 ForeignKey的解释以及如何对ForeignKey查询对介绍</p>
+<blockquote>
+<h2 id="Database-Representation"><a href="#Database-Representation" class="headerlink" title="Database Representation"></a>Database Representation</h2><p>Behind the scenes, Django appends “_id” to the field name to create its database column name. In the above example, the database table for the Car model will have a manufacturer_id column.</p>
+</blockquote>
+<blockquote>
+<p>The field specified in a lookup has to be the name of a model field. There’s one exception though, in case of a ForeignKey you can specify the field name suffixed with _id. In this case, the value parameter is expected to contain the raw value of the foreign model’s primary key.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Entry<span class="selector-class">.objects</span><span class="selector-class">.filter</span>(blog_id=<span class="number">4</span>)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>所以在使用<code>ModelSerializer</code>的时候，很简单就可以实现，假如我们Bar model中有一个外键字段<code>foo</code>，那么BarSerializer可以有如下的定义：<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">BarSerializer</span>(<span class="title">serializers</span>.<span class="type">ModelSerializer</span>):</span></span><br><span class="line"><span class="class">    foo_id = serializers.<span class="type">IntegerField</span>(<span class="title">write_only</span>=<span class="type">True</span>)</span></span><br><span class="line"><span class="class">    foo = <span class="type">FooSerializer</span>(<span class="title">read_only</span>=<span class="type">True</span>)</span></span><br></pre></td></tr></table></figure></p>
+<p>在POST请求中，传入的字段名称为foo_id即可。而GET的时候，会使用FooSerializer对foo进行序列化，得到完整对外键内容。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://stackoverflow.com/questions/36189303/django-rest-framework-receive-primary-key-value-in-post-and-return-model-object/53827209#53827209" target="_blank" rel="noopener">https://stackoverflow.com/questions/36189303/django-rest-framework-receive-primary-key-value-in-post-and-return-model-object/53827209#53827209</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> drf </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> drf </tag>
+            
+            <tag> foreign key </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[一次可怕的误操作-暨IDE的重要性]]></title>
       <url>http://dequn.github.io/2018/11/03/yi-ci-ke-pa-de-wu-cao-zuo/</url>
       <content type="html"><![CDATA[<p>很早之前喜欢用VIM 敲代码，也跟着<a href="https://github.com/yangyangwithgnu/use_vim_as_ide" target="_blank" rel="noopener">yangyangwithgnu</a>的文档折腾过一段时间，不过随着几次换电脑、重装等（虽然配置也做了备份），热情逐渐退却，在项目开发中还是换回了IDE，平常写一些简单的脚本才会用VIM，也是第一反应，毕竟为了写两三个文件的代码是不需要用IDE的。也幸亏用了PyCharm，才免去了一次说大不大说小不小的损失。</p>
@@ -709,11 +744,11 @@
         
         <tags>
             
+            <tag> Python </tag>
+            
             <tag> charset </tag>
             
             <tag> encode </tag>
-            
-            <tag> Python </tag>
             
         </tags>
         
@@ -982,9 +1017,9 @@ img{height:200px;}
         
         <tags>
             
-            <tag> Phoenix </tag>
-            
             <tag> spark </tag>
+            
+            <tag> Phoenix </tag>
             
         </tags>
         
@@ -1107,9 +1142,9 @@ img{height:200px;}
         
         <tags>
             
-            <tag> Phoenix </tag>
-            
             <tag> MapReduce </tag>
+            
+            <tag> Phoenix </tag>
             
         </tags>
         
@@ -2002,9 +2037,9 @@ img{height:200px;}
             
             <tag> HBase </tag>
             
-            <tag> Spark </tag>
-            
             <tag> Hadoop </tag>
+            
+            <tag> Spark </tag>
             
         </tags>
         
