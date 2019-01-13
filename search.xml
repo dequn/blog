@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title><![CDATA[Charles和 Shadowsocks 共存设置说明]]></title>
+      <url>http://dequn.github.io/2019/01/13/how-to-resolve-confilcts-between-charles-and-shadowsocks/</url>
+      <content type="html"><![CDATA[<p>该文的说明解释可能需要如下的软件及环境：<br><em><br>Chrome v71.0.3578.98<br>macOS v10.13.6<br>Charles v4.2.7<br>ShadowsocksX-NG v1.8.2 (1)
+</em></p>
+<hr>
+<p>Charles作为一款HTTP(S)抓包工具非常好用，不过国内的用户基本上还都挂Shadowsocks翻墙了，系统代理只能有一个（注意是系统代理，一般软件也都可以配置自己的代理服务），在macOS上，Chrome默认使用的就是系统代理(单独设置代理请参考<a href="https://my.oschina.net/u/147181/blog/164872" target="_blank" rel="noopener">为谷歌chrome浏览器设置独立代理服务器</a>)，所以如果想要两者同时工作不冲突，还需要一些特别的设置。</p>
+<p><a href="https://www.jianshu.com/p/ff114bdf0f8f" target="_blank" rel="noopener">charles与shadowsocks共存</a>说明了如果通过让所有HTTP(S)流量都走Charles，然后Charles 再设置外部代理（External Proxy)为Shadowsocks的本地代理即可，这样流量依次经过两个代理，既能抓包，又能翻墙。</p>
+<p>不过这种方法需要一直开着Charles，不然翻不了墙（因为Charles已经取代Shadowsocks成为系统代理）。除了PAC模式，两款软件后启动或者切换模式(Shadowsocks的PAC, Global, Manual)的那一方会清除掉其他代理设置，改为目标设置。</p>
+<p>一般情况下都会设置Shadowsocks随系统启动，我们多数又都是使用PAC模式，这样国内的网站就不走梯子了，速度快。所以打开Charles后，需要将Shadowsocks切换至Manual模式(即不设置系统代理，各软件自己配置代理)，不然流量优先通过PAC，Charles的HTTP(S)代理就不起作用了，当关闭Charles后，再将Shadowsocks切换至PAC或者Global，也可以保持Manual模式，各个软件自己配置代理。</p>
+<p>让流量先通过Charles然后再通过Shadowsocks，注意这种模式已经不是Shadowsocks提供的PAC了，只能是Shadowsocks的HTTP(S)或者SOCKS5了（根据Charles的Extenal Proxy配置而定），如果是本地网站开发调试，需要把测试用的域名诸如localhost, 127.0.0.1或者是修改的hosts文件中的域名填入<strong>Charles External Proxy设置中的Bypass, 注意不是Charles Proxy Setting的Bypass，也不是系统WIFI设置代理的Bypass，后两者是不走Charles代理。</strong>由于走了梯子，前端的其他资源如CDN等某些资源可能加载失败或者是加载超时，需要当心。</p>
+<p>这种方法既需要一直开着Charles/不断的切换Shadowsocks模式，又对国内网站抓包还不友好，所以还是比较鸡肋的，价值不大，简单的方式是：如果要抓包的软件可以单独设置代理，那么不要让Charles设置系统代理，配置各个软件的代理好了；如果不能，暂时性的抓包可以不翻墙，或者就忍受一下这种鸡肋的设置吧!</p>
+<p>[1]. <a href="https://www.jianshu.com/p/ff114bdf0f8f" target="_blank" rel="noopener">charles与shadowsocks共存</a><br>[2]. <a href="https://www.charlesproxy.com/documentation/configuration/external-proxies/" target="_blank" rel="noopener">Charles</a><br>[3]. <a href="https://my.oschina.net/u/147181/blog/164872" target="_blank" rel="noopener">为谷歌chrome浏览器设置独立代理服务器</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Charles </tag>
+            
+            <tag> Shadowsocks </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DRF serializer中外键post使用id，get获取详细信息]]></title>
       <url>http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/</url>
       <content type="html"><![CDATA[<p>在使用Django REST framework Serializer的时候，并不一定单一的SerializerField就可以满足要求，比如遇到Model 中含有外键，如果<a href="https://www.django-rest-framework.org/api-guide/serializers/#writable-nested-representations" target="_blank" rel="noopener">Writable nested representations</a>，则参考官方的例子重写<code>create</code>或者<code>update</code>方法就行，但如果要是想在<code>deserializering</code>的时候使用外键键值——object_id, <code>serializering</code>的时候表达出一些必要的信息，那么就需要对Serializer的字段进行一些特定的设置了。</p>
@@ -23,14 +49,14 @@
       
         <categories>
             
-            <category> drf </category>
+            <category> Django </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> drf </tag>
+            <tag> DRF </tag>
             
             <tag> foreign key </tag>
             
@@ -94,12 +120,12 @@
     </entry>
     
     <entry>
-      <title><![CDATA[twisted 服务间通信]]></title>
+      <title><![CDATA[Twisted 服务间通信]]></title>
       <url>http://dequn.github.io/2018/08/22/communication-between-twisted-services/</url>
       <content type="html"><![CDATA[<p>【<a href="/2018/06/19/django-channels-websocket-iot-remote-control/" title="基于Django & Channels & WebSocket & Twisted的物联网远程控制">基于Django & Channels & WebSocket & Twisted的物联网远程控制</a>】写到，下位机每隔一段时间连接上位机传送数据和进行任务下发，现在领导改需求了，要求使用长链接，使得上位机的任务可以随时下发，方便用户。小米的智能家电采取的应该也都是长链接的方式，由于小米家电本身是市电供应，家里也都是wifi上网，所以除了会多消耗服务器资源外，这种即时的控制还是蛮不错的。但是真正用于野外的物联网终端，还是要平衡好电量、流量的问题才行。</p>
-<p>之前也提到，web网页用户操作，web后台生成并发布到redis订阅，twisted 采用redis客户端监听，并在下位机连接的时候下发任务，这里我用的相当于是一个全局变量存下来哪些设备有任务，如果要改成长链接实时控制，这种方法就不太合适了。</p>
+<p>之前也提到，web网页用户操作，web后台生成并发布到redis订阅，Twisted 采用redis客户端监听，并在下位机连接的时候下发任务，这里我用的相当于是一个全局变量存下来哪些设备有任务，如果要改成长链接实时控制，这种方法就不太合适了。</p>
 <p>上位机是一个单独的service，redis监听是一个单独的service，这就要求两个service能够通信——redis客户service告诉上位机服务serivce，有新任务啦，赶紧下发！</p>
-<p>解决这个问题过程中，也加深了对twisted的理解，重要的有三点，参考<a href="https://stackoverflow.com/questions/21344343/how-to-communicate-between-services" target="_blank" rel="noopener">[1]</a>。</p>
+<p>解决这个问题过程中，也加深了对Twisted的理解，重要的有三点，参考<a href="https://stackoverflow.com/questions/21344343/how-to-communicate-between-services" target="_blank" rel="noopener">[1]</a>。</p>
 <ul>
 <li>service不接收也不发送数据，只负责启动和停止factory</li>
 <li>factory也不接收和发送数据，负责生成和销毁protocol实例，protocol实例处理链接和收发数据</li>
@@ -117,14 +143,14 @@
       
         <categories>
             
-            <category> twisted </category>
+            <category> Twisted </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> twisted </tag>
+            <tag> Twisted </tag>
             
         </tags>
         
@@ -186,8 +212,6 @@
             
             <tag> Docker Compose </tag>
             
-            <tag> subdirectory </tag>
-            
         </tags>
         
     </entry>
@@ -203,7 +227,7 @@
 <p><img src="http://obqjd695a.bkt.clouddn.com/blog/ShadowsocksX-NG/ShadowsocksX-NG%E9%85%8D%E7%BD%AE%E5%9B%BE.jpg" alt="ShadowsocksX-NG kcptun设置"></p>
 <p>这里说一下经常配置错的地方：</p>
 <ul>
-<li>Kcptun Port填写的是服务器端打印出来的那个端口，这个时候上边的端口也会变，不要紧。</li>
+<li>kcptun Port填写的是服务器端打印出来的那个端口，这个时候上边的端口也会变，不要紧。</li>
 <li><strong>画框处的Password，不是Shadowsocks服务端的密码，是Kcptun服务端打出来的key</strong>，在本文中就是”very fast”，这里是最容易搞混的地方</li>
 <li>其他选项对应填写就行，如果有其他参数不一样，可以在Arguments中填写，比如默认我kcp_client.log中打印出来的sndwnd是128，这里改成512</li>
 <li>有问题先看<code>~/Library/kcptun_client.log</code> 自主分析，对照各个参数</li>
@@ -327,7 +351,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[python3调用twisted web request的坑]]></title>
+      <title><![CDATA[python3调用Twisted web request的坑]]></title>
       <url>http://dequn.github.io/2018/05/31/python3-twisted-web-client/</url>
       <content type="html"><![CDATA[<p>硬件终端发送数据给服务器采用的是TCP直接传输，自己定义了二进制数据流格式，选来选去采用了Twisted开发TCP服务器。在数据外露的时候，采用Django开发了一个网站，因为在Django中已经定义了数据模型，不能也不想定义两次数据模型，所以Twisted接收到数据时，调用Django的REST接口保存数据到数据库，这就需要用到Twisted web client 发送数据。<a href="https://stackoverflow.com/questions/5051408/sharing-a-database-between-twisted-and-django" target="_blank" rel="noopener">该回答</a> 分析了在Twisted和Django中“共享数据库”的几种方法。</p>
 <p>注：Twisted到最大优势在于异步非阻塞，而Django采用的是同步处理，如果直接引入Django的数据模型，这种同步处理放在Twisted的deferred里会让Twisted的优势丧失，所以采用了异步调用其他服务的方式。之所以现在采用Django进行网站开发，是因为现在是项目初期，能够快速开发落地是第一需求，但同时也兼顾到以后性能升级，所以保证各个模块的低耦合。</p>
@@ -349,13 +373,9 @@
             
             <tag> Django </tag>
             
-            <tag> Python3 </tag>
-            
             <tag> Twisted </tag>
             
-            <tag> web </tag>
-            
-            <tag> request </tag>
+            <tag> Python3 </tag>
             
         </tags>
         

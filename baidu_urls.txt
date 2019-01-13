@@ -1,1 +1,1 @@
-http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/
+http://dequn.github.io/2019/01/13/how-to-resolve-confilcts-between-charles-and-shadowsocks/

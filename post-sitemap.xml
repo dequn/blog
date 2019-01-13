@@ -7,8 +7,48 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2018/05/31/python3-twisted-web-client/</loc>
+        <lastmod>2019-01-13T08:10:06.072Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2018/06/23/docker-compose-subdirectory-dockerfile/</loc>
+        <lastmod>2019-01-13T08:08:40.549Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2018/08/22/communication-between-twisted-services/</loc>
+        <lastmod>2019-01-13T08:08:03.745Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/</loc>
-        <lastmod>2018-12-23T08:28:37.536Z</lastmod>
+        <lastmod>2019-01-13T08:06:31.635Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/</loc>
+        <lastmod>2019-01-13T08:00:51.649Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2019/01/13/how-to-resolve-confilcts-between-charles-and-shadowsocks/</loc>
+        <lastmod>2019-01-13T07:58:43.715Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -31,32 +71,8 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2018/08/22/communication-between-twisted-services/</loc>
-        <lastmod>2018-08-23T12:57:00.825Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2018/06/30/docker-network/</loc>
         <lastmod>2018-06-30T06:17:10.822Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2018/06/23/docker-compose-subdirectory-dockerfile/</loc>
-        <lastmod>2018-06-23T09:03:21.520Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/</loc>
-        <lastmod>2018-06-21T14:35:31.129Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -81,14 +97,6 @@
     <url>
         <loc>http://dequn.github.io/2018/06/02/django-celery/</loc>
         <lastmod>2018-06-01T18:02:15.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2018/05/31/python3-twisted-web-client/</loc>
-        <lastmod>2018-06-01T00:47:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

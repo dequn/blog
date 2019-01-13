@@ -84,22 +84,15 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/categories/twisted/</loc>
-        <lastmod>2018-08-23T12:57:00.825Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/categories/Django/</loc>
-        <lastmod>2018-10-14T14:02:53.762Z</lastmod>
+        <lastmod>2019-01-13T08:06:31.635Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://dequn.github.io/categories/drf/</loc>
-        <lastmod>2018-12-23T08:28:37.536Z</lastmod>
+        <loc>http://dequn.github.io/categories/Twisted/</loc>
+        <lastmod>2019-01-13T08:08:03.745Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
