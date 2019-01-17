@@ -380,13 +380,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/DRF/</loc>
-        <lastmod>2019-01-13T08:06:31.635Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/foreign-key/</loc>
         <lastmod>2019-01-13T08:06:31.635Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -408,13 +401,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Django/</loc>
-        <lastmod>2019-01-13T08:10:06.072Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/Twisted/</loc>
         <lastmod>2019-01-13T08:10:06.072Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -424,6 +410,20 @@
     <url>
         <loc>http://dequn.github.io/tags/Python3/</loc>
         <lastmod>2019-01-13T08:10:06.072Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Django/</loc>
+        <lastmod>2019-01-17T15:23:36.942Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/DRF/</loc>
+        <lastmod>2019-01-17T15:23:36.942Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

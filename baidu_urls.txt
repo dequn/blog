@@ -1,1 +1,1 @@
-http://dequn.github.io/2019/01/13/how-to-resolve-confilcts-between-charles-and-shadowsocks/
+http://dequn.github.io/2019/01/17/drf-datetime-timestamp-serializer/
