@@ -415,15 +415,29 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Django/</loc>
+        <loc>http://dequn.github.io/tags/DRF/</loc>
         <lastmod>2019-01-17T15:23:36.942Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/DRF/</loc>
-        <lastmod>2019-01-17T15:23:36.942Z</lastmod>
+        <loc>http://dequn.github.io/tags/Django/</loc>
+        <lastmod>2019-01-19T06:24:18.516Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/I18N/</loc>
+        <lastmod>2019-01-19T06:24:18.516Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/L10N/</loc>
+        <lastmod>2019-01-19T06:24:18.516Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

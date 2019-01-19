@@ -70,6 +70,33 @@
   </entry>
   
   <entry>
+    <title>Django 国际化和本地化</title>
+    <link href="http://dequn.github.io/2019/01/07/django-i18n-l10n/"/>
+    <id>http://dequn.github.io/2019/01/07/django-i18n-l10n/</id>
+    <published>2019-01-07T11:21:12.000Z</published>
+    <updated>2019-01-19T06:24:18.516Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-配置"><a href="#1-配置" class="headerlink" title="1. 配置"></a>1. 配置</h2><p>很多不靠谱的文章上来第一步就是设置<code>LANGUAGE_CODE = &#39;zh-CN&#39;</code>，这明显是没看懂配置项的意思，从<a href="https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference" target="_blank" rel="noopener">Django文档</a>可以看出， <strong> <code>LANGUAGE_CODE</code>只是最后的兜底设置 </strong>，所以这一步的设置完全没有必要，当然，如果站点确定只提供一种语言的服务，则需要设置并且不提供其他语言的翻译。</p><p>然后就是<code>USE_I18N</code>和<code>LocaleMiddleware</code>的配置了， <strong> 如果要提供两种语言以上的服务，那么必须设置<code>USE_I18N=True</code>并且配置<code>LocaleMiddleware</code> </strong>，<code>LocaleMiddleware</code>尽可能在其他中间件之前但必须在<code>SessionMiddleware</code>和<code>CacheMiddleware</code>之后，可能是这样的<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">MIDDLEWARE</span> = [</span><br><span class="line">   <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,</span><br><span class="line">   <span class="string">'django.middleware.locale.LocaleMiddleware'</span>,</span><br><span class="line">   <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p><p><strong> <code>USE_L10N</code>是指用来配置诸如时间格式、数字格式（有没有千分位符号）等，跟多语言是没有直接关系的</strong> ，主要设置项可以参考文档或者源代码django.utils.formats.FORMAT_SETTINGS中的key值。</p><p>另外，如果翻译的文件不是在<code>INSTALLED_APPS</code>中的app的locale目录下，那么需要修改<code>LOCALE_PATHS</code>配置，让Django能够找到.mo文件。</p><h2 id="2-Django如何确定使用那种语言"><a href="#2-Django如何确定使用那种语言" class="headerlink" title="2. Django如何确定使用那种语言"></a>2. Django如何确定使用那种语言</h2><p><a href="https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference" target="_blank" rel="noopener">how-django-discovers-language-preference</a>已经介绍的很详细了，各种方式有不同的优先级，根据需要选择就好了。</p><blockquote><p>首先，在当前用户的 session 的中查找django_language键；<br>    如未找到，它会找寻一个cookie<br>    还找不到的话，它会在 HTTP 请求头部里查找Accept-Language， 该头部是你的浏览器发送的，并且按优先顺序告诉服务器你的语言偏好。 Django会尝试头部中的每一个语种直到它发现一个可用的翻译。<br>    以上都失败了的话, 就使用全局的 LANGUAGE_CODE 设定值。</p></blockquote><h2 id="3-汉化到底是zh-Hans还是zh-CN-Django-v2-0-9"><a href="#3-汉化到底是zh-Hans还是zh-CN-Django-v2-0-9" class="headerlink" title="3. 汉化到底是zh_Hans还是zh_CN (Django v2.0.9)"></a>3. 汉化到底是zh_Hans还是zh_CN (Django v2.0.9)</h2><p>我看网上很多教程都是<code>makemessags -l zh_CN</code>，在Django (v2.0.9)中如此操作，发现完全没有生效，这里又是怎么回事呢？</p><p>从<code>django/middle/locale.py</code>我们可以看出在处理请求时，Django会首先根据【<a href="#Django如何确定使用那种语言">步骤2</a>】中的流程来判断客户端语言，其默认配置文件在<code>django/conf/locale/__init__.py</code>中，我们可以看到，<code>zh_Hans</code>是<code>zh-cn</code>以及其他简体中文的<em>fallback</em>项，也就是说如果客户端请求了<code>zh-cn</code>语言，服务器是按照<code>zh-Hans</code>语言返回的，也就是根据这个值——<code>zh-Hans</code>去<code>LOCALE_PAHTS</code>加载.mo文件完成多语言的。这也就是为什么<code>makemessages -l zh_CN</code>不生效的原因。</p><p>那么如何让在<em>zh_CN</em>目录下的翻译生效呢，很简单，配置<code>LANGUAGES</code>，添加<em>zh-cn</em>即可，这样Django就可以直接根据zh-cn来加载zh_CN目录下的.mo了，不过多数情况下并没有这种必要，除非同时提供了多种简体中文语言，并且各地区有差别。</p><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">LANGUAGES</span> += [</span><br><span class="line">    (<span class="string">'zh-cn'</span>, gettext_noop(<span class="string">'Simplified Chinese'</span>)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p>参考</p><ol><li><a href="http://djangobook.py3k.cn/2.0/chapter19/" target="_blank" rel="noopener">第十九章： 国际化</a></li><li><a href="https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference" target="_blank" rel="noopener">How Django discovers language preference</a></li><li><a href="https://www.ibm.com/developerworks/cn/web/1101_jinjh_djangoi18n/index.html" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-配置&quot;&gt;&lt;a href=&quot;#1-配置&quot; class=&quot;headerlink&quot; title=&quot;1. 配置&quot;&gt;&lt;/a&gt;1. 配置&lt;/h2&gt;&lt;p&gt;很多不靠谱的文章上来第一步就是设置&lt;code&gt;LANGUAGE_CODE = &amp;#39;zh-CN&amp;#39;&lt;/code
+      
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="http://dequn.github.io/tags/Django/"/>
+    
+      <category term="I18N" scheme="http://dequn.github.io/tags/I18N/"/>
+    
+      <category term="L10N" scheme="http://dequn.github.io/tags/L10N/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DRF serializer中外键post使用id，get获取详细信息</title>
     <link href="http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/"/>
     <id>http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/</id>
@@ -357,9 +384,9 @@
     </summary>
     
     
-      <category term="Django" scheme="http://dequn.github.io/tags/Django/"/>
-    
       <category term="Twisted" scheme="http://dequn.github.io/tags/Twisted/"/>
+    
+      <category term="Django" scheme="http://dequn.github.io/tags/Django/"/>
     
       <category term="Python3" scheme="http://dequn.github.io/tags/Python3/"/>
     
@@ -520,34 +547,6 @@
       <category term="Linux" scheme="http://dequn.github.io/tags/Linux/"/>
     
       <category term="Encoding" scheme="http://dequn.github.io/tags/Encoding/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python中解析命令行参数</title>
-    <link href="http://dequn.github.io/2017/09/02/parse-command-line-args-in-python/"/>
-    <id>http://dequn.github.io/2017/09/02/parse-command-line-args-in-python/</id>
-    <published>2017-09-02T13:47:03.000Z</published>
-    <updated>2017-09-17T05:23:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Python中常用的获取命令行参数的方法有三种，分别可适用于不同的场景。</p><h1 id="直接从sys-argv中获取"><a href="#直接从sys-argv中获取" class="headerlink" title="直接从sys.argv中获取"></a>直接从sys.argv中获取</h1><p>sys.agrv保存了命令行的参数列表，其中，<code>sys.argv[0]</code>保存的是脚本的名称，所以要获取自己传入的参数时，需要从第二个元素开始，参数的顺序与<code>sys.argv</code>中一致。</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># m1.<span class="keyword">py</span></span><br><span class="line">import sys</span><br><span class="line"><span class="keyword">print</span> <span class="string">'The length of sys.argv is %d'</span> % <span class="built_in">len</span>(sys.<span class="built_in">argv</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Argument list: '</span>,str(sys.<span class="built_in">argv</span>)</span><br></pre></td></tr></table></figure><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python m1.py <span class="keyword">first</span> <span class="keyword">second</span> <span class="keyword">third</span></span><br><span class="line">The <span class="built_in">length</span> <span class="keyword">of</span> sys.argv <span class="keyword">is</span> <span class="number">4</span></span><br><span class="line">Argument <span class="built_in">list</span>:  ['m1.py', '<span class="keyword">first</span>', '<span class="keyword">second</span>', '<span class="keyword">third</span>']</span><br></pre></td></tr></table></figure><p><strong>获这种方法适用于参数较少的时候，使用者按照固定顺序将所需参数传入即可，同时，取的参数都是str类型，需要用户自行转换为所需类型。</strong></p><h1 id="使用getopt-getopt获取参数"><a href="#使用getopt-getopt获取参数" class="headerlink" title="使用getopt.getopt获取参数"></a>使用getopt.getopt获取参数</h1><p>当参数比较多的时候我们可能需要明确指定参数名称，又或者我们可能需要一些可选参数，使用第一种方法就不是那么方便了，所以我们可以用getopt来解析参数，其调用方式如下所示。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">getopt</span><span class="selector-class">.getopt</span>(<span class="selector-tag">args</span>, <span class="selector-tag">options</span>, <span class="selector-attr">[long_options]</span>)</span><br></pre></td></tr></table></figure></p><ul><li>args是将被解析的参数列表</li><li>options是需要识别的参数名列表，当然不一定非得有参数，比如-h用来输出帮助信息，当有对应参数的时候，需要在标识符后边添加一个分号”:”。</li><li>long_options可选参数是长参数名列表，如–long-name，当有参数传入的时候，需要在右边添加等号”=”。</li></ul><p>函数返回一个二元组，第一个元素是（option,value)列表，第二个元素是未识别的参数列表。</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#m2.<span class="keyword">py</span></span><br><span class="line">#codin<span class="variable">g:utf</span>-<span class="number">8</span></span><br><span class="line">import sys, getopt</span><br><span class="line"></span><br><span class="line">opts, left_args = getopt.getopt(sys.<span class="built_in">argv</span>[<span class="number">1</span>:], <span class="string">'i:h'</span>, [<span class="string">'in='</span>,<span class="string">'help'</span>]) #第一个参数是脚本名，不传入</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">opt</span>, val in <span class="keyword">opt</span><span class="variable">s:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'-h'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'不含参数Help Info'</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'--help'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'不含参数Help Info2'</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'-i'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'短参数-i: '</span>, val</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">opt</span> == <span class="string">'--in'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'长参数--ifile: '</span>, val</span><br><span class="line"><span class="keyword">print</span> <span class="string">'未识别参数：'</span>, str(left_args)</span><br></pre></td></tr></table></figure><p>运行结果<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python m2<span class="selector-class">.py</span> -<span class="selector-tag">i</span> short_arg --<span class="keyword">in</span>=long_arg -h --help left_arg</span><br><span class="line">短参数-<span class="selector-tag">i</span>:  short_arg</span><br><span class="line">长参数--ifile:  long_arg</span><br><span class="line">不含参数Help Info</span><br><span class="line">不含参数Help Info2</span><br><span class="line">未识别参数： [<span class="string">'left_arg'</span>]</span><br></pre></td></tr></table></figure></p><p>这种方法已经能够应对大多数情况了，不过获取的val仍是str类型。</p><h1 id="使用argparse模块解析参数"><a href="#使用argparse模块解析参数" class="headerlink" title="使用argparse模块解析参数"></a>使用argparse模块解析参数</h1><p>argparse 模块最大的特点就是可以建立用户友好的命令行接口，可以实现指定需要传入的参数，自动解析sys.argv，自动生成帮助信息、错误信息等。如果要使用getopt来达到同样的效果，就需要写很多很多的代码啦。</p><p>argparse 通过ArgumentParser对象实现参数的解析，可以很友好地实现帮助信息、参数传入前缀、参数冲突等特性，其通过add_argument方法添加具体的参数——包括位置参数和可选参数等，同时可以指定这些参数的个数、转换类型、默认值、限定枚举值、是否必须以及别名等信息。argparse的使用会比上述两个复杂一些，但是其功能更强大、使用更友好一些。具体使用方法可以单独写一篇文章了，但是官方文档已经给出了很详细的示例了，所以这里就不在赘述，感兴趣的可以参阅<a href="https://docs.python.org/2.7/library/argparse.html" target="_blank" rel="noopener">argparse — Parser for command-line options, arguments and sub-commands</a>。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上述三个方法从简单到复杂，功能从单一到丰富，开发人员可根据需要选择。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li><a href="https://www.tutorialspoint.com/python/python_command_line_arguments.htm" target="_blank" rel="noopener">Python Command Line Arguments</a></li><li><a href="https://docs.python.org/2.7/library/argparse.html" target="_blank" rel="noopener">argparse — Parser for command-line options, arguments and sub-commands</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Python中常用的获取命令行参数的方法有三种，分别可适用于不同的场景。&lt;/p&gt;
-&lt;h1 id=&quot;直接从sys-argv中获取&quot;&gt;&lt;a href=&quot;#直接从sys-argv中获取&quot; class=&quot;headerlink&quot; title=&quot;直接从sys.argv中获取&quot;&gt;&lt;/a&gt;
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://dequn.github.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://dequn.github.io/tags/Python/"/>
-    
-      <category term="args" scheme="http://dequn.github.io/tags/args/"/>
     
   </entry>
   

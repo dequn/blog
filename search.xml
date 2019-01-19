@@ -64,6 +64,42 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Django 国际化和本地化]]></title>
+      <url>http://dequn.github.io/2019/01/07/django-i18n-l10n/</url>
+      <content type="html"><![CDATA[<h2 id="1-配置"><a href="#1-配置" class="headerlink" title="1. 配置"></a>1. 配置</h2><p>很多不靠谱的文章上来第一步就是设置<code>LANGUAGE_CODE = &#39;zh-CN&#39;</code>，这明显是没看懂配置项的意思，从<a href="https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference" target="_blank" rel="noopener">Django文档</a>可以看出， <strong> <code>LANGUAGE_CODE</code>只是最后的兜底设置 </strong>，所以这一步的设置完全没有必要，当然，如果站点确定只提供一种语言的服务，则需要设置并且不提供其他语言的翻译。</p>
+<p>然后就是<code>USE_I18N</code>和<code>LocaleMiddleware</code>的配置了， <strong> 如果要提供两种语言以上的服务，那么必须设置<code>USE_I18N=True</code>并且配置<code>LocaleMiddleware</code> </strong>，<code>LocaleMiddleware</code>尽可能在其他中间件之前但必须在<code>SessionMiddleware</code>和<code>CacheMiddleware</code>之后，可能是这样的<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">MIDDLEWARE</span> = [</span><br><span class="line">   <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,</span><br><span class="line">   <span class="string">'django.middleware.locale.LocaleMiddleware'</span>,</span><br><span class="line">   <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p><strong> <code>USE_L10N</code>是指用来配置诸如时间格式、数字格式（有没有千分位符号）等，跟多语言是没有直接关系的</strong> ，主要设置项可以参考文档或者源代码django.utils.formats.FORMAT_SETTINGS中的key值。</p>
+<p>另外，如果翻译的文件不是在<code>INSTALLED_APPS</code>中的app的locale目录下，那么需要修改<code>LOCALE_PATHS</code>配置，让Django能够找到.mo文件。</p>
+<h2 id="2-Django如何确定使用那种语言"><a href="#2-Django如何确定使用那种语言" class="headerlink" title="2. Django如何确定使用那种语言"></a>2. Django如何确定使用那种语言</h2><p><a href="https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference" target="_blank" rel="noopener">how-django-discovers-language-preference</a>已经介绍的很详细了，各种方式有不同的优先级，根据需要选择就好了。</p>
+<blockquote>
+<p>首先，在当前用户的 session 的中查找django_language键；<br>    如未找到，它会找寻一个cookie<br>    还找不到的话，它会在 HTTP 请求头部里查找Accept-Language， 该头部是你的浏览器发送的，并且按优先顺序告诉服务器你的语言偏好。 Django会尝试头部中的每一个语种直到它发现一个可用的翻译。<br>    以上都失败了的话, 就使用全局的 LANGUAGE_CODE 设定值。</p>
+</blockquote>
+<h2 id="3-汉化到底是zh-Hans还是zh-CN-Django-v2-0-9"><a href="#3-汉化到底是zh-Hans还是zh-CN-Django-v2-0-9" class="headerlink" title="3. 汉化到底是zh_Hans还是zh_CN (Django v2.0.9)"></a>3. 汉化到底是zh_Hans还是zh_CN (Django v2.0.9)</h2><p>我看网上很多教程都是<code>makemessags -l zh_CN</code>，在Django (v2.0.9)中如此操作，发现完全没有生效，这里又是怎么回事呢？</p>
+<p>从<code>django/middle/locale.py</code>我们可以看出在处理请求时，Django会首先根据【<a href="#Django如何确定使用那种语言">步骤2</a>】中的流程来判断客户端语言，其默认配置文件在<code>django/conf/locale/__init__.py</code>中，我们可以看到，<code>zh_Hans</code>是<code>zh-cn</code>以及其他简体中文的<em>fallback</em>项，也就是说如果客户端请求了<code>zh-cn</code>语言，服务器是按照<code>zh-Hans</code>语言返回的，也就是根据这个值——<code>zh-Hans</code>去<code>LOCALE_PAHTS</code>加载.mo文件完成多语言的。这也就是为什么<code>makemessages -l zh_CN</code>不生效的原因。</p>
+<p>那么如何让在<em>zh_CN</em>目录下的翻译生效呢，很简单，配置<code>LANGUAGES</code>，添加<em>zh-cn</em>即可，这样Django就可以直接根据zh-cn来加载zh_CN目录下的.mo了，不过多数情况下并没有这种必要，除非同时提供了多种简体中文语言，并且各地区有差别。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">LANGUAGES</span> += [</span><br><span class="line">    (<span class="string">'zh-cn'</span>, gettext_noop(<span class="string">'Simplified Chinese'</span>)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>参考</p>
+<ol>
+<li><a href="http://djangobook.py3k.cn/2.0/chapter19/" target="_blank" rel="noopener">第十九章： 国际化</a></li>
+<li><a href="https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference" target="_blank" rel="noopener">How Django discovers language preference</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/web/1101_jinjh_djangoi18n/index.html" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#how-django-discovers-language-preference</a></li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Django </tag>
+            
+            <tag> I18N </tag>
+            
+            <tag> L10N </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DRF serializer中外键post使用id，get获取详细信息]]></title>
       <url>http://dequn.github.io/2018/12/23/drf-serializer-foreignkey-post-id-get-full-content/</url>
       <content type="html"><![CDATA[<p>在使用Django REST framework Serializer的时候，并不一定单一的SerializerField就可以满足要求，比如遇到Model 中含有外键，如果<a href="https://www.django-rest-framework.org/api-guide/serializers/#writable-nested-representations" target="_blank" rel="noopener">Writable nested representations</a>，则参考官方的例子重写<code>create</code>或者<code>update</code>方法就行，但如果要是想在<code>deserializering</code>的时候使用外键键值——object_id, <code>serializering</code>的时候表达出一些必要的信息，那么就需要对Serializer的字段进行一些特定的设置了。</p>
@@ -405,9 +441,9 @@
         
         <tags>
             
-            <tag> Django </tag>
-            
             <tag> Twisted </tag>
+            
+            <tag> Django </tag>
             
             <tag> Python3 </tag>
             
