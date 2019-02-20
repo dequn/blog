@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://dequn.github.io/"/>
-  <updated>2019-01-17T15:23:36.942Z</updated>
+  <updated>2019-02-20T16:17:38.607Z</updated>
   <id>http://dequn.github.io/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我删了一个数据库</title>
+    <link href="http://dequn.github.io/2019/02/20/i-deleted-a-db/"/>
+    <id>http://dequn.github.io/2019/02/20/i-deleted-a-db/</id>
+    <published>2019-02-20T15:31:31.000Z</published>
+    <updated>2019-02-20T16:17:38.607Z</updated>
+    
+    <content type="html"><![CDATA[<p>2019年2月18日，我删了一个数据库。</p><p>对的，网上段子里的事故，真实的发生在我身上了。我删的不单单是数据，是整个数据库文件夹。</p><p><strong>提醒一下有幸看到的朋友，XFS文件系统，误删了理论上就不存在找回的可能性，如果没有备份的话。</strong></p><p>如果有朋友也手贱了，别激动，抽根烟冷静地想一想离职书怎么写，毕竟删库和跑路是分不开的。</p><p>好了，别的不说了，总结一下教训。</p><h2 id="自己的责任不甩锅"><a href="#自己的责任不甩锅" class="headerlink" title="自己的责任不甩锅"></a>自己的责任不甩锅</h2><p>你为啥会删数据库，为什么别人都没误删除过？删之前为何不考虑清楚？状态不好？不好的时候就不要执行这些危险操作，去休息一会儿，清醒了再来。<strong>要怀着朝圣的心，去运维。</strong></p><h2 id="误删除后避免损失"><a href="#误删除后避免损失" class="headerlink" title="误删除后避免损失"></a>误删除后避免损失</h2><p>如果你不清楚文件系统格式，那么最好的办法就是赶紧卸载分区，或改成只读模式，Ext(2,3,4)、FAT都是支持误删恢复的，在硬盘没有被重写之前，<strong>保护好磁盘现场</strong>。</p><h2 id="生产系统和开发系统的分离"><a href="#生产系统和开发系统的分离" class="headerlink" title="生产系统和开发系统的分离"></a>生产系统和开发系统的分离</h2><p>因为公司资源有限，有一个小的生产系统和开发系统在同一个机器上，这次误删的背景就是这样。做到了<strong>系统分离</strong>，也就不会有这样的幺蛾子了。</p><h2 id="权限控制与备份"><a href="#权限控制与备份" class="headerlink" title="权限控制与备份"></a>权限控制与备份</h2><p>小公司野蛮发展，不注重权限控制，没有专人负责OP，缺乏安全意识、制度，热备和冷备不可缺少，不要担心这一点投入，<strong>出了事情，损失远比成本大的多</strong>。该使用云服务的使用云服务，这样就可以免去很大一部分自运维。</p><h2 id="跑路？"><a href="#跑路？" class="headerlink" title="跑路？"></a>跑路？</h2><p>跑路那是不存在的，<strong>正确面对接受事故及损失</strong>，该负责负责，该长心长心，这是一笔财富。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2019年2月18日，我删了一个数据库。&lt;/p&gt;
+&lt;p&gt;对的，网上段子里的事故，真实的发生在我身上了。我删的不单单是数据，是整个数据库文件夹。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提醒一下有幸看到的朋友，XFS文件系统，误删了理论上就不存在找回的可能性，如果没有备份的话。&lt;/st
+      
+    
+    </summary>
+    
+    
+      <category term="删库" scheme="http://dequn.github.io/tags/%E5%88%A0%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>上下级组织角色权限实现的一点思考</title>
+    <link href="http://dequn.github.io/2019/01/24/org-tree-role-perm/"/>
+    <id>http://dequn.github.io/2019/01/24/org-tree-role-perm/</id>
+    <published>2019-01-24T14:07:07.000Z</published>
+    <updated>2019-01-25T01:45:42.838Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>DRF DateTime转换为时间戳</title>
@@ -491,62 +530,6 @@
       <category term="Python" scheme="http://dequn.github.io/tags/Python/"/>
     
       <category term="格式化" scheme="http://dequn.github.io/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python模块的相对导入和绝对导入</title>
-    <link href="http://dequn.github.io/2017/09/17/ways-of-python-import/"/>
-    <id>http://dequn.github.io/2017/09/17/ways-of-python-import/</id>
-    <published>2017-09-17T05:25:27.000Z</published>
-    <updated>2017-09-17T07:49:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>刚开始用Python写代码，对于import的方式不是很理解，尤其是导入上层包的模块时，经常会使用<code>sys.path.append(&#39;..&#39;)</code>，然后再import，很不优雅，所以花些时间全部梳理一遍。</p><p>首先需要明白明白两个概念<strong>包</strong>和<strong>模块</strong>，很多人也都了解，贴出<a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">runoob</a>（页面跟W3C好像，他们有什么关系吗？）上给出的两个定义。</p><ul><li><p>模块</p><blockquote><p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。<br>模块让你能够有逻辑地组织你的 Python 代码段。<br>把相关的代码分配到一个模块里能让你的代码更好用，更易懂。<br>模块能定义函数，类和变量，模块里也能包含可执行的代码。</p></blockquote></li><li><p>包</p><blockquote><p>包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。<br>简单来说，包就是文件夹，但该文件夹下必须存在 <code>__init__.py</code> 文件, 该文件的内容可以为空。<code>__int__.py</code>用于标识当前文件夹是一个包。</p></blockquote></li></ul><p>从顶层模块（sys.path）或者当前的包中导入模块，使用<code>import module</code>或者<code>from module import xxx</code>的方式就不再赘述，不过有一种使用括号进行的多模块导入方式，如：<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">from</span> from <span class="type">Tkinter</span> <span class="keyword">import</span> (<span class="type">Tk</span>, <span class="type">Frame</span>, <span class="type">Button</span>, <span class="type">Entry</span>, <span class="type">Canvas</span>, <span class="type">Text</span>,</span><br><span class="line">    <span class="type">LEFT</span>, <span class="type">DISABLED</span>, <span class="type">NORMAL</span>, <span class="type">RIDGE</span>, <span class="type">END</span>)</span><br></pre></td></tr></table></figure></p><p>这样可以避免使用反斜杠续行，稍微优雅一些，多行的字符串也可以使用一样的括号语法实现。记住，<code>from module import *</code>是绝对的不推荐的，会意外地“污染”命名空间。</p><p><strong>相对导入和绝对导入</strong>是这次讨论的重点，在项目中，肯定不意外地会建立不同层级和结构关系的包，那么在这些包之间，我们又应该如何导入要引用的模块？</p><h1 id="绝对导入"><a href="#绝对导入" class="headerlink" title="绝对导入"></a>绝对导入</h1><p>在Python 2.4之前，如果使用了<code>import foo</code>，如果当前包内也有一个模块foo，由于解释器是不知道你导入的是顶层模块还是当前包内的模块，根据模块寻找加载的顺序[]，当前包内的foo模块就会覆盖掉顶层的foo模块，而可能引起不必要的歧义。于是要求foo必须是在sys.path中能够寻到的模块或包，这就是绝对导入的定义。python-dev 社区选择将绝对导入作为默认导入的方式，一来是因为更常用，二是因为绝对导入可以提供相对导入的全部功能.</p><p>在Python 2.5 和 2.6中，绝对导入是可选的，需要在文件开头添加<code>from __future__ import absolute_import</code>来实现默认的绝对导入。</p><h1 id="相对导入"><a href="#相对导入" class="headerlink" title="相对导入"></a>相对导入</h1><p>相对导入是根据模块的<code>__name__</code>属性来决定模块的位置，然后计算相对路径，在同一个项目相邻层级的包和模块中最为常用，也最为方便。关于相对导入的语法实现模式，有一个很有趣也很广泛的讨论，看着那些先驱开发者的讨论，收获也是蛮多的，感兴趣的参考<a href="https://www.python.org/dev/peps/pep-0328/" title="PEP 328 -- Imports: Multi-Line and Absolute/Relative" target="_blank" rel="noopener">PEP 328 – Imports: Multi-Line and Absolute/Relative</a>。最后，Guido采用”.”前缀表示相对导入，和Unix系统中的目录表示含义一样，一个”.”表示当年层级，多一个就表示向上一层。下面是一些例子：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .moduleY <span class="keyword">import</span> spam</span><br><span class="line"><span class="keyword">from</span> .moduleY <span class="keyword">import</span> spam <span class="keyword">as</span> ham</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> moduleY</span><br><span class="line"><span class="keyword">from</span> ..subpackage1 <span class="keyword">import</span> moduleY</span><br><span class="line"><span class="keyword">from</span> ..subpackage2.moduleZ <span class="keyword">import</span> eggs</span><br><span class="line"><span class="keyword">from</span> ..moduleA <span class="keyword">import</span> foo</span><br><span class="line"><span class="keyword">from</span> ...package <span class="keyword">import</span> bar</span><br><span class="line"><span class="keyword">from</span> ...sys <span class="keyword">import</span> path</span><br></pre></td></tr></table></figure></p><h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>相对导入必须使用 <code>from .&lt;&gt; import xxx</code>(并且至少含有一个.符号)的模式，<code>import &lt;&gt;</code>总是绝对导入，当然，如果<code>from &lt;&gt; import</code>中没有句点，那么也是绝对导入。但是类似<code>import .foo</code>的方式是非合法语句，因为<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import XXX<span class="selector-class">.YYY</span><span class="selector-class">.ZZZ</span></span><br></pre></td></tr></table></figure></p><p>的<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XXX<span class="selector-class">.YYY</span><span class="selector-class">.ZZZ</span></span><br></pre></td></tr></table></figure></p><p>是可用的表达式，而<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> .moduleY</span><br></pre></td></tr></table></figure></p><p>的<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">.moduleY</span></span><br></pre></td></tr></table></figure></p><p>不是一个可用的表达式。</p><h1 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h1><p>使用相对导入还是绝对导入，可以完全凭个人喜好。但是为了代码的可阅读性，一般的共识是不超过两层的层级可以使用相对导入，试想一下，如果有超过3个的”.”，还能够正确快速地知道向上到了哪个层级吗?这个时候使用绝对导入会更加方便，代码也更好维护。不论哪一种导入方式，也都会有重构时的麻烦（如重命名一个模块），但是我想在IDE如此普遍使用的情况下，这个因素应该是最不值得考虑的了。加一个TODO吧，参阅一些优秀的开源框架源码，看看他们是如何组织的。</p><h1 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h1><p>使用了相对导入以后，如果直接以<code>python script_name.py</code>的方式运行脚本，Python解释器会报<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#python 2</span></span><br><span class="line"><span class="symbol">ValueError:</span> Attempted relative import <span class="keyword">in</span> non-package</span><br></pre></td></tr></table></figure></p><p>或者<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#python 3</span></span><br><span class="line">SystemError: Parent <span class="keyword">module</span> <span class="string">''</span> <span class="keyword">not</span> loaded, cannot perform relative <span class="keyword">import</span></span><br></pre></td></tr></table></figure></p><p>的错误，可以使用<code>python -m script_name.py</code>加上-m开关的方式运行，-m用于告诉解释器以脚本的方式运行模块，具体这样做的原因将在下一篇文章中分析。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li><a href="http://kuanghy.github.io/2016/07/21/python-import-relative-and-absolute" title="Python 相对导入与绝对导入" target="_blank" rel="noopener">Python 相对导入与绝对导入</a></li><li><a href="http://www.runoob.com/python/python-modules.html" title="http://www.runoob.com/python/python-modules.html" target="_blank" rel="noopener">http://www.runoob.com/python/python-modules.html</a></li><li><a href="https://www.python.org/dev/peps/pep-0328/" title="PEP 328 -- Imports: Multi-Line and Absolute/Relative" target="_blank" rel="noopener">PEP 328 – Imports: Multi-Line and Absolute/Relative</a></li><li><a href="http://codingpy.com/article/python-import-101/" title="Python导入模块的几种姿势" target="_blank" rel="noopener">Python导入模块的几种姿势</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;刚开始用Python写代码，对于import的方式不是很理解，尤其是导入上层包的模块时，经常会使用&lt;code&gt;sys.path.append(&amp;#39;..&amp;#39;)&lt;/code&gt;，然后再import，很不优雅，所以花些时间全部梳理一遍。&lt;/p&gt;
-&lt;p&gt;首先需要明白明白两
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://dequn.github.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://dequn.github.io/tags/Python/"/>
-    
-      <category term="import" scheme="http://dequn.github.io/tags/import/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>终端高效切换编码</title>
-    <link href="http://dequn.github.io/2017/09/05/switch-encoding-in-terminal/"/>
-    <id>http://dequn.github.io/2017/09/05/switch-encoding-in-terminal/</id>
-    <published>2017-09-05T12:51:21.000Z</published>
-    <updated>2017-12-02T05:47:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在以前的时候，终端编码通通设置的都是UTF-8，即使有一两台远程机，因为有自主权也都是UTF-8编码，包括数据库表格，也都是统一UTF-8编码，不得不说这样统一以后非常方便，几乎也没有考虑过编码不同带来的烦恼。</p><p>来到公司工作一段时间后才发现，自己的开发机还好说，设置成UTF-8就可以了，保持原有惯例。然而，需要经常登录别的机器看任务跑代码就会发现乱码了，好吧，手动把终端(iTerm2)调到GBK，结束以后再调回来；然后过了没两天，会发现其他机器的Mysql表格也是GBK的，好吧还得暂调GBK。最大的问题还不在于麻烦，我一个终端下连接了多台服务器和数据库，编码都不统一，这可怎么办？</p><p>在网上找到了两种方案，第一种是基于iTerm2的，可以参考<a href="http://blog.chenxiaosheng.com/posts/2013-10-29/mac_osx_iterm2_utf8_gbk_switch.html" target="_blank" rel="noopener">Mac OSX iTerm2 终端UTF-8和GBK编码自由切换</a>，虽然我是iTerm2的用户，但是觉得这种方法还是有些麻烦，如果我不用iTerm2还不能解决了？</p><p>当然还有其他利器，那就是luit.</p><p>参考IBM Knowledge Center上的介绍<a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_61/com.ibm.aix.cmds3/luit.htm" target="_blank" rel="noopener">luit 命令</a></p><blockquote><p>luit 命令是一个过滤器，在任意应用程序和 UTF-8 终端仿真器之间运行。luit 命令将应用程序输出从语言环境的编码转换为 UTF-8，并将终端输入从 UTF-8 转换为语言环境的编码。</p><blockquote><p>注：<br>多语言应用程序必须设置为仅生成 UTF-8 代码。不得使用命令生成 UTF-8 之外的输出。</p></blockquote></blockquote><p>luit的安装也非常简单，参考 <a href="https://blog.jamespan.me/2015/06/12/luit-with-tmux" target="_blank" rel="noopener">Tmux、Luit 杂谈</a>过程如下。</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget -c ftp:<span class="comment">//invisible-island.net/luit/luit.tar.gz</span></span><br><span class="line">tar -xzvf luit<span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">cd luit-<span class="number">20141204</span>/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure><p>其使用可以man一下，或者参考<a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_61/com.ibm.aix.cmds3/luit.htm" target="_blank" rel="noopener">luit 命令</a>，下面简单给出两个示例。</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">luit </span>-encoding gbk ssh relay-mechine</span><br><span class="line"><span class="comment"># 这样登录远程机器用的就是GBK编码了</span></span><br></pre></td></tr></table></figure><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">luit </span>-encoding gbk mysql -u mysql_user -p </span><br><span class="line"><span class="comment">#这样连接数据库用的也是GBK编码</span></span><br></pre></td></tr></table></figure><p>最后不得不吐槽一下我司，是因为出于历史原因吗，固守GBK阵营？</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li><a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_61/com.ibm.aix.cmds3/luit.htm" target="_blank" rel="noopener">luit 命令</a></li><li><a href="https://blog.jamespan.me/2015/06/12/luit-with-tmux" target="_blank" rel="noopener">Tmux、Luit 杂谈</a></li><li><a href="http://blog.chenxiaosheng.com/posts/2013-10-29/mac_osx_iterm2_utf8_gbk_switch.html" target="_blank" rel="noopener">Mac OSX iTerm2 终端UTF-8和GBK编码自由切换</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在以前的时候，终端编码通通设置的都是UTF-8，即使有一两台远程机，因为有自主权也都是UTF-8编码，包括数据库表格，也都是统一UTF-8编码，不得不说这样统一以后非常方便，几乎也没有考虑过编码不同带来的烦恼。&lt;/p&gt;
-&lt;p&gt;来到公司工作一段时间后才发现，自己的开发机还好说
-      
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://dequn.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://dequn.github.io/tags/Linux/"/>
-    
-      <category term="Encoding" scheme="http://dequn.github.io/tags/Encoding/"/>
     
   </entry>
   

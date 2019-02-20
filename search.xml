@@ -4,6 +4,38 @@
   
     
     <entry>
+      <title><![CDATA[我删了一个数据库]]></title>
+      <url>http://dequn.github.io/2019/02/20/i-deleted-a-db/</url>
+      <content type="html"><![CDATA[<p>2019年2月18日，我删了一个数据库。</p>
+<p>对的，网上段子里的事故，真实的发生在我身上了。我删的不单单是数据，是整个数据库文件夹。</p>
+<p><strong>提醒一下有幸看到的朋友，XFS文件系统，误删了理论上就不存在找回的可能性，如果没有备份的话。</strong></p>
+<p>如果有朋友也手贱了，别激动，抽根烟冷静地想一想离职书怎么写，毕竟删库和跑路是分不开的。</p>
+<p>好了，别的不说了，总结一下教训。</p>
+<h2 id="自己的责任不甩锅"><a href="#自己的责任不甩锅" class="headerlink" title="自己的责任不甩锅"></a>自己的责任不甩锅</h2><p>你为啥会删数据库，为什么别人都没误删除过？删之前为何不考虑清楚？状态不好？不好的时候就不要执行这些危险操作，去休息一会儿，清醒了再来。<strong>要怀着朝圣的心，去运维。</strong></p>
+<h2 id="误删除后避免损失"><a href="#误删除后避免损失" class="headerlink" title="误删除后避免损失"></a>误删除后避免损失</h2><p>如果你不清楚文件系统格式，那么最好的办法就是赶紧卸载分区，或改成只读模式，Ext(2,3,4)、FAT都是支持误删恢复的，在硬盘没有被重写之前，<strong>保护好磁盘现场</strong>。</p>
+<h2 id="生产系统和开发系统的分离"><a href="#生产系统和开发系统的分离" class="headerlink" title="生产系统和开发系统的分离"></a>生产系统和开发系统的分离</h2><p>因为公司资源有限，有一个小的生产系统和开发系统在同一个机器上，这次误删的背景就是这样。做到了<strong>系统分离</strong>，也就不会有这样的幺蛾子了。</p>
+<h2 id="权限控制与备份"><a href="#权限控制与备份" class="headerlink" title="权限控制与备份"></a>权限控制与备份</h2><p>小公司野蛮发展，不注重权限控制，没有专人负责OP，缺乏安全意识、制度，热备和冷备不可缺少，不要担心这一点投入，<strong>出了事情，损失远比成本大的多</strong>。该使用云服务的使用云服务，这样就可以免去很大一部分自运维。</p>
+<h2 id="跑路？"><a href="#跑路？" class="headerlink" title="跑路？"></a>跑路？</h2><p>跑路那是不存在的，<strong>正确面对接受事故及损失</strong>，该负责负责，该长心长心，这是一笔财富。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 删库 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[上下级组织角色权限实现的一点思考]]></title>
+      <url>http://dequn.github.io/2019/01/24/org-tree-role-perm/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DRF DateTime转换为时间戳]]></title>
       <url>http://dequn.github.io/2019/01/17/drf-datetime-timestamp-serializer/</url>
       <content type="html"><![CDATA[<p>将时间转化为时间戳输出给前端，可以减少前端工作量，毕竟从时间戳转换为本地时间很简单，也减少了时区转换的麻烦。但是DRF本身是没有提供时间戳输出选项的，准确的是python的<code>strftime</code>并没有提供标准的时间戳输出格式，但是<code>%s</code>作为GNU 扩展的时间输出格式，因此DRF的<a href="https://stackoverflow.com/questions/26083583/serialize-a-datetime-as-an-integer-timestamp" target="_blank" rel="noopener"><code>DATETIME_FORMAT</code>可以设置为’%s’</a>，能够输出时间戳字符串（注意，不是数字，是字符串)，但是不要高兴的太早，如果不是UTC时间，那么这样设置是有问题的。</p>
