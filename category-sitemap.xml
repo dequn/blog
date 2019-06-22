@@ -77,13 +77,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/categories/Docker/</loc>
-        <lastmod>2018-06-30T06:17:10.822Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/categories/Django/</loc>
         <lastmod>2019-01-13T08:06:31.635Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -93,6 +86,13 @@
     <url>
         <loc>http://dequn.github.io/categories/Twisted/</loc>
         <lastmod>2019-01-13T08:08:03.745Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/Docker/</loc>
+        <lastmod>2019-06-22T08:02:44.328Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

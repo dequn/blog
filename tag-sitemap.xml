@@ -387,13 +387,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Docker/</loc>
-        <lastmod>2019-01-13T08:08:40.549Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/Docker-Compose/</loc>
         <lastmod>2019-01-13T08:08:40.549Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -422,13 +415,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Django/</loc>
-        <lastmod>2019-01-19T06:24:18.516Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/I18N/</loc>
         <lastmod>2019-01-19T06:24:18.516Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -445,6 +431,20 @@
     <url>
         <loc>http://dequn.github.io/tags/%E5%88%A0%E5%BA%93/</loc>
         <lastmod>2019-02-20T16:17:38.607Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Django/</loc>
+        <lastmod>2019-06-22T08:02:44.328Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Docker/</loc>
+        <lastmod>2019-06-22T08:02:44.328Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
