@@ -289,13 +289,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/%E5%BE%AE%E4%BF%A1/</loc>
-        <lastmod>2018-06-13T14:09:19.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/Channels/</loc>
         <lastmod>2018-06-20T11:32:21.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -437,14 +430,21 @@
 
     <url>
         <loc>http://dequn.github.io/tags/Django/</loc>
-        <lastmod>2019-06-25T10:28:38.826Z</lastmod>
+        <lastmod>2019-06-26T06:31:40.462Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://dequn.github.io/tags/Docker/</loc>
-        <lastmod>2019-06-25T10:28:38.826Z</lastmod>
+        <lastmod>2019-06-26T06:31:40.462Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/%E5%BE%AE%E4%BF%A1/</loc>
+        <lastmod>2019-06-26T06:31:47.822Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
