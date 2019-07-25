@@ -7,6 +7,70 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2018/06/12/django-allauth-weixin-login/</loc>
+        <lastmod>2019-07-25T08:04:08.226Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
+        <lastmod>2019-07-25T08:02:25.676Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/01/13/angular-select-cascading/</loc>
+        <lastmod>2019-07-25T08:01:33.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/08/29/Phoenix-Secondary-Index-Exploration-Global-Index/</loc>
+        <lastmod>2019-07-25T07:58:56.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/</loc>
+        <lastmod>2019-07-25T07:57:24.753Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/11/19/debug-spark-in-intellij/</loc>
+        <lastmod>2019-07-25T07:56:45.602Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2018/04/01/why-docker-has-OS-image/</loc>
+        <lastmod>2019-07-25T07:56:11.773Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/</loc>
+        <lastmod>2019-07-25T07:55:17.189Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2019/06/26/get-weixin-browser-client-ip-md/</loc>
         <lastmod>2019-06-26T06:31:47.822Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -79,14 +143,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2018/06/21/ShadowsocksX-NG-kcptun-settings/</loc>
-        <lastmod>2019-01-13T08:00:51.649Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2019/01/13/how-to-resolve-confilcts-between-charles-and-shadowsocks/</loc>
         <lastmod>2019-01-13T07:58:43.715Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -119,32 +175,8 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2018/06/19/django-channels-websocket-iot-remote-control/</loc>
-        <lastmod>2018-06-20T11:32:21.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2018/06/12/django-allauth-weixin-login/</loc>
-        <lastmod>2018-06-13T14:09:19.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2018/06/02/django-celery/</loc>
         <lastmod>2018-06-01T18:02:15.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2018/04/01/why-docker-has-OS-image/</loc>
-        <lastmod>2018-04-01T13:49:27.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -279,14 +311,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/01/13/angular-select-cascading/</loc>
-        <lastmod>2017-08-24T15:00:14.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2016/03/19/use-ui-router-multi-views-for-template-develop/</loc>
         <lastmod>2017-08-24T14:59:45.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -327,14 +351,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/11/19/debug-spark-in-intellij/</loc>
-        <lastmod>2017-08-24T14:56:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2016/11/08/phoenix-spark-setting/</loc>
         <lastmod>2017-08-24T14:55:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -359,7 +375,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/01/15/angular-async-data-binding-trap/</loc>
+        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -368,14 +384,6 @@
 
     <url>
         <loc>http://dequn.github.io/2015/12/04/angular-filter/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -432,14 +440,6 @@
 
     <url>
         <loc>http://dequn.github.io/2016/09/02/Phoenix-Secondary-Index-Exploration-Local-Index/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2016/08/29/Phoenix-Secondary-Index-Exploration-Global-Index/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

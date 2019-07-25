@@ -7,20 +7,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/categories/Phoenix/</loc>
-        <lastmod>2017-08-24T14:55:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/categories/Spark/</loc>
-        <lastmod>2017-08-24T14:56:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/categories/Hadoop/</loc>
         <lastmod>2017-08-24T14:56:28.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -30,13 +16,6 @@
     <url>
         <loc>http://dequn.github.io/categories/Zeppelin/</loc>
         <lastmod>2017-08-24T15:01:09.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/categories/Angular/</loc>
-        <lastmod>2017-08-24T15:01:43.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -92,7 +71,28 @@
 
     <url>
         <loc>http://dequn.github.io/categories/Docker/</loc>
-        <lastmod>2019-06-26T06:31:40.462Z</lastmod>
+        <lastmod>2019-07-25T07:56:11.773Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/Spark/</loc>
+        <lastmod>2019-07-25T07:56:45.602Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/Phoenix/</loc>
+        <lastmod>2019-07-25T07:58:56.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/Angular/</loc>
+        <lastmod>2019-07-25T08:02:25.676Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
