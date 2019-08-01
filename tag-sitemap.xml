@@ -16,13 +16,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Controller/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/tags/filter/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -30,7 +23,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Endpoint/</loc>
+        <loc>http://dequn.github.io/tags/Controller/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -45,6 +38,13 @@
 
     <url>
         <loc>http://dequn.github.io/tags/elasticsearch/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Endpoint/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -445,6 +445,20 @@
     <url>
         <loc>http://dequn.github.io/tags/%E5%BE%AE%E4%BF%A1/</loc>
         <lastmod>2019-07-25T08:04:08.226Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/Huginn/</loc>
+        <lastmod>2019-08-01T11:59:38.018Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/tags/RSS/</loc>
+        <lastmod>2019-08-01T11:59:38.018Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

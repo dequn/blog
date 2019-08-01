@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2019/08/01/huginn-wechat-public-subscribe-rss/</loc>
+        <lastmod>2019-08-01T11:59:38.018Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2018/06/12/django-allauth-weixin-login/</loc>
         <lastmod>2019-07-25T08:04:08.226Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -375,14 +383,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/2015/12/04/angular-filter/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -391,15 +391,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2015/12/21/guan-yu-chong-xie-kai-ti/</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
+        <loc>http://dequn.github.io/2016/04/24/angular-inject-controller-to-controller/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -416,6 +408,22 @@
 
     <url>
         <loc>http://dequn.github.io/2016/03/27/install-elasticsearch-analysis-ansj-2-1-1-on-mac-OS/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2015/12/21/guan-yu-chong-xie-kai-ti/</loc>
+        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
