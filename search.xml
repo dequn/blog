@@ -6,10 +6,16 @@
     <entry>
       <title><![CDATA[Huginn订阅微信公众号RSS]]></title>
       <url>http://dequn.github.io/2019/08/01/huginn-wechat-public-subscribe-rss/</url>
-      <content type="html"><![CDATA[<p>又来折腾这件事，要说到上个月和老板远程开过会之后，忘记关闭TV就看了微信公众号，然后老板私信我让我关掉…不得不说，现在打开手机没事就看一下微信，<strong>时间是被碎片化了</strong>，所以就又回来使用RSS订阅了，三年前使用过一段时间，那个时候微广场还在运行，这次发现已经停服了，<a href="https://docs.rsshub.app/" target="_blank" rel="noopener">RSSHub</a>上边有几个微信公众号的RSS服务商，尝试后觉得都不好用，广告还特别多，所有就决定自己动手搭建一个。</p>
+      <content type="html"><![CDATA[<p><em>更新：2019-08-03 18:07:02</em></p>
+<p>事实证明打脸是非常快的，在写文章的时候还能正确抓取，可是第二天发现RSS文件并没有更新！在查看了任务日志以后，发现原Scenario提取出来的文章列表为空，用浏览器在测试后发现搜狗不提供最近的10篇文章列表了，在<a href="http://bbs.zhanzhang.baidu.com/thread-2184259-1-1.html" target="_blank" rel="noopener">百度站长BBS上也有讨论</a>，现在只能抓取搜索结果页中<strong>最近文章</strong>一篇了！所以就有了这个<strong><a href="https://gist.github.com/dequn/78f100cdd78e72aced9462be06892566" target="_blank" rel="noopener">新的Scenario，点我下载呀！</a></strong>。<br><img src="https://i.loli.net/2019/08/03/iByzDelncX56mbh.png" alt="搜狗不提供文章列表了"></p>
+<p>另外增加<code>k=&lt;k&gt;&amp;h=&lt;h&gt;</code>两个参数的函数也被搜狗更新啦，有个小小的改动！</p>
+<p><img src="https://pic1.zhimg.com/80/v2-26f386c8f354386c701902d09114740c_hd.jpg" alt="8月2日左右更新前"><br><img src="https://i.loli.net/2019/08/03/5puoUrjLsywnSYO.png" alt="8月2日左右更新后"></p>
+<p><strong>注意：多个公众号不要用同一个Agent去抓，会被封IP的，<em>#1 搜索公众号</em> 的Agent可以多复制几个，在不同的时间Schedule！IP被封了之后用浏览器正确填写一次验证码就可以解封了！</strong></p>
+<hr>
+<p>又来折腾这件事，要说到上个月和老板远程开过会之后，忘记关闭TV就看了微信公众号，然后老板私信我让我关掉…不得不说，现在打开手机没事就看一下微信，<strong>时间是被碎片化了</strong>，所以就又回来使用RSS订阅了，三年前使用过一段时间，那个时候微广场还在运行，这次发现已经停服了，<a href="https://docs.rsshub.app/" target="_blank" rel="noopener">RSSHub</a>上边有几个微信公众号的RSS服务商，尝试后觉得都不好用，广告还特别多，所有就决定自己动手搭建一个。</p>
 <p>关于<a href="https://github.com/huginn/huginn" target="_blank" rel="noopener">Huginn</a>就不介绍了，这次在折腾的过程中，发现网上已有教程都失效了，搜狗升级了反爬虫逻辑，最新的（2019-08-01）的反反爬方法可以参考<a href="https://zhuanlan.zhihu.com/p/62269087" target="_blank" rel="noopener">搜狗微信公众号更新反爬，反反爬思路</a>，其实文中提到的<code>SUV cookie</code>不是必须的，获取公众号文章列表最简洁的需要四个必须项:</p>
 <ul>
-<li>搜索结果的URL中加上<code>k=&lt;k&gt;&amp;h=&lt;b&gt;</code>，上文中有代码可以参考</li>
+<li>搜索结果的URL中加上<code>k=&lt;k&gt;&amp;h=&lt;h&gt;</code>，上文中有代码可以参考</li>
 <li>Cookie需要<code>SNUID</code></li>
 <li>需要Referer, 就是 <strong>搜索url</strong></li>
 <li>User-Agent</li>
@@ -550,9 +556,9 @@
         
         <tags>
             
-            <tag> Twisted </tag>
-            
             <tag> Django </tag>
+            
+            <tag> Twisted </tag>
             
             <tag> Python3 </tag>
             
