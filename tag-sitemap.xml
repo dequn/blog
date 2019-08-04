@@ -58,14 +58,14 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Local-Index/</loc>
+        <loc>http://dequn.github.io/tags/Interceptor/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://dequn.github.io/tags/Interceptor/</loc>
+        <loc>http://dequn.github.io/tags/Local-Index/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -451,14 +451,14 @@
 
     <url>
         <loc>http://dequn.github.io/tags/Huginn/</loc>
-        <lastmod>2019-08-03T10:33:13.466Z</lastmod>
+        <lastmod>2019-08-04T04:36:32.464Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://dequn.github.io/tags/RSS/</loc>
-        <lastmod>2019-08-03T10:33:13.466Z</lastmod>
+        <lastmod>2019-08-04T04:36:32.464Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
