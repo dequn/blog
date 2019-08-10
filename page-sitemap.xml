@@ -7,6 +7,13 @@
     </url>
     
     <url>
+        <loc>http://dequn.github.io/about/</loc>
+        <lastmod>2019-08-10T07:54:42.436Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>http://dequn.github.io/baidu_verify_ziABCN1PW4.html</loc>
         <lastmod>2017-08-24T14:26:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -14,14 +21,14 @@
     </url>
     
     <url>
-        <loc>http://dequn.github.io/about/</loc>
+        <loc>http://dequn.github.io/categories/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>http://dequn.github.io/categories/</loc>
+        <loc>http://dequn.github.io/private/keep-runing.html</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -42,7 +49,7 @@
     </url>
     
     <url>
-        <loc>http://dequn.github.io/private/keep-runing.html</loc>
+        <loc>http://dequn.github.io/private/zhou-ri-xiao-ju-20160313.html</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -50,13 +57,6 @@
     
     <url>
         <loc>http://dequn.github.io/private/zhou-wu-xiao-ju.html</loc>
-        <lastmod>2017-08-24T12:49:03.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>http://dequn.github.io/private/zhou-ri-xiao-ju-20160313.html</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
