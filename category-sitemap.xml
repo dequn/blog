@@ -35,13 +35,6 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%97%A5%E8%AE%B0/</loc>
-        <lastmod>2017-12-02T05:47:48.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://dequn.github.io/categories/Python/</loc>
         <lastmod>2017-12-02T05:47:48.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -93,6 +86,13 @@
     <url>
         <loc>http://dequn.github.io/categories/Angular/</loc>
         <lastmod>2019-07-25T08:02:25.676Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%97%A5%E8%AE%B0/</loc>
+        <lastmod>2019-08-13T12:40:30.965Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

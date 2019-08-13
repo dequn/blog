@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://dequn.github.io/2019/08/13/xia-bai-hua-3/</loc>
+        <lastmod>2019-08-13T12:40:30.965Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://dequn.github.io/2019/08/11/pin-zui-zhang-da-min-de-tai-du/</loc>
+        <lastmod>2019-08-11T10:43:21.229Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://dequn.github.io/2019/08/01/huginn-wechat-public-subscribe-rss/</loc>
         <lastmod>2019-08-04T04:36:32.464Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -407,7 +423,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
+        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -415,7 +431,7 @@
     </url>
 
     <url>
-        <loc>http://dequn.github.io/2016/05/14/hbase-coprocessor-endpoint-helloworld/</loc>
+        <loc>http://dequn.github.io/2016/07/03/hbase_cannot_find_existing_table/</loc>
         <lastmod>2017-08-24T12:49:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
